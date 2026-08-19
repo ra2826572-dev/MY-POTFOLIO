@@ -1,4 +1,5 @@
 import React from 'react';
+import rizwanProfileImg from '../assets/images/rizwan_profile_1787050517530.jpg';
 import { PORTFOLIO_DATA } from '../portfolioData';
 
 export const RizwanBadge: React.FC<{ className?: string }> = ({ className = '' }) => {
@@ -20,7 +21,7 @@ export const RizwanBadge: React.FC<{ className?: string }> = ({ className = '' }
           {/* Background Image: Portrait & Workstation */}
           <div className="absolute inset-0 z-0 pointer-events-none">
             <img
-              src={PORTFOLIO_DATA.personal.avatar}
+              src={rizwanProfileImg || PORTFOLIO_DATA.personal.avatar}
               alt="Rizwan Ahmad - Web Designer & Developer"
               className="w-full h-full object-cover object-[center_18%] scale-105"
             />

@@ -5,6 +5,8 @@
  * testimonials, and WhatsApp contact number in this file.
  */
 
+import rizwanProfileImg from './assets/images/rizwan_profile_1787050517530.jpg';
+
 export interface Project {
   id: string;
   name: string;
@@ -79,7 +81,7 @@ export const PORTFOLIO_DATA = {
     ],
     bio: "I create modern, responsive and conversion-focused websites that help businesses build a strong online presence.",
     aboutDetailed: "I'm a creative web designer and developer passionate about building modern websites for businesses and personal brands. I focus on clean UI, responsive layouts, smooth user experiences and professional visual design.",
-    avatar: '/src/assets/images/rizwan_profile_1787050517530.jpg',
+    avatar: rizwanProfileImg,
     location: 'Available Worldwide / Remote',
     availabilityStatus: '🟢 Available for new projects',
     experienceYears: '4+ Years',
