@@ -17,14 +17,12 @@ import { CTA } from './components/CTA';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { QuoteModal } from './components/QuoteModal';
-import { CustomizationGuideModal } from './components/CustomizationGuideModal';
-import { Phone, MessageCircle } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import { PORTFOLIO_DATA } from './portfolioData';
 
 export default function App() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [quotePreselectedService, setQuotePreselectedService] = useState<string | undefined>(undefined);
-  const [isGuideModalOpen, setIsGuideModalOpen] = useState(false);
 
   const handleOpenQuoteModal = (serviceName?: string) => {
     setQuotePreselectedService(serviceName);
@@ -37,7 +35,6 @@ export default function App() {
       {/* Navigation */}
       <Navbar 
         onOpenQuoteModal={() => handleOpenQuoteModal()} 
-        onOpenGuideModal={() => setIsGuideModalOpen(true)} 
       />
 
       {/* Main Content Sections */}
@@ -84,9 +81,7 @@ export default function App() {
       </main>
 
       {/* 12. Footer */}
-      <Footer 
-        onOpenGuideModal={() => setIsGuideModalOpen(true)} 
-      />
+      <Footer />
 
       {/* Floating Instant WhatsApp Button */}
       <a
@@ -109,12 +104,6 @@ export default function App() {
         isOpen={isQuoteModalOpen}
         onClose={() => setIsQuoteModalOpen(false)}
         initialService={quotePreselectedService}
-      />
-
-      {/* Customization Guide Modal */}
-      <CustomizationGuideModal
-        isOpen={isGuideModalOpen}
-        onClose={() => setIsGuideModalOpen(false)}
       />
 
     </div>

@@ -1,17 +1,12 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { 
-  CheckCircle2, 
   FolderGit2, 
   Globe, 
   Smartphone, 
   Zap, 
-  ShieldCheck, 
-  Code2, 
   Layers, 
-  ArrowRight,
   Sparkles,
-  Download,
   MessageSquare
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
@@ -173,13 +168,6 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
                 </p>
               </div>
             ))}
-
-            {/* Quick note badge */}
-            <div className="sm:col-span-2 p-4 rounded-2xl bg-slate-900/30 border border-dashed border-slate-800 text-center">
-              <p className="text-xs text-slate-400">
-                ✨ <strong className="text-slate-300">Customizable metrics:</strong> Easily update these project & website numbers anytime in <code className="text-blue-400">portfolioData.ts</code>.
-              </p>
-            </div>
           </motion.div>
 
         </div>

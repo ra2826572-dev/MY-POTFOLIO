@@ -5,19 +5,13 @@ import {
   Github, 
   Phone, 
   Mail, 
-  ArrowUp, 
-  Heart,
-  Sparkles,
-  ExternalLink,
-  Code2
+  ArrowUp
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
 
-interface FooterProps {
-  onOpenGuideModal: () => void;
-}
+interface FooterProps {}
 
-export const Footer: React.FC<FooterProps> = ({ onOpenGuideModal }) => {
+export const Footer: React.FC<FooterProps> = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -154,18 +148,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenGuideModal }) => {
               >
                 <Github className="w-4 h-4" />
               </a>
-            </div>
-
-            {/* Quick guide toggle button */}
-            <div className="pt-2">
-              <button
-                type="button"
-                onClick={onOpenGuideModal}
-                className="text-xs text-slate-400 hover:text-blue-300 flex items-center gap-1.5 underline"
-              >
-                <Code2 className="w-3.5 h-3.5" />
-                <span>How to customize your portfolio data</span>
-              </button>
             </div>
           </div>
 

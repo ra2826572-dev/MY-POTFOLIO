@@ -3,21 +3,17 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Menu, 
   X, 
-  Sparkles, 
   ArrowUpRight, 
   MessageSquare, 
-  FileText,
-  HelpCircle,
   Phone
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
 
 interface NavbarProps {
   onOpenQuoteModal: () => void;
-  onOpenGuideModal: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenGuideModal }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
