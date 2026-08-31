@@ -5,7 +5,7 @@
  * testimonials, and WhatsApp contact number in this file.
  */
 
-import rizwanProfileImg from './assets/images/rizwan_profile_1787050517530.jpg';
+import rizwanProfileImg from './assets/images/rizwan_poster_emblem_1788178172045.jpg';
 
 export interface Project {
   id: string;
@@ -82,9 +82,9 @@ export const PORTFOLIO_DATA = {
     bio: "I create modern, responsive and conversion-focused websites that help businesses build a strong online presence.",
     aboutDetailed: "I'm a creative web designer and developer passionate about building modern websites for businesses and personal brands. I focus on clean UI, responsive layouts, smooth user experiences and professional visual design.",
     avatar: rizwanProfileImg,
-    location: 'Available Worldwide / Remote',
+    location: 'Faisalabad, Pakistan (Available Worldwide)',
     availabilityStatus: '🟢 Available for new projects',
-    experienceYears: '4+ Years',
+    experienceYears: '2+ Years Experience',
     stats: [
       { label: 'Completed Projects', value: '80+', note: 'Delivered on time', icon: 'FolderGit2' },
       { label: 'Websites Built', value: '50+', note: 'For diverse industries', icon: 'Globe' },
@@ -95,12 +95,12 @@ export const PORTFOLIO_DATA = {
 
   contact: {
     email: 'ra2826572@gmail.com',
-    phone: '+92 300 1234567', // Replace with your real WhatsApp number format: +CountryCode Number
-    whatsappNumber: '923001234567', // Numbers only for wa.me link
+    phone: '03081509520',
+    whatsappNumber: '923081509520',
     whatsappMessage: "Hi Rizwan, I visited your portfolio and would like to discuss a web design/development project with you!",
-    location: 'Remote / Global Clients',
+    location: 'Faisalabad, Pakistan',
     socials: {
-      whatsapp: 'https://wa.me/923001234567?text=Hi%20Rizwan%2C%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project!',
+      whatsapp: 'https://wa.me/923081509520?text=Hi%20Rizwan%2C%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project!',
       email: 'mailto:ra2826572@gmail.com',
       linkedin: 'https://linkedin.com/in/rizwan-ahmad',
       instagram: 'https://instagram.com/rizwan.dev',
@@ -203,60 +203,79 @@ export const PORTFOLIO_DATA = {
   projects: [
     {
       id: 'proj-1',
-      name: 'Apex Advisory & Corporate Portal',
+      name: 'FitBase — Modern Fitness & Gym Platform',
       category: 'Business',
-      tagline: 'Modern Corporate Business Website',
-      description: 'A high-authority corporate website for an international financial advisory firm with interactive service calculators, team bios, and consultation booking.',
-      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop',
-      technologies: ['React', 'Tailwind CSS', 'WordPress API', 'UI/UX Design'],
+      tagline: 'Modern Gym, Fitness & Workout Website',
+      description: 'A high-performance, dynamic website crafted for FitBase Fitness with workout plan exploration, membership pricing packages, trainer profiles, and online joining portal.',
+      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop',
+      technologies: ['React', 'Next.js', 'Tailwind CSS', 'Vercel Deployment'],
       features: [
-        'Interactive financial advisory booking',
-        'Corporate case study portfolio with filter tags',
-        'Multi-currency cost calculator module',
-        '100% responsive fluid mobile layout'
+        'Membership pricing tier & plan breakdown',
+        'Trainer showcase & personal training consultation',
+        'Class schedule timetable & online registration',
+        '100% mobile-friendly responsive layout'
       ],
-      liveUrl: 'https://example.com/demo-business',
-      clientName: 'Apex Advisory Group',
-      completionTime: '3 Weeks',
-      overview: 'Designed to elevate brand prestige and convert enterprise decision-makers into booked consultations with clean typography and dark luxury aesthetics.'
+      liveUrl: 'https://fit-base-fitness.vercel.app/',
+      clientName: 'FitBase Fitness',
+      completionTime: '1 Week',
+      overview: 'Engineered an energetic, modern web application for FitBase Fitness to showcase state-of-the-art gym facilities, fitness programs, and membership options.'
     },
     {
       id: 'proj-2',
-      name: 'Bella Gusto Artisan Bistro & Pizza',
-      category: 'Restaurant',
-      tagline: 'Restaurant & Pizza Ordering Website',
-      description: 'An appetizing, visually engaging website for an artisan Italian pizzeria featuring a rich digital menu, online table reservation, and direct WhatsApp takeout ordering.',
-      image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200&auto=format&fit=crop',
-      technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Web Design'],
+      name: 'Flying Scissor — Barber & Salon',
+      category: 'Salon',
+      tagline: 'Modern Barber Shop & Hair Salon Website',
+      description: 'A sleek, modern, and responsive website crafted for Flying Scissor Barber & Salon with interactive service menu, online haircut booking, stylist showcase, and WhatsApp contact.',
+      image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1200&auto=format&fit=crop',
+      technologies: ['React', 'Next.js', 'Tailwind CSS', 'Vercel Deployment'],
       features: [
-        'Interactive categorized pizza & beverage menu',
-        'One-click table reservation calendar',
-        'Direct WhatsApp order dispatch',
-        'Fast mobile photo gallery & location map'
+        'Interactive haircut & grooming service menu with pricing',
+        'Direct online salon booking & WhatsApp consultation',
+        'Modern dark-aesthetic barber lookbook gallery',
+        '100% mobile-friendly responsive layout'
       ],
-      liveUrl: 'https://example.com/demo-restaurant',
-      clientName: 'Bella Gusto Pizzeria',
-      completionTime: '2 Weeks',
-      overview: 'Created an appetizing experience with warm imagery, clear pricing, dietary filters, and direct WhatsApp order links that boosted takeout inquiries.'
+      liveUrl: 'https://flying-scissor.vercel.app/',
+      clientName: 'Flying Scissor',
+      completionTime: '1 Week',
+      overview: 'Engineered the official web application for Flying Scissor, providing customers with a seamless browsing experience to view hair styling packages and book appointments instantly.'
+    },
+    {
+      id: 'proj-pizza',
+      name: 'Pizza Paradise — Artisan Pizzeria & Fast Food',
+      category: 'Restaurant',
+      tagline: 'Artisan Pizza, Food Delivery & Restaurant Web App',
+      description: 'An appetizing, modern, and responsive website engineered for Pizza Paradise featuring an interactive pizza & deals menu, online food ordering, table reservations, and WhatsApp dispatch.',
+      image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200&auto=format&fit=crop',
+      technologies: ['React', 'Next.js', 'Tailwind CSS', 'Vercel Deployment'],
+      features: [
+        'Interactive food & pizza menu with crust options',
+        'Online order dispatch with instant WhatsApp integration',
+        'Table reservation system with date & party size',
+        '100% mobile-friendly responsive layout'
+      ],
+      liveUrl: 'https://pizza-paradise-zeta.vercel.app/',
+      clientName: 'Pizza Paradise',
+      completionTime: '1 Week',
+      overview: 'Engineered a vibrant, appetizing web application for Pizza Paradise featuring real-time menu browsing, hot deal specials, online order placement, and seamless customer communications.'
     },
     {
       id: 'proj-3',
-      name: 'Lumière Luxury Beauty Lounge & Spa',
+      name: 'Delaqua Beauty — Luxury Beauty Parlor & Aesthetics',
       category: 'Salon',
-      tagline: 'Salon & Spa Appointment Website',
-      description: 'An elegant, high-end beauty salon and spa website with service menu pricing, stylist profiles, photo lookbook, and direct online appointment scheduling.',
+      tagline: 'Luxury Beauty Parlor & Aesthetics Website',
+      description: 'An elegant, high-end beauty parlor and aesthetics web application crafted for Delaqua Beauty featuring an interactive treatment & bridal makeup menu, stylist showcase, and online booking.',
       image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1200&auto=format&fit=crop',
-      technologies: ['WordPress', 'Elementor Pro', 'UI/UX Design', 'CSS3'],
+      technologies: ['React', 'Next.js', 'Tailwind CSS', 'Vercel Deployment'],
       features: [
-        'Seamless appointment scheduling portal',
-        'Interactive treatment pricing catalog',
-        'Stylist portfolio & Instagram feed integration',
-        'Customer review showcase & gift card cards'
+        'Interactive beauty treatments, hair & bridal makeup menu',
+        'Direct online appointment booking & consultation',
+        'Bridal lookbook gallery & client reviews',
+        '100% mobile-friendly responsive layout'
       ],
-      liveUrl: 'https://example.com/demo-salon',
-      clientName: 'Lumière Aesthetics',
-      completionTime: '2.5 Weeks',
-      overview: 'Crafted with soft luxury dark tones and gold accents, offering clients an effortless way to discover treatments and book appointments on any smartphone.'
+      liveUrl: 'https://delaqua-beauty-b4tl.vercel.app/',
+      clientName: 'Delaqua Beauty',
+      completionTime: '1 Week',
+      overview: 'Crafted a modern, elegant web application for Delaqua Beauty Parlor with luxurious visuals, comprehensive service pricing, and seamless client appointment scheduling.'
     },
     {
       id: 'proj-4',
