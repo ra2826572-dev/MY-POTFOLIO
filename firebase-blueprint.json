@@ -1,0 +1,46 @@
+{
+  "entities": {
+    "Project": {
+      "title": "Project",
+      "description": "A portfolio project showcase item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique ID for the project" },
+        "name": { "type": "string", "description": "Project name" },
+        "category": { "type": "string", "enum": ["Business", "E-Commerce", "Restaurant", "Salon", "Hotel", "Portfolio"] },
+        "tagline": { "type": "string", "description": "Short catchy tagline" },
+        "description": { "type": "string", "description": "Detailed description" },
+        "image": { "type": "string", "description": "Image URL" },
+        "technologies": { "type": "array", "items": { "type": "string" }, "description": "List of tech used" },
+        "features": { "type": "array", "items": { "type": "string" }, "description": "Key features" },
+        "liveUrl": { "type": "string", "description": "Live demo URL" },
+        "clientName": { "type": "string", "description": "Client name" },
+        "completionTime": { "type": "string", "description": "Project duration" },
+        "overview": { "type": "string", "description": "Project overview text" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the project was added" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "When the project was last updated" }
+      },
+      "required": ["id", "name", "category", "tagline", "description", "image", "technologies", "features", "liveUrl", "overview"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Admin user record",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    }
+  },
+  "firestore": {
+    "/projects/{projectId}": {
+      "schema": "Project",
+      "description": "Collection of portfolio projects"
+    },
+    "/admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Authorized admin users"
+    }
+  }
+}

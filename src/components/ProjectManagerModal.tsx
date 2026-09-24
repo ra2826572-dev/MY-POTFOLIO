@@ -19,7 +19,7 @@ import { Project } from '../portfolioData';
 interface ProjectManagerModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSaveProject: (project: Project) => void;
+  onSaveProject: (project: Project) => Promise<void>;
   initialProject?: Project | null;
 }
 
@@ -78,6 +78,8 @@ export const ProjectManagerModal: React.FC<ProjectManagerModalProps> = ({
 
   const [imageInputMode, setImageInputMode] = useState<'upload' | 'url' | 'presets'>('upload');
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     if (initialProject) {
@@ -150,28 +152,35 @@ export const ProjectManagerModal: React.FC<ProjectManagerModalProps> = ({
     setFeatures(features.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
 
-    const projectData: Project = {
-      id: initialProject ? initialProject.id : `proj-${Date.now()}`,
-      name: name.trim(),
-      category,
-      tagline: tagline.trim() || 'Custom Web Solution',
-      description: description.trim() || 'Modern website tailored for high conversions.',
-      overview: overview.trim() || description.trim() || 'Engineered with clean UI and responsive layouts.',
-      image: image || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop',
-      liveUrl: liveUrl.trim() || '#',
-      technologies: technologies.length > 0 ? technologies : ['Web Design', 'Development'],
-      features: features.length > 0 ? features : ['Responsive Design', 'SEO Optimized'],
-      clientName: clientName.trim() || 'Client Project',
-      completionTime: completionTime.trim() || 'Completed',
-      previewType: 'mockup'
-    };
+    setIsSaving(true);
+    try {
+      const projectData: Project = {
+        id: initialProject ? initialProject.id : `proj-${Date.now()}`,
+        name: name.trim(),
+        category,
+        tagline: tagline.trim() || 'Custom Web Solution',
+        description: description.trim() || 'Modern website tailored for high conversions.',
+        overview: overview.trim() || description.trim() || 'Engineered with clean UI and responsive layouts.',
+        image: image || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop',
+        liveUrl: liveUrl.trim() || '#',
+        technologies: technologies.length > 0 ? technologies : ['Web Design', 'Development'],
+        features: features.length > 0 ? features : ['Responsive Design', 'SEO Optimized'],
+        clientName: clientName.trim() || 'Client Project',
+        completionTime: completionTime.trim() || 'Completed',
+        previewType: 'mockup'
+      };
 
-    onSaveProject(projectData);
-    onClose();
+      await onSaveProject(projectData);
+      onClose();
+    } catch (error) {
+      console.error('Error saving project:', error);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -558,10 +567,15 @@ export const ProjectManagerModal: React.FC<ProjectManagerModalProps> = ({
 
               <button
                 type="submit"
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold shadow-lg shadow-blue-600/30 flex items-center gap-2"
+                disabled={isSaving}
+                className={`px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold shadow-lg shadow-blue-600/30 flex items-center gap-2 transition-all ${isSaving ? 'opacity-70 cursor-not-allowed scale-95' : 'hover:scale-105 active:scale-95'}`}
               >
-                <Check className="w-4 h-4" />
-                <span>{initialProject ? 'Save Changes' : 'Add Project to Portfolio'}</span>
+                {isSaving ? (
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <Check className="w-4 h-4" />
+                )}
+                <span>{isSaving ? 'Saving...' : (initialProject ? 'Save Changes' : 'Add Project to Portfolio')}</span>
               </button>
             </div>
 

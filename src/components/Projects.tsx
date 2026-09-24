@@ -16,6 +16,8 @@ import { ProjectModal } from './ProjectModal';
 import { ProjectManagerModal } from './ProjectManagerModal';
 import { AdminLockModal } from './AdminLockModal';
 import { Lock } from 'lucide-react';
+import { collection, query, orderBy, onSnapshot, doc, deleteDoc, writeBatch } from 'firebase/firestore';
+import { db, OperationType, handleFirestoreError } from '../firebase';
 
 interface ProjectsProps {
   onOpenQuoteModal: (serviceName?: string) => void;
@@ -24,25 +26,8 @@ interface ProjectsProps {
 const STORAGE_KEY = 'rizwan_custom_projects';
 
 export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
-  const [projects, setProjects] = useState<Project[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          // Sync existing project details with hardcoded PORTFOLIO_DATA
-          return parsed.map((p: Project) => {
-            const hardcoded = PORTFOLIO_DATA.projects.find(dp => dp.id === p.id);
-            return hardcoded ? { ...p, ...hardcoded } : p;
-          });
-        }
-      }
-    } catch (e) {
-      console.error('Error loading projects from localStorage:', e);
-    }
-    return PORTFOLIO_DATA.projects;
-  });
-
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isManagerModalOpen, setIsManagerModalOpen] = useState<boolean>(false);
@@ -54,20 +39,36 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
   const [lockActionTitle, setLockActionTitle] = useState<string>('Add New Project');
   const [pendingAdminAction, setPendingAdminAction] = useState<(() => void) | null>(null);
 
+  // Load from Firestore
+  useEffect(() => {
+    const q = query(collection(db, 'projects'), orderBy('createdAt', 'desc'));
+    
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const projectsData: Project[] = [];
+      snapshot.forEach((doc) => {
+        projectsData.push({ id: doc.id, ...doc.data() } as Project);
+      });
+
+      // If Firestore is empty, we show default data but don't save it yet
+      // This allows the user to see the default projects if they haven't added any to DB
+      if (projectsData.length === 0) {
+        setProjects(PORTFOLIO_DATA.projects);
+      } else {
+        setProjects(projectsData);
+      }
+      setIsLoading(false);
+    }, (error) => {
+      handleFirestoreError(error, OperationType.LIST, 'projects');
+      setIsLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   const requireAdminAuth = (action: () => void, title: string) => {
     setPendingAdminAction(() => action);
     setLockActionTitle(title);
     setIsLockModalOpen(true);
-  };
-
-  // Sync to localStorage
-  const saveProjectsToStorage = (updatedProjects: Project[]) => {
-    setProjects(updatedProjects);
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedProjects));
-    } catch (e) {
-      console.error('Error saving projects to localStorage:', e);
-    }
   };
 
   const showToast = (msg: string) => {
@@ -104,35 +105,59 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
     }, `Edit Project: ${project.name}`);
   };
 
-  const handleSaveProject = (savedProject: Project) => {
-    let updated: Project[];
-    const exists = projects.some(p => p.id === savedProject.id);
-
-    if (exists) {
-      updated = projects.map(p => (p.id === savedProject.id ? savedProject : p));
-      showToast(`"${savedProject.name}" updated successfully!`);
-    } else {
-      updated = [savedProject, ...projects];
-      showToast(`"${savedProject.name}" added to portfolio!`);
+  const handleSaveProject = async (savedProject: Project) => {
+    try {
+      const projectRef = doc(db, 'projects', savedProject.id);
+      const projectData = {
+        ...savedProject,
+        updatedAt: new Date().toISOString(),
+        createdAt: savedProject.createdAt || new Date().toISOString()
+      };
+      
+      await setDoc(projectRef, projectData, { merge: true });
+      showToast(`"${savedProject.name}" saved to database successfully!`);
+    } catch (error) {
+      handleFirestoreError(error, OperationType.WRITE, `projects/${savedProject.id}`);
     }
-
-    saveProjectsToStorage(updated);
   };
 
   const handleResetToDefaults = () => {
-    requireAdminAuth(() => {
-      if (window.confirm('Are you sure you want to reset the projects showcase to original samples?')) {
-        saveProjectsToStorage(PORTFOLIO_DATA.projects);
-        localStorage.removeItem(STORAGE_KEY);
-        showToast('Showcase reset to original projects.');
+    requireAdminAuth(async () => {
+      if (window.confirm('Are you sure you want to seed/reset the database with original samples? This will update the live site for everyone.')) {
+        try {
+          const batch = writeBatch(db);
+          
+          // Seed the database with defaults
+          PORTFOLIO_DATA.projects.forEach(p => {
+            const projectRef = doc(db, 'projects', p.id);
+            batch.set(projectRef, {
+              ...p,
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
+            });
+          });
+
+          await batch.commit();
+          showToast('Database seeded with original projects.');
+        } catch (error) {
+          handleFirestoreError(error, OperationType.WRITE, 'projects');
+        }
       }
-    }, 'Reset Portfolio Projects');
+    }, 'Seed/Reset Database');
   };
 
   const handleLiveDemoClick = (e: React.MouseEvent, project: Project) => {
     e.preventDefault();
     setSelectedProject(project);
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#080B11] flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <section id="projects" className="py-24 relative overflow-hidden bg-[#080B11]">

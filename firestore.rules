@@ -1,0 +1,57 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Global Helpers
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isSignedIn() { return request.auth != null; }
+    function isAdmin() { 
+      return isSignedIn() && (
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) ||
+        (request.auth.token.email == 'ra2826572@gmail.com' && request.auth.token.email_verified == true)
+      ); 
+    }
+
+    // Projects Collection
+    match /projects/{projectId} {
+      function isValidProject(data) {
+        return data.keys().hasAll(['id', 'name', 'category', 'tagline', 'description', 'image', 'technologies', 'features', 'liveUrl', 'overview'])
+          && data.keys().hasOnly(['id', 'name', 'category', 'tagline', 'description', 'image', 'technologies', 'features', 'liveUrl', 'clientName', 'completionTime', 'overview', 'createdAt', 'updatedAt'])
+          && data.id is string && data.id.size() <= 128
+          && data.name is string && data.name.size() <= 200
+          && data.category in ['Business', 'E-Commerce', 'Restaurant', 'Salon', 'Hotel', 'Portfolio']
+          && data.tagline is string && data.tagline.size() <= 200
+          && data.description is string && data.description.size() <= 2000
+          && data.image is string && data.image.size() <= 1000
+          && data.technologies is list && data.technologies.size() <= 20
+          && data.features is list && data.features.size() <= 20
+          && data.liveUrl is string && data.liveUrl.size() <= 1000
+          && data.overview is string && data.overview.size() <= 2000
+          && (data.get('clientName', '') is string)
+          && (data.get('completionTime', '') is string)
+          && (data.get('createdAt', request.time) == request.time || data.createdAt == resource.data.createdAt)
+          && data.updatedAt == request.time;
+      }
+
+      allow read: if true; // Publicly readable
+      
+      allow create: if isAdmin() && isValidProject(incoming());
+      
+      allow update: if isAdmin() && isValidProject(incoming());
+      
+      allow delete: if isAdmin();
+    }
+
+    // Admins Collection (Managed by owner)
+    match /admins/{adminId} {
+      allow read: if isSignedIn() && request.auth.uid == adminId;
+      allow write: if false; // Only manageable via console or specialized tool
+    }
+  }
+}
