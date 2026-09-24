@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   Menu, 
   X, 
@@ -16,47 +17,28 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const location = useLocation();
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Services', href: '#services' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Process', href: '#process' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Skills', href: '/skills' },
+    { name: 'Services', href: '/services' },
+    { name: 'Projects', href: '/projects' },
+    { name: 'Process', href: '/process' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-
-      // Determine active section based on scroll position
-      const sections = navLinks.map(link => link.href.substring(1));
-      const scrollPosition = window.scrollY + 200;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
-        }
-      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setMobileMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
     <>
@@ -71,9 +53,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Brand Logo */}
-            <a 
-              href="#home" 
-              onClick={(e) => handleNavClick(e, '#home')}
+            <Link 
+              to="/" 
+              onClick={closeMobileMenu}
               className="flex items-center gap-3 group"
               id="brand-logo"
             >
@@ -93,18 +75,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                   Web Designer & Dev
                 </span>
               </div>
-            </a>
+            </Link>
 
             {/* Desktop Navigation Links */}
             <nav className="hidden md:flex items-center gap-1 bg-slate-900/60 p-1.5 rounded-full border border-slate-800/80 backdrop-blur-md">
               {navLinks.map((link) => {
-                const isActive = activeSection === link.href.substring(1);
+                const isActive = location.pathname === link.href;
                 return (
-                  <a
+                  <Link
                     key={link.name}
-                    href={link.href}
+                    to={link.href}
                     id={`nav-link-${link.name.toLowerCase()}`}
-                    onClick={(e) => handleNavClick(e, link.href)}
                     className={`relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
                       isActive
                         ? 'text-white'
@@ -119,7 +100,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                       />
                     )}
                     <span className="relative z-10">{link.name}</span>
-                  </a>
+                  </Link>
                 );
               })}
             </nav>
@@ -140,17 +121,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               </a>
 
               {/* Let's Talk Primary CTA */}
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 id="nav-lets-talk-btn"
-                onClick={(e) => handleNavClick(e, '#contact')}
                 className="relative inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-full overflow-hidden group bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all duration-300"
               >
                 <span className="relative z-10 flex items-center gap-1.5">
                   <span>Let's Talk</span>
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </span>
-              </a>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -181,12 +161,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
           >
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => {
-                const isActive = activeSection === link.href.substring(1);
+                const isActive = location.pathname === link.href;
                 return (
-                  <a
+                  <Link
                     key={link.name}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
+                    to={link.href}
+                    onClick={closeMobileMenu}
                     className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium transition-colors ${
                       isActive
                         ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30'
@@ -195,19 +175,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                   >
                     <span>{link.name}</span>
                     <ArrowUpRight className="w-4 h-4 opacity-60" />
-                  </a>
+                  </Link>
                 );
               })}
 
               <div className="pt-4 mt-2 border-t border-slate-800 flex flex-col gap-3">
-                <a
-                  href="#contact"
-                  onClick={(e) => handleNavClick(e, '#contact')}
+                <Link
+                  to="/contact"
+                  onClick={closeMobileMenu}
                   className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-center flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30"
                 >
                   <MessageSquare className="w-4 h-4" />
                   <span>Let's Talk</span>
-                </a>
+                </Link>
 
                 <a
                   href={PORTFOLIO_DATA.contact.socials.whatsapp}

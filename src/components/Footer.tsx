@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Linkedin, 
   Instagram, 
@@ -17,13 +18,13 @@ export const Footer: React.FC<FooterProps> = () => {
   };
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Services', href: '#services' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Process', href: '#process' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Skills', href: '/skills' },
+    { name: 'Services', href: '/services' },
+    { name: 'Projects', href: '/projects' },
+    { name: 'Process', href: '/process' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   return (
@@ -75,12 +76,12 @@ export const Footer: React.FC<FooterProps> = () => {
             <ul className="space-y-2 text-sm">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="hover:text-blue-400 transition-colors inline-flex items-center gap-1.5"
                   >
                     <span>{link.name}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { 
   ArrowRight, 
   Eye, 
@@ -13,14 +14,6 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <section 
       id="home" 
@@ -87,10 +80,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             {/* Primary Action Buttons */}
             <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto">
               {/* View My Work */}
-              <a
-                href="#projects"
+              <Link
+                to="/projects"
                 id="hero-view-work-btn"
-                onClick={(e) => scrollToSection(e, '#projects')}
                 className="relative inline-flex items-center justify-center px-7 py-4 rounded-full font-semibold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 shadow-xl shadow-blue-600/25 hover:shadow-blue-600/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 group overflow-hidden"
               >
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
@@ -99,18 +91,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                   <span>View My Work</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </span>
-              </a>
+              </Link>
 
               {/* Let's Work Together */}
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 id="hero-work-together-btn"
-                onClick={(e) => scrollToSection(e, '#contact')}
                 className="inline-flex items-center justify-center px-7 py-4 rounded-full font-semibold text-slate-200 bg-slate-900/90 hover:bg-slate-800/90 border border-slate-700/80 hover:border-slate-600 hover:text-white hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-lg shadow-black/40 text-base gap-2"
               >
                 <MessageSquare className="w-5 h-5 text-blue-400" />
                 <span>Let's Work Together</span>
-              </a>
+              </Link>
             </div>
 
             {/* Quick trust metrics under hero buttons */}

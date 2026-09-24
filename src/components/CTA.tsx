@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { 
   Sparkles, 
   ArrowRight, 
@@ -15,14 +16,6 @@ interface CTAProps {
 }
 
 export const CTA: React.FC<CTAProps> = ({ onOpenQuoteModal }) => {
-  const scrollToContact = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <section className="py-20 relative overflow-hidden bg-[#080B11]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -81,15 +74,14 @@ export const CTA: React.FC<CTAProps> = ({ onOpenQuoteModal }) => {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
 
-              {/* Contact Me (Scrolls to contact form) */}
-              <a
-                href="#contact"
-                onClick={scrollToContact}
+              {/* Contact Me (Link to contact page) */}
+              <Link
+                to="/contact"
                 className="inline-flex items-center justify-center px-8 py-4 rounded-full font-bold text-slate-200 bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 hover:border-slate-500 hover:text-white hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 shadow-lg text-sm sm:text-base gap-2"
               >
                 <MessageSquare className="w-5 h-5 text-blue-400" />
                 <span>Contact Me</span>
-              </a>
+              </Link>
 
             </div>
 
