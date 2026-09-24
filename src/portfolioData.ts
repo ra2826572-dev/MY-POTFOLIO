@@ -276,63 +276,6 @@ export const PORTFOLIO_DATA = {
       clientName: 'Delaqua Beauty',
       completionTime: '1 Week',
       overview: 'Crafted a modern, elegant web application for Delaqua Beauty Parlor with luxurious visuals, comprehensive service pricing, and seamless client appointment scheduling.'
-    },
-    {
-      id: 'proj-4',
-      name: 'AeroVibe Tech & Streetwear Hub',
-      category: 'E-Commerce',
-      tagline: 'Modern E-Commerce Store',
-      description: 'A cutting-edge online store built for a lifestyle tech and apparel brand featuring quick-view drawers, category filters, product variations, and secure checkout.',
-      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200&auto=format&fit=crop',
-      technologies: ['React', 'JavaScript', 'Tailwind CSS', 'E-Commerce Engine'],
-      features: [
-        'Dynamic product filtering & size selector',
-        'Floating mini-cart with instant subtotal',
-        'Customer reviews & high-res image zoom',
-        'Optimized one-page checkout experience'
-      ],
-      liveUrl: 'https://example.com/demo-ecommerce',
-      clientName: 'AeroVibe Apparel',
-      completionTime: '4 Weeks',
-      overview: 'Engineered for high conversion rates and effortless browsing with rapid page loads, sticky buy buttons, and responsive grid layouts.'
-    },
-    {
-      id: 'proj-5',
-      name: 'Azure Cove Boutique Resort & Hotel',
-      category: 'Hotel',
-      tagline: 'Hotel & Resort Booking Website',
-      description: 'A luxurious hospitality portal for a seaside boutique hotel showcasing suites, amenities, local attractions, and an integrated booking inquiry engine.',
-      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200&auto=format&fit=crop',
-      technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Web Design'],
-      features: [
-        'Interactive 360 room showcase & amenities',
-        'Date-based room availability checker',
-        'Virtual resort concierge & dining guide',
-        'Direct WhatsApp VIP reservation line'
-      ],
-      liveUrl: 'https://example.com/demo-hotel',
-      clientName: 'Azure Cove Resort',
-      completionTime: '3 Weeks',
-      overview: 'Designed to capture the tranquil luxury of beachfront living with panoramic hero banners, video backgrounds, and intuitive booking steps.'
-    },
-    {
-      id: 'proj-6',
-      name: 'Nova Creative Studio & Designer Portfolio',
-      category: 'Portfolio',
-      tagline: 'Personal & Creative Portfolio Website',
-      description: 'A sleek, minimalist portfolio website for creative agencies and independent directors featuring smooth scroll animations, case study drawers, and dark mode.',
-      image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1200&auto=format&fit=crop',
-      technologies: ['React', 'Motion', 'Tailwind CSS', 'UI/UX Design'],
-      features: [
-        'Smooth scroll transitions & micro-interactions',
-        'Interactive project filter & case study modals',
-        'Custom contact form with instant notifications',
-        'Dark luxury visual design & crisp typography'
-      ],
-      liveUrl: 'https://example.com/demo-portfolio',
-      clientName: 'Nova Creative',
-      completionTime: '2 Weeks',
-      overview: 'Focuses on visual storytelling and fluid motion to make design deliverables and case studies stand out with maximum impact.'
     }
   ] as Project[],
 

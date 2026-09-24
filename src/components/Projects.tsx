@@ -30,29 +30,11 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          // Ensure proj-1, proj-2, proj-pizza, and proj-3 (Delaqua Beauty) are updated
-          let updatedList = parsed.map((p: Project) => {
-            if (p.id === 'proj-1' && (p.liveUrl.includes('example.com') || p.name.includes('Apex Advisory'))) {
-              return PORTFOLIO_DATA.projects.find(dp => dp.id === 'proj-1') || p;
-            }
-            if (p.id === 'proj-2' && (p.liveUrl.includes('example.com') || p.name.includes('Bella Gusto'))) {
-              return PORTFOLIO_DATA.projects.find(dp => dp.id === 'proj-2') || p;
-            }
-            if (p.id === 'proj-3' && (p.liveUrl.includes('example.com') || p.name.includes('Lumière'))) {
-              return PORTFOLIO_DATA.projects.find(dp => dp.id === 'proj-3') || p;
-            }
-            return p;
+          // Sync existing project details with hardcoded PORTFOLIO_DATA
+          return parsed.map((p: Project) => {
+            const hardcoded = PORTFOLIO_DATA.projects.find(dp => dp.id === p.id);
+            return hardcoded ? { ...p, ...hardcoded } : p;
           });
-
-          // If proj-pizza is not in user storage, add it
-          const hasPizza = updatedList.some((p: Project) => p.id === 'proj-pizza' || p.liveUrl.includes('pizza-paradise'));
-          if (!hasPizza) {
-            const pizzaProj = PORTFOLIO_DATA.projects.find(dp => dp.id === 'proj-pizza');
-            if (pizzaProj) {
-              updatedList = [updatedList[0], updatedList[1], pizzaProj, ...updatedList.slice(2)].filter(Boolean);
-            }
-          }
-          return updatedList;
         }
       }
     } catch (e) {
