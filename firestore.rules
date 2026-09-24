@@ -22,7 +22,7 @@ service cloud.firestore {
     match /projects/{projectId} {
       function isValidProject(data) {
         return data.keys().hasAll(['id', 'name', 'category', 'tagline', 'description', 'image', 'technologies', 'features', 'liveUrl', 'overview'])
-          && data.keys().hasOnly(['id', 'name', 'category', 'tagline', 'description', 'image', 'technologies', 'features', 'liveUrl', 'clientName', 'completionTime', 'overview', 'createdAt', 'updatedAt'])
+          && data.keys().hasOnly(['id', 'name', 'category', 'tagline', 'description', 'image', 'technologies', 'features', 'liveUrl', 'clientName', 'completionTime', 'overview', 'previewType', 'createdAt', 'updatedAt'])
           && data.id is string && data.id.size() <= 128
           && data.name is string && data.name.size() <= 200
           && data.category in ['Business', 'E-Commerce', 'Restaurant', 'Salon', 'Hotel', 'Portfolio']

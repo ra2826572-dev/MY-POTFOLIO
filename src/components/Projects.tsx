@@ -16,8 +16,8 @@ import { ProjectModal } from './ProjectModal';
 import { ProjectManagerModal } from './ProjectManagerModal';
 import { AdminLockModal } from './AdminLockModal';
 import { Lock } from 'lucide-react';
-import { collection, query, orderBy, onSnapshot, doc, deleteDoc, writeBatch } from 'firebase/firestore';
-import { db, OperationType, handleFirestoreError } from '../firebase';
+import { collection, query, orderBy, onSnapshot, doc, deleteDoc, writeBatch, setDoc } from 'firebase/firestore';
+import { db, OperationType, handleFirestoreError, serverTimestamp } from '../firebase';
 
 interface ProjectsProps {
   onOpenQuoteModal: (serviceName?: string) => void;
@@ -108,10 +108,17 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
   const handleSaveProject = async (savedProject: Project) => {
     try {
       const projectRef = doc(db, 'projects', savedProject.id);
+      
+      // We don't want to overwrite the whole object with string timestamps
+      // because firestore.rules expects serverTimestamp() for updatedAt
       const projectData = {
         ...savedProject,
-        updatedAt: new Date().toISOString(),
-        createdAt: savedProject.createdAt || new Date().toISOString()
+        updatedAt: serverTimestamp(),
+        // Only set createdAt if it's a new project
+        ...(savedProject.id.startsWith('proj-') && !projects.find(p => p.id === savedProject.id) 
+            ? { createdAt: serverTimestamp() } 
+            : {}
+        )
       };
       
       await setDoc(projectRef, projectData, { merge: true });
@@ -132,8 +139,8 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
             const projectRef = doc(db, 'projects', p.id);
             batch.set(projectRef, {
               ...p,
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString()
+              createdAt: serverTimestamp(),
+              updatedAt: serverTimestamp()
             });
           });
 
