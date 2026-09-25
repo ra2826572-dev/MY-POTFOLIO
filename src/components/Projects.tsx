@@ -33,6 +33,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
   const [isManagerModalOpen, setIsManagerModalOpen] = useState<boolean>(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [spotlightProjectId, setSpotlightProjectId] = useState<string>('proj-voiceflow');
 
   // Admin PIN Protection State
   const [isLockModalOpen, setIsLockModalOpen] = useState<boolean>(false);
@@ -54,7 +55,10 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
       if (projectsData.length === 0) {
         setProjects(PORTFOLIO_DATA.projects);
       } else {
-        setProjects(projectsData);
+        // Merge default projects that aren't yet in Firestore so new showcase projects (like SHOE CASA) always appear
+        const firestoreIds = new Set(projectsData.map(p => p.id));
+        const mergedDefaults = PORTFOLIO_DATA.projects.filter(p => !firestoreIds.has(p.id));
+        setProjects([...projectsData, ...mergedDefaults]);
       }
       setIsLoading(false);
     }, (error) => {
@@ -236,6 +240,250 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
           </div>
         </div>
 
+        {/* Featured Project Spotlight: Dynamic Toggle */}
+        {(() => {
+          const spotlightProject = projects.find(p => p.id === spotlightProjectId) 
+            || projects.find(p => p.id === 'proj-voiceflow')
+            || projects.find(p => p.id === 'proj-delaqua')
+            || projects.find(p => p.id === 'proj-mezturkish')
+            || projects.find(p => p.id === 'proj-thedonpizza')
+            || projects.find(p => p.id === 'proj-libertygrand')
+            || projects.find(p => p.id === 'proj-furniture-sheheryar')
+            || projects.find(p => p.id === 'proj-flyingscissor')
+            || projects.find(p => p.id === 'proj-neonstrike')
+            || projects.find(p => p.id === 'proj-groomermen')
+            || PORTFOLIO_DATA.projects[0];
+
+          if (!spotlightProject) return null;
+
+          return (
+            <div className="mb-12 rounded-3xl bg-gradient-to-r from-slate-900/90 via-indigo-950/40 to-slate-900/90 border border-indigo-500/30 p-6 sm:p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-600/10 rounded-full blur-[90px] pointer-events-none" />
+              
+              {/* Spotlight Selector Tabs */}
+              <div className="flex items-center justify-between flex-wrap gap-3 mb-6 relative z-10 border-b border-slate-800/80 pb-4">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Featured Deployments:</span>
+                  <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-950/90 border border-slate-800 flex-wrap">
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightProjectId('proj-voiceflow')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        spotlightProject.id === 'proj-voiceflow'
+                          ? 'bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 text-white font-bold shadow-md shadow-purple-600/30'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      🎙️ VoiceFlow AI Studio
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightProjectId('proj-delaqua')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        spotlightProject.id === 'proj-delaqua'
+                          ? 'bg-gradient-to-r from-pink-600 via-rose-500 to-amber-500 text-white font-bold shadow-md shadow-pink-600/30'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      💄 DELAQUA Beauty Salon
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightProjectId('proj-mezturkish')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        spotlightProject.id === 'proj-mezturkish'
+                          ? 'bg-gradient-to-r from-emerald-800 via-teal-700 to-amber-600 text-white font-bold shadow-md shadow-emerald-700/30'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      🇹🇷 MEZ Turkish Restaurant
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightProjectId('proj-thedonpizza')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        spotlightProject.id === 'proj-thedonpizza'
+                          ? 'bg-gradient-to-r from-red-600 via-amber-600 to-yellow-500 text-white font-bold shadow-md shadow-red-600/30'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      🍕 The Don Pizza
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightProjectId('proj-libertygrand')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        spotlightProject.id === 'proj-libertygrand'
+                          ? 'bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 text-slate-950 font-bold shadow-md shadow-amber-500/25'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      🏰 Liberty Grand Marquee
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightProjectId('proj-furniture-sheheryar')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        spotlightProject.id === 'proj-furniture-sheheryar'
+                          ? 'bg-gradient-to-r from-amber-700 via-amber-600 to-yellow-600 text-white shadow-md shadow-amber-600/20'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      🛋️ Furniture Store (Sheheryar)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightProjectId('proj-flyingscissor')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        spotlightProject.id === 'proj-flyingscissor'
+                          ? 'bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-600 text-white shadow-md shadow-amber-500/20'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      ✂️ Flying Scissor
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightProjectId('proj-neonstrike')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        spotlightProject.id === 'proj-neonstrike'
+                          ? 'bg-gradient-to-r from-cyan-500 via-fuchsia-600 to-pink-500 text-white shadow-md shadow-fuchsia-500/20'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      ⚡ NEON STRIKE (3D FPS)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightProjectId('proj-groomermen')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        spotlightProject.id === 'proj-groomermen'
+                          ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      💈 Groomer Men Saloon
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightProjectId('proj-adnansweets')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        spotlightProject.id === 'proj-adnansweets'
+                          ? 'bg-gradient-to-r from-amber-600 to-rose-600 text-white shadow-md'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      🎂 Adnan Sweets
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightProjectId('proj-shoecasa')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        spotlightProject.id === 'proj-shoecasa'
+                          ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      👞 SHOE CASA
+                    </button>
+                  </div>
+                </div>
+
+                <span className="text-[11px] text-slate-400 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  Live Client Website
+                </span>
+              </div>
+
+              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                {/* Left: Thumbnail & Visual Badge */}
+                <div className="lg:col-span-5 relative rounded-2xl overflow-hidden aspect-[16/10] bg-slate-950 border border-slate-800 shadow-xl">
+                  <img
+                    src={spotlightProject.image}
+                    alt={spotlightProject.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+                  
+                  <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-slate-900/90 backdrop-blur-md border border-amber-500/40 text-amber-300 text-xs font-bold flex items-center gap-1.5 shadow-lg">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Featured Live Launch</span>
+                  </div>
+
+                  <div className="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between text-xs text-slate-300 font-mono bg-slate-950/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-800">
+                    <span className="truncate flex items-center gap-1.5">
+                      <span className="text-emerald-400">🔒</span>
+                      {spotlightProject.liveUrl ? spotlightProject.liveUrl.replace('https://', '').replace('/', '') : 'Live Project'}
+                    </span>
+                    <span className="text-emerald-400 font-bold flex items-center gap-1 shrink-0">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      Live Website
+                    </span>
+                  </div>
+                </div>
+
+                {/* Right: Content & Direct Actions */}
+                <div className="lg:col-span-7 flex flex-col justify-between space-y-4">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <span className="px-3 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs font-semibold">
+                        {spotlightProject.category}
+                      </span>
+                      {spotlightProject.clientName && (
+                        <span className="text-xs text-slate-400">
+                          {spotlightProject.clientName}
+                        </span>
+                      )}
+                    </div>
+
+                    <h3 className="text-xl sm:text-2xl font-black text-white mb-2 group-hover:text-blue-300 transition-colors">
+                      {spotlightProject.name}
+                    </h3>
+
+                    <p className="text-xs sm:text-sm text-slate-300/90 leading-relaxed mb-4">
+                      {spotlightProject.description}
+                    </p>
+
+                    {/* Tech Pills */}
+                    <div className="flex flex-wrap gap-1.5">
+                      {spotlightProject.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2.5 py-1 rounded-lg bg-slate-800/90 border border-slate-700/80 text-slate-300 text-[11px] font-medium"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-800/80">
+                    <a
+                      href={spotlightProject.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-600/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      <span>Visit Live Website</span>
+                    </a>
+
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProject(spotlightProject)}
+                      className="px-4 py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 hover:text-white text-xs sm:text-sm font-semibold border border-slate-700 transition-all flex items-center gap-2"
+                    >
+                      <Eye className="w-4 h-4 text-blue-400" />
+                      <span>Interactive Device Preview</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
         {/* Category Filter Tabs */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
           {categories.map((category) => (
@@ -305,9 +553,17 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                       {/* Dark gradient overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
 
-                      {/* Top Left: Category Chip */}
-                      <div className="absolute top-3.5 left-3.5 z-10 px-3 py-1 rounded-full bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-[11px] font-bold text-blue-300">
-                        {project.category}
+                      {/* Top Left: Category Chip & Featured Badge */}
+                      <div className="absolute top-3.5 left-3.5 z-10 flex items-center gap-1.5 flex-wrap">
+                        <span className="px-3 py-1 rounded-full bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-[11px] font-bold text-blue-300">
+                          {project.category}
+                        </span>
+                        {(project.id === 'proj-voiceflow' || project.id === 'proj-delaqua' || project.id === 'proj-mezturkish' || project.id === 'proj-thedonpizza' || project.id === 'proj-libertygrand' || project.id === 'proj-furniture-sheheryar' || project.id === 'proj-flyingscissor' || project.id === 'proj-neonstrike' || project.id === 'proj-shoecasa' || project.id === 'proj-adnansweets' || project.id === 'proj-groomermen') && (
+                          <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-500/40 text-[10px] font-bold text-amber-300 flex items-center gap-1">
+                            <Sparkles className="w-2.5 h-2.5" />
+                            Featured
+                          </span>
+                        )}
                       </div>
 
                       {/* Top Right: Edit Action Button */}
@@ -323,16 +579,29 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                         </button>
                       </div>
 
-                      {/* Quick View Button on Image Hover */}
-                      <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]">
+                      {/* Quick View & Direct Site Buttons on Image Hover */}
+                      <div className="absolute inset-0 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50 backdrop-blur-[2px] p-2">
                         <button
                           type="button"
                           onClick={() => setSelectedProject(project)}
-                          className="px-4 py-2 rounded-full bg-white text-slate-950 text-xs font-bold shadow-lg hover:bg-blue-50 flex items-center gap-1.5 transition-transform hover:scale-105"
+                          className="px-3.5 py-2 rounded-full bg-white text-slate-950 text-xs font-bold shadow-lg hover:bg-blue-50 flex items-center gap-1.5 transition-transform hover:scale-105"
                         >
                           <Eye className="w-3.5 h-3.5 text-blue-600" />
                           <span>Quick View</span>
                         </button>
+                        {project.liveUrl && project.liveUrl !== '#' && project.liveUrl.startsWith('http') && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="px-3.5 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg flex items-center gap-1.5 transition-transform hover:scale-105"
+                            title="Open live site directly in a new tab"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                            <span>Visit Site ↗</span>
+                          </a>
+                        )}
                       </div>
                     </div>
 
@@ -378,20 +647,34 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                       type="button"
                       onClick={(e) => handleLiveDemoClick(e, project)}
                       className="py-2.5 px-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-slate-200 hover:text-white text-xs font-semibold border border-slate-700 transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+                      title="Open interactive device preview"
                     >
-                      <ExternalLink className="w-3.5 h-3.5 text-blue-400" />
-                      <span>Live Demo</span>
+                      <Eye className="w-3.5 h-3.5 text-blue-400" />
+                      <span>Live Preview</span>
                     </button>
 
-                    {/* View Project button */}
-                    <button
-                      type="button"
-                      onClick={() => setSelectedProject(project)}
-                      className="py-2.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-semibold shadow-md shadow-blue-600/20 hover:shadow-blue-600/40 hover:opacity-95 transition-all flex items-center justify-center gap-1.5"
-                    >
-                      <Eye className="w-3.5 h-3.5" />
-                      <span>View Project</span>
-                    </button>
+                    {/* View / Visit button */}
+                    {project.liveUrl && project.liveUrl !== '#' && project.liveUrl.startsWith('http') ? (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-2.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-md shadow-blue-600/20 hover:shadow-blue-600/40 transition-all flex items-center justify-center gap-1.5"
+                        title="Visit live website in new tab"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        <span>Visit Site ↗</span>
+                      </a>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setSelectedProject(project)}
+                        className="py-2.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-semibold shadow-md shadow-blue-600/20 hover:shadow-blue-600/40 hover:opacity-95 transition-all flex items-center justify-center gap-1.5"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        <span>View Project</span>
+                      </button>
+                    )}
                   </div>
 
                 </motion.div>

@@ -25,7 +25,7 @@ service cloud.firestore {
           && data.keys().hasOnly(['id', 'name', 'category', 'tagline', 'description', 'image', 'technologies', 'features', 'liveUrl', 'clientName', 'completionTime', 'overview', 'previewType', 'createdAt', 'updatedAt'])
           && data.id is string && data.id.size() <= 128
           && data.name is string && data.name.size() <= 200
-          && data.category in ['Business', 'E-Commerce', 'Restaurant', 'Salon', 'Hotel', 'Portfolio']
+          && data.category in ['Business', 'E-Commerce', 'Restaurant', 'Salon', 'Hotel', 'Portfolio', 'Game', 'Web App']
           && data.tagline is string && data.tagline.size() <= 200
           && data.description is string && data.description.size() <= 2000
           && data.image is string && data.image.size() <= 1000

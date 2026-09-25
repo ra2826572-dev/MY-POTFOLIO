@@ -29,7 +29,9 @@ const DEFAULT_CATEGORIES: Project['category'][] = [
   'Restaurant',
   'Salon',
   'Hotel',
-  'Portfolio'
+  'Portfolio',
+  'Game',
+  'Web App'
 ];
 
 const PRESET_TECH = [
@@ -42,6 +44,8 @@ const PRESET_TECH = [
   'JavaScript',
   'HTML5 / CSS3',
   'Next.js',
+  'Three.js',
+  'WebGL',
   'PHP',
   'UI/UX Design',
   'Responsive Design'
@@ -51,8 +55,15 @@ const PRESET_SAMPLE_IMAGES = [
   { name: 'Corporate Business', url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop' },
   { name: 'Modern E-Commerce', url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200&auto=format&fit=crop' },
   { name: 'Restaurant & Cafe', url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop' },
+  { name: 'Turkish Fine Dining (MEZ)', url: 'https://mez-turkish-restaurant.vercel.app/assets/mez_hero_dining_1787219900163-DTNJ0-vL.jpg' },
+  { name: 'Artisan Pizzeria & Food', url: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80' },
   { name: 'Beauty & Salon', url: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1200&auto=format&fit=crop' },
+  { name: 'Luxury Salon & Spa (DELAQUA)', url: 'https://saloon-eta-tawny.vercel.app/assets/images/hero.jpg' },
   { name: 'Luxury Hotel', url: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200&auto=format&fit=crop' },
+  { name: 'Luxury Marquee & Venue', url: 'https://liberty-grand.vercel.app/assets/liberty_grand_exterior_1786440409427-CHWk-iB6.jpg' },
+  { name: 'Luxury Furniture & Decor', url: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85' },
+  { name: '3D WebGL & Gaming', url: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop' },
+  { name: 'AI Voice & Audio Studio (VoiceFlow)', url: 'https://voice-flow-liard.vercel.app/logo.jpg' },
   { name: 'Creative Portfolio', url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop' }
 ];
 

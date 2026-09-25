@@ -11,7 +11,8 @@ import {
   Check, 
   Sparkles,
   HelpCircle,
-  Phone
+  Phone,
+  ExternalLink
 } from 'lucide-react';
 import { PORTFOLIO_DATA, Service } from '../portfolioData';
 
@@ -88,7 +89,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
                 </p>
 
                 {/* Key Deliverables Bullet Points */}
-                <div className="space-y-2.5 pt-4 border-t border-slate-800/80 mb-8">
+                <div className="space-y-2.5 pt-4 border-t border-slate-800/80 mb-6">
                   {service.deliverables.map((item, dIdx) => (
                     <div key={dIdx} className="flex items-start gap-2.5 text-xs text-slate-300">
                       <div className="w-4 h-4 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0 mt-0.5 text-emerald-400">
@@ -98,6 +99,34 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
                     </div>
                   ))}
                 </div>
+
+                {/* Featured Live Client Project Link if available */}
+                {service.featuredProject && (
+                  <div className="mb-6 p-3.5 rounded-2xl bg-gradient-to-r from-blue-950/60 via-slate-900/90 to-purple-950/40 border border-blue-500/30 shadow-lg flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-blue-400">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span>Live Client Project</span>
+                      </div>
+                      <p className="text-xs font-bold text-white truncate mt-0.5">
+                        {service.featuredProject.name}
+                      </p>
+                      <p className="text-[11px] text-slate-400 truncate">
+                        {service.featuredProject.tagline}
+                      </p>
+                    </div>
+                    <a
+                      href={service.featuredProject.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-md shadow-blue-600/30 transition-all hover:scale-105 active:scale-95"
+                      title={`Visit ${service.featuredProject.name} live store`}
+                    >
+                      <span>Live Site</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                )}
               </div>
 
               {/* Get a Quote Action */}
