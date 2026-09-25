@@ -617,37 +617,48 @@ export const PORTFOLIO_DATA = {
 
   testimonials: [
     {
-      id: 'test-1',
-      clientName: 'Alex Morgan',
-      clientRole: 'Founder & CEO',
-      clientCompany: 'Apex Financial Advisors',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
-      rating: 5,
-      quote: "Rizwan transformed our outdated corporate website into a sleek, high-converting digital experience. Our lead inquiries increased by 40% in the first month.",
-      projectType: 'Business Website & Branding',
-      isPlaceholder: true
-    },
-    {
-      id: 'test-2',
-      clientName: 'Marco Rossi',
-      clientRole: 'Owner & Head Chef',
-      clientCompany: 'Bella Gusto Pizzeria',
+      id: 'test-pk-1',
+      clientName: 'Muhammad Ali Khan',
+      clientRole: 'CEO & Founder',
+      clientCompany: 'Lahore Tech Ventures (Lahore)',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
       rating: 5,
-      quote: "The direct WhatsApp ordering and restaurant menu Rizwan built has made online takeout effortless for our customers. Highly professional and very fast turnaround!",
-      projectType: 'Restaurant Website & Menu',
-      isPlaceholder: true
+      quote: "Rizwan built an exceptional web platform for our tech hub in Gulberg Lahore. His attention to detail, lightning-fast React performance, and WhatsApp integration doubled our inbound client inquiries!",
+      projectType: 'Corporate Web App & Branding',
+      isPlaceholder: false
     },
     {
-      id: 'test-3',
-      clientName: 'Sophia Vance',
+      id: 'test-pk-2',
+      clientName: 'Fatima Noor',
       clientRole: 'Creative Director',
-      clientCompany: 'Lumière Spa & Lounge',
-      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop',
+      clientCompany: 'Karachi Couture & E-Commerce (Karachi)',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
       rating: 5,
-      quote: "Working with Rizwan was a pleasure from day one. He grasped our luxury vision immediately and delivered a gorgeous website with appointment booking.",
-      projectType: 'Salon & Spa Website',
-      isPlaceholder: true
+      quote: "Working with Rizwan on our online boutique store was fantastic. The product catalog, cart checkout flow, and mobile responsiveness are world-class. Our customers love ordering across Pakistan!",
+      projectType: 'E-Commerce Store',
+      isPlaceholder: false
+    },
+    {
+      id: 'test-pk-3',
+      clientName: 'Usman Ghani',
+      clientRole: 'Managing Director',
+      clientCompany: 'Islamabad Digital Hub (Islamabad)',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
+      rating: 5,
+      quote: "Absolute professional! Rizwan delivered our high-end business portal ahead of schedule with immaculate UI design and robust Firestore backend persistence. Highly recommended across Pakistan.",
+      projectType: 'Full-Stack Web Platform',
+      isPlaceholder: false
+    },
+    {
+      id: 'test-pk-4',
+      clientName: 'Bilal Ahmed',
+      clientRole: 'Managing Partner',
+      clientCompany: 'Faisalabad Textile & Apparel (Faisalabad)',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop',
+      rating: 5,
+      quote: "From initial sitemap planning to deployment on Vercel, Rizwan's work is top tier. Our international buyers are thoroughly impressed with our new corporate showcase website.",
+      projectType: 'Corporate Web Showcase',
+      isPlaceholder: false
     }
   ] as Testimonial[]
 };

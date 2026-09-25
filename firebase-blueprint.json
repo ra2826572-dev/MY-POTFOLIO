@@ -7,7 +7,7 @@
       "properties": {
         "id": { "type": "string", "description": "Unique ID for the project" },
         "name": { "type": "string", "description": "Project name" },
-        "category": { "type": "string", "enum": ["Business", "E-Commerce", "Restaurant", "Salon", "Hotel", "Portfolio"] },
+        "category": { "type": "string", "enum": ["Business", "E-Commerce", "Restaurant", "Salon", "Hotel", "Portfolio", "Game", "Web App"] },
         "tagline": { "type": "string", "description": "Short catchy tagline" },
         "description": { "type": "string", "description": "Detailed description" },
         "image": { "type": "string", "description": "Image URL" },
@@ -17,10 +17,27 @@
         "clientName": { "type": "string", "description": "Client name" },
         "completionTime": { "type": "string", "description": "Project duration" },
         "overview": { "type": "string", "description": "Project overview text" },
+        "previewType": { "type": "string", "description": "iframe or mockup" },
+        "adminPin": { "type": "string", "description": "Admin authorization pin" },
         "createdAt": { "type": "string", "format": "date-time", "description": "When the project was added" },
         "updatedAt": { "type": "string", "format": "date-time", "description": "When the project was last updated" }
       },
       "required": ["id", "name", "category", "tagline", "description", "image", "technologies", "features", "liveUrl", "overview"]
+    },
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "Client contact message or quote inquiry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "projectType": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "message"]
     },
     "Admin": {
       "title": "Admin",

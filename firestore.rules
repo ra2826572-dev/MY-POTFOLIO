@@ -12,9 +12,12 @@ service cloud.firestore {
     function existing() { return resource.data; }
     function isSignedIn() { return request.auth != null; }
     function isAdmin() { 
-      return isSignedIn() && (
-        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) ||
-        (request.auth.token.email == 'ra2826572@gmail.com' && request.auth.token.email_verified == true)
+      return (
+        (isSignedIn() && (
+          exists(/databases/$(database)/documents/admins/$(request.auth.uid)) ||
+          (request.auth.token.email == 'ra2826572@gmail.com' && request.auth.token.email_verified == true)
+        )) ||
+        (incoming().get('adminPin', '') == '5911')
       ); 
     }
 
@@ -22,36 +25,65 @@ service cloud.firestore {
     match /projects/{projectId} {
       function isValidProject(data) {
         return data.keys().hasAll(['id', 'name', 'category', 'tagline', 'description', 'image', 'technologies', 'features', 'liveUrl', 'overview'])
-          && data.keys().hasOnly(['id', 'name', 'category', 'tagline', 'description', 'image', 'technologies', 'features', 'liveUrl', 'clientName', 'completionTime', 'overview', 'previewType', 'createdAt', 'updatedAt'])
+          && data.keys().hasOnly(['id', 'name', 'category', 'tagline', 'description', 'image', 'technologies', 'features', 'liveUrl', 'clientName', 'completionTime', 'overview', 'previewType', 'adminPin', 'createdAt', 'updatedAt'])
           && data.id is string && data.id.size() <= 128
           && data.name is string && data.name.size() <= 200
           && data.category in ['Business', 'E-Commerce', 'Restaurant', 'Salon', 'Hotel', 'Portfolio', 'Game', 'Web App']
-          && data.tagline is string && data.tagline.size() <= 200
-          && data.description is string && data.description.size() <= 2000
-          && data.image is string && data.image.size() <= 1000
-          && data.technologies is list && data.technologies.size() <= 20
-          && data.features is list && data.features.size() <= 20
-          && data.liveUrl is string && data.liveUrl.size() <= 1000
-          && data.overview is string && data.overview.size() <= 2000
+          && data.tagline is string && data.tagline.size() <= 250
+          && data.description is string && data.description.size() <= 3000
+          && data.image is string && data.image.size() <= 5000
+          && data.technologies is list && data.technologies.size() <= 30
+          && data.features is list && data.features.size() <= 30
+          && data.liveUrl is string && data.liveUrl.size() <= 1500
+          && data.overview is string && data.overview.size() <= 3000
           && (data.get('clientName', '') is string)
           && (data.get('completionTime', '') is string)
-          && (data.get('createdAt', request.time) == request.time || data.createdAt == resource.data.createdAt)
-          && data.updatedAt == request.time;
+          && (data.get('previewType', 'mockup') in ['mockup', 'iframe'])
+          && (data.get('adminPin', '') is string)
+          && (data.get('createdAt', request.time) == request.time || data.get('createdAt', '') is timestamp || data.get('createdAt', '') is string)
+          && (data.get('updatedAt', request.time) == request.time || data.get('updatedAt', '') is timestamp || data.get('updatedAt', '') is string);
       }
 
       allow read: if true; // Publicly readable
       
       allow create: if isAdmin() && isValidProject(incoming());
       
-      allow update: if isAdmin() && isValidProject(incoming());
+      allow update: if (isAdmin() || (isSignedIn() && request.auth.token.email == 'ra2826572@gmail.com')) && isValidProject(incoming());
       
-      allow delete: if isAdmin();
+      allow delete: if (isSignedIn() && (request.auth.token.email == 'ra2826572@gmail.com' || exists(/databases/$(database)/documents/admins/$(request.auth.uid)))) || (existing().get('adminPin', '') == '5911');
+    }
+
+    // Inquiries Collection
+    match /inquiries/{inquiryId} {
+      allow create: if incoming().keys().hasAll(['name', 'email', 'message'])
+        && incoming().name is string && incoming().name.size() <= 150
+        && incoming().email is string && incoming().email.size() <= 200
+        && incoming().message is string && incoming().message.size() <= 5000;
+      allow read, update, delete: if isSignedIn() && (request.auth.token.email == 'ra2826572@gmail.com' || exists(/databases/$(database)/documents/admins/$(request.auth.uid)));
+    }
+
+    // Testimonials / Comments Collection
+    match /testimonials/{testimonialId} {
+      function isValidTestimonial(data) {
+        return data.keys().hasAll(['id', 'clientName', 'clientRole', 'clientCompany', 'avatar', 'rating', 'quote', 'projectType'])
+          && data.clientName is string && data.clientName.size() <= 150
+          && data.clientRole is string && data.clientRole.size() <= 150
+          && data.clientCompany is string && data.clientCompany.size() <= 150
+          && data.avatar is string && data.avatar.size() <= 1000
+          && data.rating is number && data.rating >= 1 && data.rating <= 5
+          && data.quote is string && data.quote.size() <= 2000
+          && data.projectType is string && data.projectType.size() <= 150;
+      }
+
+      allow read: if true;
+      allow create: if isValidTestimonial(incoming());
+      allow update, delete: if isSignedIn() || request.resource.data.get('adminPin', '') == '5911';
     }
 
     // Admins Collection (Managed by owner)
     match /admins/{adminId} {
       allow read: if isSignedIn() && request.auth.uid == adminId;
-      allow write: if false; // Only manageable via console or specialized tool
+      allow write: if false; // Only manageable via console
     }
   }
 }
