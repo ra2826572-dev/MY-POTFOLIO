@@ -33,7 +33,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
   const [isManagerModalOpen, setIsManagerModalOpen] = useState<boolean>(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [spotlightProjectId, setSpotlightProjectId] = useState<string>('proj-voiceflow');
+  const [spotlightProjectId, setSpotlightProjectId] = useState<string>('proj-the-dentist-kl');
 
   // Admin PIN Protection State
   const [isLockModalOpen, setIsLockModalOpen] = useState<boolean>(false);
@@ -243,6 +243,8 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
         {/* Featured Project Spotlight: Dynamic Toggle */}
         {(() => {
           const spotlightProject = projects.find(p => p.id === spotlightProjectId) 
+            || projects.find(p => p.id === 'proj-der-salon')
+            || projects.find(p => p.id === 'proj-the-dentist-kl')
             || projects.find(p => p.id === 'proj-voiceflow')
             || projects.find(p => p.id === 'proj-delaqua')
             || projects.find(p => p.id === 'proj-mezturkish')
@@ -265,6 +267,28 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Featured Deployments:</span>
                   <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-950/90 border border-slate-800 flex-wrap">
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightProjectId('proj-der-salon')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        spotlightProject.id === 'proj-der-salon'
+                          ? 'bg-gradient-to-r from-amber-600 via-rose-500 to-purple-600 text-white font-bold shadow-md shadow-amber-600/30'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      💇 DER SALON (Frankfurt)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightProjectId('proj-the-dentist-kl')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        spotlightProject.id === 'proj-the-dentist-kl'
+                          ? 'bg-gradient-to-r from-teal-500 via-cyan-600 to-blue-600 text-white font-bold shadow-md shadow-cyan-600/30'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      🦷 The Dentist@KL
+                    </button>
                     <button
                       type="button"
                       onClick={() => setSpotlightProjectId('proj-voiceflow')}

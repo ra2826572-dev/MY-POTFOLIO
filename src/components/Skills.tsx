@@ -14,19 +14,28 @@ import {
   Layers, 
   Zap,
   CheckCircle,
-  Cpu
+  Cpu,
+  Cloud,
+  Bot,
+  Server,
+  ExternalLink,
+  Award,
+  ShieldCheck
 } from 'lucide-react';
 import { PORTFOLIO_DATA, Skill } from '../portfolioData';
 
 export const Skills: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
-  const categories = ['All', 'Frontend & Code', 'CMS & Platforms', 'Design & Creative', 'Tools & AI'];
+  const categories = ['All', 'Cloud & Hosting', 'Frontend & Code', 'CMS & Platforms', 'Design & Creative', 'Tools & AI'];
 
   // Map icon names to Lucide icons
   const renderSkillIcon = (iconName: string) => {
     const props = { className: "w-6 h-6" };
     switch (iconName) {
+      case 'Cloud': return <Cloud {...props} className="w-6 h-6 text-sky-400" />;
+      case 'Bot': return <Bot {...props} className="w-6 h-6 text-purple-400" />;
+      case 'Server': return <Server {...props} className="w-6 h-6 text-emerald-400" />;
       case 'FileCode': return <FileCode {...props} className="w-6 h-6 text-orange-400" />;
       case 'Palette': return <Palette {...props} className="w-6 h-6 text-blue-400" />;
       case 'Code2': return <Code2 {...props} className="w-6 h-6 text-yellow-400" />;
@@ -112,9 +121,16 @@ export const Skills: React.FC = () => {
                     <div className="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner">
                       {renderSkillIcon(skill.iconName)}
                     </div>
-                    <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-800/90 text-slate-300 border border-slate-700/50">
-                      {skill.category}
-                    </span>
+                    <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                      {skill.name.toLowerCase().includes('expert') && (
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30 shadow-sm shadow-amber-500/10">
+                          ⭐ Expert
+                        </span>
+                      )}
+                      <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-800/90 text-slate-300 border border-slate-700/50">
+                        {skill.category}
+                      </span>
+                    </div>
                   </div>
 
                   <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">
@@ -124,6 +140,18 @@ export const Skills: React.FC = () => {
                   <p className="text-xs text-slate-400 font-medium mb-4">
                     {skill.experience}
                   </p>
+                  {skill.certificateUrl && (
+                    <a
+                      href={skill.certificateUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 text-xs font-semibold border border-purple-500/30 transition-all hover:scale-[1.02] shadow-sm group/cert w-fit"
+                    >
+                      <Award className="w-3.5 h-3.5 text-purple-400 group-hover/cert:rotate-12 transition-transform" />
+                      <span>{skill.certificateTitle || 'Verify Credential'}</span>
+                      <ExternalLink className="w-3 h-3 text-purple-400" />
+                    </a>
+                  )}
                 </div>
 
                 {/* Skill Level Progress Bar */}
@@ -147,6 +175,49 @@ export const Skills: React.FC = () => {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* Official Claude Certification Showcase Card */}
+        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-purple-950/50 via-slate-900/90 to-indigo-950/50 border border-purple-500/30 backdrop-blur-xl shadow-2xl shadow-purple-950/40 relative overflow-hidden">
+          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-48 h-48 bg-purple-500/15 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div className="flex items-start sm:items-center gap-5">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 border border-purple-400/40 flex items-center justify-center text-white shrink-0 shadow-lg shadow-purple-600/30">
+                <ShieldCheck className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <span className="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[11px] font-bold border border-purple-500/30 uppercase tracking-wider flex items-center gap-1">
+                    <Award className="w-3 h-3" /> Official Credential
+                  </span>
+                  <span className="text-emerald-400 text-xs font-semibold flex items-center gap-1">
+                    <CheckCircle className="w-3.5 h-3.5" /> Verified by Anthropic
+                  </span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-white">
+                  Anthropic Claude Certified Specialist
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                  Certified through Claude Academy for advanced prompt engineering, agentic workflow architecture, tool-use integration, and production-grade full-stack AI applications.
+                </p>
+                <div className="mt-2 text-[11px] text-slate-400 font-mono">
+                  Credential ID: <span className="text-purple-300">48f1954a23ce4dd7228f7f168bc8c6a2</span>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="https://academy.claude.com/verify/48f1954a23ce4dd7228f7f168bc8c6a2"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white font-bold text-sm shadow-xl shadow-purple-600/30 hover:scale-105 active:scale-95 transition-all duration-300 border border-purple-400/30 group"
+            >
+              <Award className="w-4 h-4 text-purple-200" />
+              <span>Verify Official Certificate</span>
+              <ExternalLink className="w-4 h-4 text-purple-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </div>
+        </div>
 
         {/* Highlight Banner */}
         <div className="mt-14 p-6 rounded-2xl bg-gradient-to-r from-blue-950/40 via-indigo-950/40 to-purple-950/40 border border-blue-800/30 flex flex-col md:flex-row items-center justify-between gap-6">

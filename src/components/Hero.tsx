@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { 
   ArrowRight, 
   Eye, 
-  MessageSquare 
+  MessageSquare,
+  Award,
+  ExternalLink
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
 import { RizwanBadge } from './RizwanBadge';
@@ -45,15 +47,29 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7 flex flex-col items-start text-left"
           >
-            {/* Status Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 backdrop-blur-md mb-6 shadow-sm">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-              </span>
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-300">
-                Available for New Projects
-              </span>
+            {/* Status & Credential Badges */}
+            <div className="flex items-center gap-3 flex-wrap mb-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 backdrop-blur-md shadow-sm">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                  Available for New Projects
+                </span>
+              </div>
+
+              <a
+                href="https://academy.claude.com/verify/48f1954a23ce4dd7228f7f168bc8c6a2"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Verify Official Anthropic Claude Academy Credential"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-950/70 hover:bg-purple-900/90 border border-purple-500/40 text-purple-200 text-xs font-semibold transition-all duration-200 hover:scale-105 shadow-md shadow-purple-950/50 group"
+              >
+                <Award className="w-3.5 h-3.5 text-purple-400 group-hover:rotate-12 transition-transform" />
+                <span>Claude Certified AI Specialist</span>
+                <ExternalLink className="w-3 h-3 text-purple-400 group-hover:translate-x-0.5 transition-transform" />
+              </a>
             </div>
 
             {/* Main Greeting and Name */}

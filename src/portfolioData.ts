@@ -26,10 +26,12 @@ export interface Project {
 export interface Skill {
   name: string;
   iconName: string;
-  category: 'Frontend & Code' | 'CMS & Platforms' | 'Design & Creative' | 'Tools & AI';
+  category: 'Frontend & Code' | 'CMS & Platforms' | 'Design & Creative' | 'Tools & AI' | 'Cloud & Hosting';
   level: number; // 0 to 100
   experience: string;
   highlight?: boolean;
+  certificateUrl?: string;
+  certificateTitle?: string;
 }
 
 export interface Service {
@@ -80,9 +82,10 @@ export const PORTFOLIO_DATA = {
     role: 'Web Designer & Developer',
     secondaryRoles: [
       'Web Designer & Developer',
+      'Cloud Expert & DevOps',
       'UI/UX Specialist',
       'WordPress & React Expert',
-      'Digital Creator'
+      'Claude & AI Specialist'
     ],
     bio: "I create modern, responsive and conversion-focused websites that help businesses build a strong online presence.",
     aboutDetailed: "I'm a creative web designer and developer passionate about building modern websites for businesses and personal brands. I focus on clean UI, responsive layouts, smooth user experiences and professional visual design.",
@@ -90,6 +93,14 @@ export const PORTFOLIO_DATA = {
     location: 'Faisalabad, Pakistan (Available Worldwide)',
     availabilityStatus: '🟢 Available for new projects',
     experienceYears: '2+ Years Experience',
+    claudeCertification: {
+      title: 'Anthropic Claude Academy Certified',
+      credentialId: '48f1954a23ce4dd7228f7f168bc8c6a2',
+      verifyUrl: 'https://academy.claude.com/verify/48f1954a23ce4dd7228f7f168bc8c6a2',
+      badge: 'Official Verified Credential',
+      issuedBy: 'Anthropic Claude Academy',
+      description: 'Officially verified credentials in Claude AI architecture, prompt engineering, agentic systems, and full-stack AI integration.'
+    },
     stats: [
       { label: 'Completed Projects', value: '80+', note: 'Delivered on time', icon: 'FolderGit2' },
       { label: 'Websites Built', value: '50+', note: 'For diverse industries', icon: 'Globe' },
@@ -114,6 +125,7 @@ export const PORTFOLIO_DATA = {
   },
 
   skills: [
+    { name: 'Cloud Expert', iconName: 'Cloud', category: 'Cloud & Hosting', level: 96, experience: 'GCP, Firebase, AWS, Vercel & CI/CD', highlight: true },
     { name: 'HTML5', iconName: 'FileCode', category: 'Frontend & Code', level: 95, experience: 'Advanced Structure', highlight: true },
     { name: 'CSS3', iconName: 'Palette', category: 'Frontend & Code', level: 95, experience: 'Modern Layouts & Animations', highlight: true },
     { name: 'JavaScript', iconName: 'Code2', category: 'Frontend & Code', level: 90, experience: 'ES6+ & Dynamic Logic', highlight: true },
@@ -122,6 +134,16 @@ export const PORTFOLIO_DATA = {
     { name: 'Elementor', iconName: 'LayoutGrid', category: 'CMS & Platforms', level: 95, experience: 'Pixel-Perfect Builder', highlight: true },
     { name: 'UI/UX Design', iconName: 'Figma', category: 'Design & Creative', level: 92, experience: 'Wireframes & Visual Flow', highlight: true },
     { name: 'Responsive Web Design', iconName: 'Smartphone', category: 'Frontend & Code', level: 98, experience: 'Mobile-First Perfection', highlight: true },
+    { 
+      name: 'Claude & AI Expert', 
+      iconName: 'Bot', 
+      category: 'Tools & AI', 
+      level: 95, 
+      experience: 'Claude 3.7 Sonnet, AI Agents & Certified Workflows', 
+      highlight: true,
+      certificateUrl: 'https://academy.claude.com/verify/48f1954a23ce4dd7228f7f168bc8c6a2',
+      certificateTitle: 'Anthropic Claude Academy Certified'
+    },
     { name: 'Graphic Design', iconName: 'PenTool', category: 'Design & Creative', level: 85, experience: 'Branding & Social Assets', highlight: false },
     { name: 'AI Tools', iconName: 'Sparkles', category: 'Tools & AI', level: 90, experience: 'Workflow & Content Boost', highlight: true },
     { name: 'Tailwind CSS', iconName: 'Layers', category: 'Frontend & Code', level: 94, experience: 'Rapid Utility Styling', highlight: false },
@@ -159,9 +181,9 @@ export const PORTFOLIO_DATA = {
         'Fast loading speed and SEO foundation'
       ],
       featuredProject: {
-        name: 'Groomer Men Saloon',
-        url: 'https://groomer-men-saloon.vercel.app/',
-        tagline: 'Premium Men’s Grooming & Barbershop Platform'
+        name: 'The Dentist@KL',
+        url: 'https://the-dentist-kl-five.vercel.app/',
+        tagline: 'Premium Dental Clinic & Healthcare Booking Platform in Kuala Lumpur'
       }
     },
     {
@@ -238,6 +260,46 @@ export const PORTFOLIO_DATA = {
   ] as Service[],
 
   projects: [
+    {
+      id: 'proj-the-dentist-kl',
+      name: 'The Dentist@KL — Premium Dental Clinic & Healthcare Booking',
+      category: 'Business',
+      tagline: 'Premium Dental Clinic in Menara Hap Seng, Kuala Lumpur',
+      description: 'A modern, high-end healthcare and dental clinic web application engineered for The Dentist@KL (Menara Hap Seng, Kuala Lumpur). Features personalized dental care showcases, cosmetic & orthodontic treatment menus, doctor profiles, verified patient reviews, and interactive appointment booking.',
+      image: 'https://the-dentist-kl-five.vercel.app/assets/clinic_reception_interior_1790590787201-DSCalkD8.jpg',
+      technologies: ['React', 'Next.js', 'Tailwind CSS', 'Schema.org JSON-LD', 'Vercel Deployment'],
+      features: [
+        'Personalized dental care & cosmetic dentistry showcases',
+        'Interactive consultation & appointment booking system',
+        'Comprehensive treatments: Teeth Whitening, Orthodontics & Dental Implants',
+        'Menara Hap Seng, Kuala Lumpur clinic location & patient care info',
+        '100% mobile-friendly responsive healthcare experience'
+      ],
+      liveUrl: 'https://the-dentist-kl-five.vercel.app/',
+      clientName: 'The Dentist@KL (Menara Hap Seng, Kuala Lumpur)',
+      completionTime: '1 Week',
+      overview: 'Designed and engineered an elite dental clinic web platform for The Dentist@KL in Kuala Lumpur. Created with clean medical aesthetics, calming visual hierarchy, comprehensive treatment information, patient testimonials, and frictionless online appointment booking.'
+    },
+    {
+      id: 'proj-der-salon',
+      name: 'DER SALON — European Luxury Hair & Editorial Styling',
+      category: 'Salon',
+      tagline: 'Hair, Styled Your Way — Frankfurt-Süd, Germany',
+      description: 'An editorial, high-end European hair salon web application crafted for DER SALON (Oppenheimer Landstraße 63, Frankfurt-Süd, Germany). Features bespoke haircuts, precision balayage & coloration menus, wash lounge experiences, Cormorant Garamond typography, and frictionless online appointment booking.',
+      image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=1600',
+      technologies: ['React', 'Next.js', 'Tailwind CSS', 'Schema.org JSON-LD', 'Vercel Deployment'],
+      features: [
+        'Bespoke haircuts, editorial styling & wash lounge care',
+        'Balayage, glossing, blonding & master hair coloration',
+        'Oppenheimer Landstraße 63, Frankfurt-Süd location & salon hours',
+        'Seamless online appointment booking & consultation flow',
+        'European minimalist editorial design with Cormorant Garamond typography'
+      ],
+      liveUrl: 'https://der-salon-chi.vercel.app/',
+      clientName: 'DER SALON (Frankfurt-Süd, Germany)',
+      completionTime: '1 Week',
+      overview: 'Designed and engineered an elite hair salon web platform for DER SALON in Frankfurt am Main, Germany. Built with sophisticated European editorial aesthetics, fluid mobile responsiveness, comprehensive treatment menus with pricing, and seamless online booking integration.'
+    },
     {
       id: 'proj-voiceflow',
       name: 'VoiceFlow AI — AI Voice & Text Studio',
