@@ -6,7 +6,8 @@ import {
   Eye, 
   MessageSquare,
   Award,
-  ExternalLink
+  ExternalLink,
+  FileText
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
 import { RizwanBadge } from './RizwanBadge';
@@ -60,7 +61,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               </div>
 
               <a
-                href="https://academy.claude.com/verify/48f1954a23ce4dd7228f7f168bc8c6a2"
+                href="https://academy.claude.com/verify/756dec40601edbd310dabed4772c31e8"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Verify Official Anthropic Claude Academy Credential"
@@ -117,6 +118,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               >
                 <MessageSquare className="w-5 h-5 text-blue-400" />
                 <span>Let's Work Together</span>
+              </Link>
+
+              {/* View & Download CV */}
+              <Link
+                to="/cv"
+                id="hero-cv-btn"
+                className="inline-flex items-center justify-center px-6 py-4 rounded-full font-semibold text-slate-300 hover:text-white bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-sm gap-2"
+                title="View & Download Rizwan's Resume / CV"
+              >
+                <FileText className="w-4 h-4 text-blue-400" />
+                <span>View CV (PDF)</span>
               </Link>
             </div>
 

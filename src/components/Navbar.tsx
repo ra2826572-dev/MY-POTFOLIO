@@ -6,7 +6,8 @@ import {
   X, 
   ArrowUpRight, 
   MessageSquare, 
-  Phone
+  Phone,
+  FileText
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
 
@@ -22,6 +23,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
+    { name: 'Resume / CV', href: '/cv' },
     { name: 'Skills', href: '/skills' },
     { name: 'Services', href: '/services' },
     { name: 'Projects', href: '/projects' },
@@ -107,6 +109,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
             {/* Right Action Area */}
             <div className="hidden lg:flex items-center gap-3">
+              {/* Quick CV Link */}
+              <Link
+                to="/cv"
+                id="navbar-cv-btn"
+                className="px-3.5 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/40 text-slate-200 hover:text-white transition-all duration-200 text-xs font-semibold flex items-center gap-1.5"
+                title="View & Download Rizwan's CV"
+              >
+                <FileText className="w-3.5 h-3.5 text-blue-400" />
+                <span>CV (PDF)</span>
+              </Link>
+
               {/* Quick WhatsApp Jump */}
               <a
                 href={PORTFOLIO_DATA.contact.socials.whatsapp}

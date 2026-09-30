@@ -20,6 +20,7 @@ import { Services } from './pages/Services';
 import { Projects } from './pages/Projects';
 import { Process } from './pages/Process';
 import { Contact } from './pages/Contact';
+import { CVPage } from './pages/CVPage';
 
 export default function App() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
@@ -50,6 +51,8 @@ export default function App() {
             <Route path="/projects" element={<Projects onOpenQuoteModal={handleOpenQuoteModal} />} />
             <Route path="/process" element={<Process />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/cv" element={<CVPage onOpenQuoteModal={handleOpenQuoteModal} />} />
+            <Route path="/resume" element={<CVPage onOpenQuoteModal={handleOpenQuoteModal} />} />
           </Routes>
         </main>
 

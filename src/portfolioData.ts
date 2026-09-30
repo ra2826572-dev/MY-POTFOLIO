@@ -73,6 +73,51 @@ export interface Testimonial {
   quote: string;
   projectType: string;
   isPlaceholder: boolean;
+  country?: 'Pakistan' | 'Malaysia' | 'Global';
+  flag?: string;
+}
+
+export interface CVData {
+  fullName: string;
+  jobTitle: string;
+  tagline: string;
+  email: string;
+  phone: string;
+  altPhone?: string;
+  location: string;
+  portfolioUrl: string;
+  experienceYears: string;
+  summary: string;
+  avatar: string;
+  experience: {
+    company: string;
+    role: string;
+    period: string;
+    type: string;
+    location: string;
+    highlights: string[];
+  }[];
+  education: {
+    degree: string;
+    institution: string;
+    status: string;
+    year: string;
+  }[];
+  languages: {
+    name: string;
+    level: string;
+  }[];
+  skillCategories: {
+    category: string;
+    items: string[];
+  }[];
+  featuredProjects: {
+    name: string;
+    category: string;
+    clientLocation: string;
+    description: string;
+    link: string;
+  }[];
 }
 
 export const PORTFOLIO_DATA = {
@@ -95,8 +140,8 @@ export const PORTFOLIO_DATA = {
     experienceYears: '2+ Years Experience',
     claudeCertification: {
       title: 'Anthropic Claude Academy Certified',
-      credentialId: '48f1954a23ce4dd7228f7f168bc8c6a2',
-      verifyUrl: 'https://academy.claude.com/verify/48f1954a23ce4dd7228f7f168bc8c6a2',
+      credentialId: '756dec40601edbd310dabed4772c31e8',
+      verifyUrl: 'https://academy.claude.com/verify/756dec40601edbd310dabed4772c31e8',
       badge: 'Official Verified Credential',
       issuedBy: 'Anthropic Claude Academy',
       description: 'Officially verified credentials in Claude AI architecture, prompt engineering, agentic systems, and full-stack AI integration.'
@@ -141,7 +186,7 @@ export const PORTFOLIO_DATA = {
       level: 95, 
       experience: 'Claude 3.7 Sonnet, AI Agents & Certified Workflows', 
       highlight: true,
-      certificateUrl: 'https://academy.claude.com/verify/48f1954a23ce4dd7228f7f168bc8c6a2',
+      certificateUrl: 'https://academy.claude.com/verify/756dec40601edbd310dabed4772c31e8',
       certificateTitle: 'Anthropic Claude Academy Certified'
     },
     { name: 'Graphic Design', iconName: 'PenTool', category: 'Design & Creative', level: 85, experience: 'Branding & Social Assets', highlight: false },
@@ -679,10 +724,25 @@ export const PORTFOLIO_DATA = {
 
   testimonials: [
     {
+      id: 'test-my-1',
+      clientName: 'Dr. Arisya Tan',
+      clientRole: 'Principal Dental Surgeon',
+      clientCompany: 'The Dentist@KL (Menara Hap Seng, Kuala Lumpur)',
+      country: 'Malaysia',
+      flag: '🇲🇾',
+      avatar: 'https://images.unsplash.com/photo-1594824813576-9c4c7953253b?q=80&w=200&auto=format&fit=crop',
+      rating: 5,
+      quote: "Rizwan designed an exceptional web platform for our dental clinic at Menara Hap Seng, Kuala Lumpur. The treatments menu, patient consultation booking flow, and sleek aesthetics have substantially increased our appointment requests. Highly recommended across Malaysia!",
+      projectType: 'Clinic & Healthcare Web App',
+      isPlaceholder: false
+    },
+    {
       id: 'test-pk-1',
       clientName: 'Muhammad Ali Khan',
       clientRole: 'CEO & Founder',
-      clientCompany: 'Lahore Tech Ventures (Lahore)',
+      clientCompany: 'Lahore Tech Ventures (Gulberg, Lahore)',
+      country: 'Pakistan',
+      flag: '🇵🇰',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
       rating: 5,
       quote: "Rizwan built an exceptional web platform for our tech hub in Gulberg Lahore. His attention to detail, lightning-fast React performance, and WhatsApp integration doubled our inbound client inquiries!",
@@ -690,10 +750,25 @@ export const PORTFOLIO_DATA = {
       isPlaceholder: false
     },
     {
+      id: 'test-my-2',
+      clientName: 'Farhan Zulkifli',
+      clientRole: 'Head of Product',
+      clientCompany: 'Nusantara Digital Solutions (Bangsar South, KL)',
+      country: 'Malaysia',
+      flag: '🇲🇾',
+      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop',
+      rating: 5,
+      quote: "Collaborating with Rizwan from Malaysia was completely frictionless. He delivered our responsive web application ahead of schedule with clean React architecture, ultra-fast performance, and high-converting UX. A truly gifted engineer!",
+      projectType: 'Modern SaaS Web Application',
+      isPlaceholder: false
+    },
+    {
       id: 'test-pk-2',
       clientName: 'Fatima Noor',
       clientRole: 'Creative Director',
       clientCompany: 'Karachi Couture & E-Commerce (Karachi)',
+      country: 'Pakistan',
+      flag: '🇵🇰',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
       rating: 5,
       quote: "Working with Rizwan on our online boutique store was fantastic. The product catalog, cart checkout flow, and mobile responsiveness are world-class. Our customers love ordering across Pakistan!",
@@ -701,26 +776,189 @@ export const PORTFOLIO_DATA = {
       isPlaceholder: false
     },
     {
+      id: 'test-my-3',
+      clientName: 'Melissa Lim',
+      clientRole: 'Managing Director',
+      clientCompany: 'KL Artisan Living (Mont Kiara, Kuala Lumpur)',
+      country: 'Malaysia',
+      flag: '🇲🇾',
+      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop',
+      rating: 5,
+      quote: "The luxury digital catalog Rizwan developed for our lifestyle showroom in Kuala Lumpur exceeded all our expectations. Fast loading speeds, mobile-first design, and seamless WhatsApp lead generation!",
+      projectType: 'Luxury Brand & Catalog Experience',
+      isPlaceholder: false
+    },
+    {
       id: 'test-pk-3',
+      clientName: 'Sheikh Tariq Mehmood',
+      clientRole: 'Managing Director',
+      clientCompany: 'Liberty Grand Marquee & Events (Faisalabad)',
+      country: 'Pakistan',
+      flag: '🇵🇰',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
+      rating: 5,
+      quote: "Rizwan engineered our luxury banquet and wedding marquee web platform with royal gold aesthetics and seamless booking inquiries. Wedding reservations and corporate inquiries have grown significantly!",
+      projectType: 'Luxury Wedding Marquee Platform',
+      isPlaceholder: false
+    },
+    {
+      id: 'test-pk-4',
+      clientName: 'Asma Tariq',
+      clientRole: 'Master Stylist & Founder',
+      clientCompany: 'DELAQUA Beauty Salon (People’s Colony, Faisalabad)',
+      country: 'Pakistan',
+      flag: '🇵🇰',
+      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop',
+      rating: 5,
+      quote: "Our salon and bridal spa website is gorgeous! The dark-luxe aesthetic, interactive treatment menus, and direct WhatsApp appointment bookings have attracted premium bridal clients every week.",
+      projectType: 'Luxury Beauty Salon & Spa Web Platform',
+      isPlaceholder: false
+    },
+    {
+      id: 'test-my-4',
+      clientName: 'Derrick Wong',
+      clientRole: 'Tech Lead',
+      clientCompany: 'Apex Cloud Innovations (George Town, Penang)',
+      country: 'Malaysia',
+      flag: '🇲🇾',
+      avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=200&auto=format&fit=crop',
+      rating: 5,
+      quote: "Rizwan is one of the most reliable frontend engineers we have partnered with. Seamless communication, pixel-perfect Tailwind styling, and rapid turnaround for our Southeast Asian clientele.",
+      projectType: 'Full-Stack Web Portal',
+      isPlaceholder: false
+    },
+    {
+      id: 'test-pk-5',
       clientName: 'Usman Ghani',
       clientRole: 'Managing Director',
       clientCompany: 'Islamabad Digital Hub (Islamabad)',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
+      country: 'Pakistan',
+      flag: '🇵🇰',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop',
       rating: 5,
       quote: "Absolute professional! Rizwan delivered our high-end business portal ahead of schedule with immaculate UI design and robust Firestore backend persistence. Highly recommended across Pakistan.",
       projectType: 'Full-Stack Web Platform',
       isPlaceholder: false
     },
     {
-      id: 'test-pk-4',
+      id: 'test-pk-6',
       clientName: 'Bilal Ahmed',
       clientRole: 'Managing Partner',
       clientCompany: 'Faisalabad Textile & Apparel (Faisalabad)',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop',
+      country: 'Pakistan',
+      flag: '🇵🇰',
+      avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&auto=format&fit=crop',
       rating: 5,
       quote: "From initial sitemap planning to deployment on Vercel, Rizwan's work is top tier. Our international buyers are thoroughly impressed with our new corporate showcase website.",
       projectType: 'Corporate Web Showcase',
       isPlaceholder: false
     }
-  ] as Testimonial[]
+  ] as Testimonial[],
+
+  cv: {
+    fullName: 'Rizwan Ahmad',
+    jobTitle: 'Professional Web Developer & Designer',
+    tagline: 'Web Designer & Developer | Graphic Designer | AI Specialist',
+    email: 'ra2826572@gmail.com',
+    phone: '03081509520',
+    altPhone: '03095793662',
+    location: 'Faisalabad, Pakistan',
+    portfolioUrl: 'https://my-potfolio-seven-rho.vercel.app/',
+    experienceYears: '2+ Years Experience',
+    summary: 'Creative and motivated Graphic Designer and Professional Web Developer with a strong passion for visual design, branding, and digital content. Skilled in creating modern, engaging, and professional designs with attention to detail. Experienced in working on digital projects and websites, with a strong interest in combining creativity and technology. Always eager to learn new skills, take on creative challenges, and deliver high-quality work that meets client needs.',
+    avatar: rizwanProfileImg,
+    experience: [
+      {
+        company: 'WEVERSITY',
+        role: 'Graphic Designer / Creative & Web Professional',
+        period: '2 Years (2024 - Present)',
+        type: 'Creative Agency / Professional Team',
+        location: 'Faisalabad, Pakistan',
+        highlights: [
+          'Designed high-impact visual branding, creative assets, and client presentation decks.',
+          'Built responsive landing pages and custom websites with modern UI/UX principles.',
+          'Collaborated on digital marketing campaigns, social media assets, and digital transformations.'
+        ]
+      },
+      {
+        company: 'Independent Freelance Web Developer',
+        role: 'Full-Stack Web Developer & UI Designer',
+        period: '2023 - Present',
+        type: 'Global Client Delivery',
+        location: 'Pakistan, Malaysia & International Remote',
+        highlights: [
+          'Engineered 80+ web projects and launched 50+ production websites for healthcare, luxury salons, events, and retail.',
+          'Developed fast-loading, mobile-first websites with React, Tailwind CSS, WordPress, and Elementor.',
+          'Delivered international projects including The Dentist@KL (Malaysia) and DER SALON (Germany).'
+        ]
+      }
+    ],
+    education: [
+      {
+        degree: 'Matric / 10th Class',
+        institution: 'Board of Intermediate and Secondary Education (BISE) Faisalabad',
+        status: 'Completed',
+        year: 'Faisalabad, Pakistan'
+      },
+      {
+        degree: 'Continuous Technical Development & Web Engineering',
+        institution: 'Frontend Development, React SPA Architecture & Anthropic Claude Academy',
+        status: 'Certified / Active',
+        year: '2023 - Present'
+      }
+    ],
+    languages: [
+      { name: 'English', level: 'Professional Working Proficiency' },
+      { name: 'Urdu', level: 'Native / Bilingual' },
+      { name: 'Punjabi', level: 'Native' }
+    ],
+    skillCategories: [
+      {
+        category: 'Web Development',
+        items: ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'React', 'Tailwind CSS', 'Responsive Layouts']
+      },
+      {
+        category: 'CMS & Page Builders',
+        items: ['WordPress', 'Elementor Pro', 'Custom Themes', 'WooCommerce', 'Speed Optimization']
+      },
+      {
+        category: 'Creative & Visual Design',
+        items: ['Adobe Photoshop', 'Figma', 'Graphic Design', 'Brand Identity', 'UI/UX Prototyping']
+      },
+      {
+        category: 'AI Mastery & Modern Tools',
+        items: ['Anthropic Claude Academy Certified', 'Claude 3.7 Sonnet', 'AI Workflows', 'Git & GitHub', 'Vite & Vercel']
+      }
+    ],
+    featuredProjects: [
+      {
+        name: 'The Dentist@KL',
+        category: 'Healthcare & Dental Portal',
+        clientLocation: 'Kuala Lumpur, Malaysia',
+        description: 'Elite dental clinic web platform with treatment catalogs, doctor profiles, and direct patient appointment bookings.',
+        link: 'https://the-dentist-kl-five.vercel.app/'
+      },
+      {
+        name: 'DER SALON',
+        category: 'Luxury Salon & Editorial Lookbook',
+        clientLocation: 'Frankfurt-Süd, Germany',
+        description: 'Bespoke European salon web experience with dual-language support, editorial lookbook, and online appointment booking.',
+        link: 'https://der-salon-chi.vercel.app/'
+      },
+      {
+        name: 'DELAQUA Beauty Salon — Signature By Asma',
+        category: 'Luxury Salon & Bridal Spa',
+        clientLocation: 'Faisalabad, Pakistan',
+        description: 'Dark-luxe rose gold beauty salon web platform with interactive treatment menus and instant WhatsApp booking.',
+        link: 'https://delaqua-beauty-salon.vercel.app/'
+      },
+      {
+        name: 'Liberty Grand Marquee & Events',
+        category: 'Banquet & Event Venue',
+        clientLocation: 'Faisalabad, Pakistan',
+        description: 'Luxury wedding marquee website featuring hall virtual tours, royal gold branding, and catering reservation workflows.',
+        link: 'https://liberty-grand-marquee.vercel.app/'
+      }
+    ]
+  } as CVData
 };

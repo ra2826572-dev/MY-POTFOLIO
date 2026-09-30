@@ -201,13 +201,13 @@ export const Skills: React.FC = () => {
                   Certified through Claude Academy for advanced prompt engineering, agentic workflow architecture, tool-use integration, and production-grade full-stack AI applications.
                 </p>
                 <div className="mt-2 text-[11px] text-slate-400 font-mono">
-                  Credential ID: <span className="text-purple-300">48f1954a23ce4dd7228f7f168bc8c6a2</span>
+                  Credential ID: <span className="text-purple-300">756dec40601edbd310dabed4772c31e8</span>
                 </div>
               </div>
             </div>
 
             <a
-              href="https://academy.claude.com/verify/48f1954a23ce4dd7228f7f168bc8c6a2"
+              href="https://academy.claude.com/verify/756dec40601edbd310dabed4772c31e8"
               target="_blank"
               rel="noopener noreferrer"
               className="shrink-0 inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white font-bold text-sm shadow-xl shadow-purple-600/30 hover:scale-105 active:scale-95 transition-all duration-300 border border-purple-400/30 group"

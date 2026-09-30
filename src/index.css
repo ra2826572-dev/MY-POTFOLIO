@@ -87,3 +87,101 @@
   mask-composite: exclude;
   pointer-events: none;
 }
+
+/* ==========================================================================
+   Print & PDF Export Styles (A4 Page Optimization)
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm 10mm 10mm;
+  }
+
+  /* Reset body and background for clean printing */
+  html, body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 11pt !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide all non-printable elements */
+  #main-navbar,
+  #floating-whatsapp-trigger,
+  footer,
+  .no-print,
+  #home,
+  #why-choose-me,
+  #testimonials,
+  #cta,
+  #about,
+  #skills,
+  #services,
+  #projects,
+  #process,
+  #contact,
+  button,
+  .fixed:not(.cv-print-modal) {
+    display: none !important;
+  }
+
+  /* Ensure the CV document expands cleanly to full width on A4 */
+  .cv-print-area {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    page-break-after: auto;
+  }
+
+  /* Force high contrast text on print */
+  .cv-print-area aside {
+    background: #f8fafc !important;
+    color: #1e293b !important;
+    border-right: 1px solid #cbd5e1 !important;
+  }
+
+  .cv-print-area main {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  .cv-print-area h1,
+  .cv-print-area h2,
+  .cv-print-area h3,
+  .cv-print-area h4,
+  .cv-print-area strong {
+    color: #0f172a !important;
+  }
+
+  .cv-print-area p,
+  .cv-print-area span,
+  .cv-print-area li {
+    color: #334155 !important;
+  }
+
+  /* Avoid awkward page cuts */
+  .cv-print-area section,
+  .cv-print-area li,
+  .cv-print-area aside > div {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Underline external links in print */
+  .cv-print-area a {
+    color: #2563eb !important;
+    text-decoration: none !important;
+  }
+}
+

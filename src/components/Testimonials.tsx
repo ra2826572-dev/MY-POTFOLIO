@@ -18,6 +18,7 @@ import { collection, onSnapshot, doc, setDoc } from 'firebase/firestore';
 
 export const Testimonials: React.FC = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>(PORTFOLIO_DATA.testimonials);
+  const [activeCountry, setActiveCountry] = useState<'All' | 'Pakistan' | 'Malaysia'>('All');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -26,6 +27,7 @@ export const Testimonials: React.FC = () => {
   const [clientName, setClientName] = useState('');
   const [clientRole, setClientRole] = useState('Founder & CEO');
   const [clientCompany, setClientCompany] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState<'Pakistan' | 'Malaysia' | 'Global'>('Pakistan');
   const [city, setCity] = useState('Lahore');
   const [rating, setRating] = useState(5);
   const [quote, setQuote] = useState('');
@@ -40,9 +42,11 @@ export const Testimonials: React.FC = () => {
           snapshot.forEach((docSnap) => {
             list.push(docSnap.data() as Testimonial);
           });
-          if (list.length > 0) {
-            setTestimonials(list);
-          }
+          const firestoreIds = new Set(list.map(t => t.id));
+          const mergedDefaults = PORTFOLIO_DATA.testimonials.filter(t => !firestoreIds.has(t.id));
+          setTestimonials([...list, ...mergedDefaults]);
+        } else {
+          setTestimonials(PORTFOLIO_DATA.testimonials);
         }
       }, (error) => {
         console.warn('Firestore testimonials load error, using default data:', error);
@@ -60,15 +64,20 @@ export const Testimonials: React.FC = () => {
     setIsSubmitting(true);
     try {
       const id = 'test-' + Date.now();
+      const flag = selectedCountry === 'Malaysia' ? '🇲🇾' : selectedCountry === 'Pakistan' ? '🇵🇰' : '🌐';
       const newTestimonial: Testimonial = {
         id,
         clientName: clientName.trim(),
         clientRole: clientRole.trim(),
         clientCompany: `${clientCompany.trim()} (${city})`,
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
+        avatar: selectedCountry === 'Malaysia' 
+          ? 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop'
+          : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
         rating: Number(rating),
         quote: quote.trim(),
         projectType: projectType.trim(),
+        country: selectedCountry,
+        flag,
         isPlaceholder: false
       };
 
@@ -95,6 +104,13 @@ export const Testimonials: React.FC = () => {
     }
   };
 
+  const filteredTestimonials = activeCountry === 'All' 
+    ? testimonials 
+    : testimonials.filter(t => t.country === activeCountry);
+
+  const pkCount = testimonials.filter(t => t.country === 'Pakistan').length;
+  const myCount = testimonials.filter(t => t.country === 'Malaysia').length;
+
   return (
     <section id="testimonials" className="py-24 relative overflow-hidden bg-[#090D16]/80 border-t border-slate-800/40">
       
@@ -104,34 +120,74 @@ export const Testimonials: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-16">
+        <div className="flex flex-col items-center text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Pakistani & Global Client Feedback</span>
+            <span>Pakistani & Malaysian Client Reviews</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            Client <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">Testimonials</span>
+            Client <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">Testimonials & Reviews</span>
           </h2>
           <p className="text-slate-400 text-base max-w-2xl mt-3">
-            Read what founders and business leaders across Lahore, Karachi, Islamabad, Faisalabad and globally say about working with me.
+            Verified feedback from business leaders, dental clinics, luxury salons, and founders across Pakistan 🇵🇰 and Malaysia 🇲🇾.
           </p>
 
-          {/* Add Testimonial / Comment Button */}
-          <button
-            type="button"
-            onClick={() => setIsModalOpen(true)}
-            className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-bold text-sm shadow-lg shadow-blue-600/30 hover:scale-105 transition-all duration-300"
-          >
-            <MessageSquarePlus className="w-4 h-4" />
-            Add Your Review / Comment (اپنا تبصرہ درج کریں)
-          </button>
+          {/* Country Filter Tabs & Action Button */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <div className="p-1 rounded-2xl bg-slate-950/90 border border-slate-800 flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => setActiveCountry('All')}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+                  activeCountry === 'All'
+                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                🌐 All Reviews ({testimonials.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveCountry('Pakistan')}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                  activeCountry === 'Pakistan'
+                    ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <span>🇵🇰 Pakistan</span>
+                <span className="text-[11px] px-1.5 py-0.2 rounded-full bg-black/30 font-mono">{pkCount}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveCountry('Malaysia')}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                  activeCountry === 'Malaysia'
+                    ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <span>🇲🇾 Malaysia</span>
+                <span className="text-[11px] px-1.5 py-0.2 rounded-full bg-black/30 font-mono">{myCount}</span>
+              </button>
+            </div>
 
-          <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-4" />
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-600/30 hover:scale-105 transition-all flex items-center gap-2"
+            >
+              <MessageSquarePlus className="w-4 h-4" />
+              <span>+ Add Review / اپنا تبصرہ لکھیں</span>
+            </button>
+          </div>
+
+          <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-6" />
         </div>
 
         {/* Testimonial Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.map((item, index) => (
+          {filteredTestimonials.map((item, index) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, y: 20 }}
@@ -141,15 +197,27 @@ export const Testimonials: React.FC = () => {
               className="group relative p-8 rounded-3xl bg-slate-900/80 border border-slate-800/90 hover:border-blue-500/40 backdrop-blur-xl shadow-xl shadow-black/40 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between"
             >
               <div>
-                {/* Quote Icon & Rating Stars */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
-                    <Quote className="w-5 h-5" />
+                {/* Quote Icon, Country Flag Badge & Rating Stars */}
+                <div className="flex items-center justify-between gap-2 mb-6">
+                  <div className="flex items-center gap-2">
+                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+                      <Quote className="w-5 h-5" />
+                    </div>
+                    {item.country && (
+                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border ${
+                        item.country === 'Malaysia' 
+                          ? 'bg-cyan-950/70 border-cyan-500/40 text-cyan-200' 
+                          : 'bg-emerald-950/70 border-emerald-500/40 text-emerald-200'
+                      }`}>
+                        <span>{item.flag || (item.country === 'Malaysia' ? '🇲🇾' : '🇵🇰')}</span>
+                        <span>{item.country}</span>
+                      </span>
+                    )}
                   </div>
 
-                  <div className="flex items-center gap-1 text-amber-400">
+                  <div className="flex items-center gap-1 text-amber-400 shrink-0">
                     {[...Array(item.rating || 5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                      <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                     ))}
                   </div>
                 </div>
@@ -169,13 +237,16 @@ export const Testimonials: React.FC = () => {
                     className="w-11 h-11 rounded-full object-cover border border-slate-700"
                   />
                   <div>
-                    <h4 className="text-sm font-bold text-white leading-tight">
-                      {item.clientName}
-                    </h4>
-                    <p className="text-[11px] text-slate-400 leading-tight">
+                    <div className="flex items-center gap-1.5">
+                      <h4 className="text-sm font-bold text-white leading-tight">
+                        {item.clientName}
+                      </h4>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                    </div>
+                    <p className="text-[11px] text-slate-400 leading-tight mt-0.5">
                       {item.clientRole} • {item.clientCompany}
                     </p>
-                    <p className="text-[10px] text-blue-400 mt-0.5">
+                    <p className="text-[10px] text-blue-400 mt-0.5 font-medium">
                       {item.projectType}
                     </p>
                   </div>
@@ -233,7 +304,7 @@ export const Testimonials: React.FC = () => {
                         required
                         value={clientName}
                         onChange={(e) => setClientName(e.target.value)}
-                        placeholder="e.g. Ali Raza"
+                        placeholder="e.g. Dr. Arisya Tan or Ali Raza"
                         className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500"
                       />
                     </div>
@@ -247,7 +318,7 @@ export const Testimonials: React.FC = () => {
                         required
                         value={clientRole}
                         onChange={(e) => setClientRole(e.target.value)}
-                        placeholder="e.g. Founder & CEO"
+                        placeholder="e.g. Clinical Director / CEO"
                         className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500"
                       />
                     </div>
@@ -258,7 +329,7 @@ export const Testimonials: React.FC = () => {
                         required
                         value={clientCompany}
                         onChange={(e) => setClientCompany(e.target.value)}
-                        placeholder="e.g. Lahore Tech"
+                        placeholder="e.g. The Dentist@KL or Lahore Tech"
                         className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500"
                       />
                     </div>
@@ -266,7 +337,26 @@ export const Testimonials: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">City in Pakistan / Region</label>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Country</label>
+                      <select
+                        value={selectedCountry}
+                        onChange={(e) => {
+                          const val = e.target.value as 'Pakistan' | 'Malaysia' | 'Global';
+                          setSelectedCountry(val);
+                          if (val === 'Malaysia') setCity('Kuala Lumpur');
+                          else if (val === 'Pakistan') setCity('Lahore');
+                          else setCity('International');
+                        }}
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500"
+                      >
+                        <option value="Pakistan">🇵🇰 Pakistan</option>
+                        <option value="Malaysia">🇲🇾 Malaysia</option>
+                        <option value="Global">🌐 Global / Other</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">City / Region</label>
                       <div className="relative">
                         <MapPin className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
                         <select
@@ -274,17 +364,38 @@ export const Testimonials: React.FC = () => {
                           onChange={(e) => setCity(e.target.value)}
                           className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500"
                         >
-                          <option value="Lahore">Lahore</option>
-                          <option value="Karachi">Karachi</option>
-                          <option value="Islamabad">Islamabad</option>
-                          <option value="Faisalabad">Faisalabad</option>
-                          <option value="Rawalpindi">Rawalpindi</option>
-                          <option value="Multan">Multan</option>
-                          <option value="Peshawar">Peshawar</option>
-                          <option value="International">International</option>
+                          {selectedCountry === 'Malaysia' ? (
+                            <>
+                              <option value="Kuala Lumpur">Kuala Lumpur</option>
+                              <option value="Bangsar South">Bangsar South</option>
+                              <option value="Mont Kiara">Mont Kiara</option>
+                              <option value="Penang">Penang</option>
+                              <option value="Selangor">Selangor</option>
+                              <option value="Johor Bahru">Johor Bahru</option>
+                              <option value="Petaling Jaya">Petaling Jaya</option>
+                            </>
+                          ) : selectedCountry === 'Pakistan' ? (
+                            <>
+                              <option value="Lahore">Lahore</option>
+                              <option value="Karachi">Karachi</option>
+                              <option value="Islamabad">Islamabad</option>
+                              <option value="Faisalabad">Faisalabad</option>
+                              <option value="Rawalpindi">Rawalpindi</option>
+                              <option value="Multan">Multan</option>
+                              <option value="Peshawar">Peshawar</option>
+                            </>
+                          ) : (
+                            <>
+                              <option value="International">International</option>
+                              <option value="Remote">Remote</option>
+                            </>
+                          )}
                         </select>
                       </div>
                     </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-slate-300 mb-1">Rating (Stars)</label>
                       <select
@@ -297,18 +408,17 @@ export const Testimonials: React.FC = () => {
                         <option value="3">⭐⭐⭐ (3 Stars)</option>
                       </select>
                     </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">Project Type</label>
-                    <input
-                      type="text"
-                      required
-                      value={projectType}
-                      onChange={(e) => setProjectType(e.target.value)}
-                      placeholder="e.g. E-Commerce Store & Web App"
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500"
-                    />
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Project Type</label>
+                      <input
+                        type="text"
+                        required
+                        value={projectType}
+                        onChange={(e) => setProjectType(e.target.value)}
+                        placeholder="e.g. Clinic Portal / E-Commerce"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500"
+                      />
+                    </div>
                   </div>
 
                   <div>

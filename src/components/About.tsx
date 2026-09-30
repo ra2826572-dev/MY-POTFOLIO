@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { 
   FolderGit2, 
   Globe, 
@@ -9,7 +10,9 @@ import {
   Sparkles,
   MessageSquare,
   Award,
-  ExternalLink
+  ExternalLink,
+  FileText,
+  Download
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
 
@@ -108,7 +111,7 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
                   </div>
                 </div>
                 <a
-                  href="https://academy.claude.com/verify/48f1954a23ce4dd7228f7f168bc8c6a2"
+                  href="https://academy.claude.com/verify/756dec40601edbd310dabed4772c31e8"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-purple-600/80 hover:bg-purple-600 text-white text-xs font-semibold shadow-md transition-all hover:scale-105 shrink-0"
@@ -119,22 +122,30 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
               </div>
 
               {/* Action row */}
-              <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-slate-800">
+              <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-slate-800">
+                <Link
+                  to="/cv"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white text-xs font-bold shadow-lg shadow-blue-600/25 hover:scale-[1.02] transition-all"
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>View Resume / CV</span>
+                </Link>
+
+                <Link
+                  to="/cv"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-900 border border-slate-700 hover:border-blue-500/40 text-slate-200 hover:text-white text-xs font-semibold transition-all hover:scale-[1.02]"
+                  title="Download Rizwan's CV in PDF"
+                >
+                  <Download className="w-3.5 h-3.5 text-blue-400" />
+                  <span>Download CV (PDF)</span>
+                </Link>
+
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold shadow-lg shadow-blue-600/25 hover:shadow-blue-600/40 hover:scale-[1.02] transition-all"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-800/80 hover:bg-slate-800 text-slate-200 text-xs font-medium border border-slate-700 transition-colors"
                 >
-                  <MessageSquare className="w-4 h-4" />
+                  <MessageSquare className="w-3.5 h-3.5" />
                   <span>Get in Touch</span>
-                </a>
-                
-                <a
-                  href={PORTFOLIO_DATA.contact.socials.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-800/80 hover:bg-slate-800 text-slate-200 text-sm font-medium border border-slate-700 transition-colors"
-                >
-                  <span>Chat on WhatsApp</span>
                 </a>
               </div>
             </div>
