@@ -20,19 +20,33 @@ import {
   Server,
   ExternalLink,
   Award,
-  ShieldCheck
+  ShieldCheck,
+  TrendingUp,
+  Briefcase,
+  BarChart3,
+  GraduationCap,
+  Type
 } from 'lucide-react';
 import { PORTFOLIO_DATA, Skill } from '../portfolioData';
+import { PresentationDesignSection, PowerPointIcon } from './PresentationDesignSection';
+import { VSCodeSection, VSCodeIcon } from './VSCodeSection';
 
 export const Skills: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
-  const categories = ['All', 'Cloud & Hosting', 'Frontend & Code', 'CMS & Platforms', 'Design & Creative', 'Tools & AI'];
+  const categories = ['All', 'Presentation Design', 'Cloud & Hosting', 'Frontend & Code', 'CMS & Platforms', 'Design & Creative', 'Tools & AI'];
 
   // Map icon names to Lucide icons
   const renderSkillIcon = (iconName: string) => {
     const props = { className: "w-6 h-6" };
     switch (iconName) {
+      case 'VSCode': return <VSCodeIcon className="w-6 h-6" />;
+      case 'PowerPoint': return <PowerPointIcon className="w-6 h-6" />;
+      case 'TrendingUp': return <TrendingUp {...props} className="w-6 h-6 text-purple-400" />;
+      case 'Briefcase': return <Briefcase {...props} className="w-6 h-6 text-blue-400" />;
+      case 'BarChart3': return <BarChart3 {...props} className="w-6 h-6 text-amber-400" />;
+      case 'GraduationCap': return <GraduationCap {...props} className="w-6 h-6 text-emerald-400" />;
+      case 'Type': return <Type {...props} className="w-6 h-6 text-cyan-400" />;
       case 'Cloud': return <Cloud {...props} className="w-6 h-6 text-sky-400" />;
       case 'Bot': return <Bot {...props} className="w-6 h-6 text-purple-400" />;
       case 'Server': return <Server {...props} className="w-6 h-6 text-emerald-400" />;
@@ -57,6 +71,7 @@ export const Skills: React.FC = () => {
     : PORTFOLIO_DATA.skills.filter(s => s.category === selectedCategory);
 
   return (
+    <>
     <section id="skills" className="py-24 relative overflow-hidden bg-[#080B11]">
       
       {/* Background ambient lighting */}
@@ -219,6 +234,9 @@ export const Skills: React.FC = () => {
           </div>
         </div>
 
+        {/* Visual Studio Code Keyboard Shortcuts & Workflow Mastery Showcase */}
+        <VSCodeSection />
+
         {/* Highlight Banner */}
         <div className="mt-14 p-6 rounded-2xl bg-gradient-to-r from-blue-950/40 via-indigo-950/40 to-purple-950/40 border border-blue-800/30 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
@@ -243,5 +261,9 @@ export const Skills: React.FC = () => {
 
       </div>
     </section>
+
+    {/* Dedicated Professional Presentation Design Section */}
+    <PresentationDesignSection />
+    </>
   );
 };

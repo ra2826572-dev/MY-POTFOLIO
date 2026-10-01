@@ -26,12 +26,60 @@ export interface Project {
 export interface Skill {
   name: string;
   iconName: string;
-  category: 'Frontend & Code' | 'CMS & Platforms' | 'Design & Creative' | 'Tools & AI' | 'Cloud & Hosting';
+  category: 'Frontend & Code' | 'CMS & Platforms' | 'Design & Creative' | 'Tools & AI' | 'Cloud & Hosting' | 'Presentation Design';
   level: number; // 0 to 100
   experience: string;
   highlight?: boolean;
   certificateUrl?: string;
   certificateTitle?: string;
+}
+
+export interface PresentationSkillItem {
+  id: string;
+  title: string;
+  category: string;
+  proficiency: number;
+  description: string;
+  iconName: 'PowerPoint' | 'Briefcase' | 'GraduationCap' | 'TrendingUp' | 'BarChart3' | 'Sparkles' | 'Type' | 'Palette';
+  badge: string;
+  deliverables: string[];
+}
+
+export interface PresentationSlide {
+  id: number;
+  slideNumber: string;
+  title: string;
+  subtitle: string;
+  deckType: string;
+  category: string;
+  headline: string;
+  points: {
+    label: string;
+    value?: string;
+    desc: string;
+    highlight?: boolean;
+  }[];
+  statMetric?: {
+    value: string;
+    label: string;
+    growth?: string;
+  };
+  visualType: 'cover' | 'comparison' | 'market_tam' | 'process_flow' | 'kpi_dashboard';
+}
+
+export interface PresentationDesignConfig {
+  title: string;
+  badge: string;
+  tagline: string;
+  summary: string;
+  overallProficiency: number;
+  tools: {
+    name: string;
+    proficiency: number;
+    description: string;
+  }[];
+  skills: PresentationSkillItem[];
+  slides: PresentationSlide[];
 }
 
 export interface Service {
@@ -127,6 +175,8 @@ export const PORTFOLIO_DATA = {
     role: 'Web Designer & Developer',
     secondaryRoles: [
       'Web Designer & Developer',
+      'Professional Presentation Designer',
+      'Pitch Deck & Slide Specialist',
       'Cloud Expert & DevOps',
       'UI/UX Specialist',
       'WordPress & React Expert',
@@ -191,9 +241,216 @@ export const PORTFOLIO_DATA = {
     },
     { name: 'Graphic Design', iconName: 'PenTool', category: 'Design & Creative', level: 85, experience: 'Branding & Social Assets', highlight: false },
     { name: 'AI Tools', iconName: 'Sparkles', category: 'Tools & AI', level: 90, experience: 'Workflow & Content Boost', highlight: true },
+    { name: 'VS Code & Shortcuts', iconName: 'VSCode', category: 'Tools & AI', level: 98, experience: 'Keyboard Shortcuts, Multi-Cursor & Velocity Workflows', highlight: true },
     { name: 'Tailwind CSS', iconName: 'Layers', category: 'Frontend & Code', level: 94, experience: 'Rapid Utility Styling', highlight: false },
     { name: 'Speed Optimization', iconName: 'Zap', category: 'CMS & Platforms', level: 90, experience: 'Core Web Vitals & SEO', highlight: false },
+    { name: 'Presentation Design', iconName: 'PowerPoint', category: 'Presentation Design', level: 96, experience: 'Executive Slides, Pitch Decks & Master Templates', highlight: true },
+    { name: 'PowerPoint Expert', iconName: 'PowerPoint', category: 'Presentation Design', level: 96, experience: 'Custom Master Layouts, Vector Graphics & Transitions', highlight: true },
+    { name: 'Pitch Deck Design', iconName: 'TrendingUp', category: 'Presentation Design', level: 95, experience: 'Investor-Ready Fundraising Decks & Market TAM', highlight: true },
+    { name: 'Business Presentations', iconName: 'Briefcase', category: 'Presentation Design', level: 94, experience: 'Corporate Proposals, Strategy Decks & C-Level Reports', highlight: true },
+    { name: 'Infographics & Data Vis', iconName: 'BarChart3', category: 'Presentation Design', level: 93, experience: 'Complex Metrics, Timelines & Visual Charts', highlight: true },
+    { name: 'Educational Presentations', iconName: 'GraduationCap', category: 'Presentation Design', level: 91, experience: 'Courseware, Training Slides & Academic Workshops', highlight: false },
+    { name: 'Creative Slide Design', iconName: 'Sparkles', category: 'Presentation Design', level: 95, experience: 'High-Impact Typography & Dark-Luxe Visual Compositions', highlight: false },
+    { name: 'Canva Presentations', iconName: 'Palette', category: 'Presentation Design', level: 92, experience: 'Rapid Collaborative Decks & Live Interactive Links', highlight: false },
   ] as Skill[],
+
+  presentationDesign: {
+    title: 'Presentation Design',
+    badge: 'Executive Slide Craft & Pitch Decks',
+    tagline: 'Transforming complex business strategies, investor pitches, and educational concepts into compelling, high-converting visual slide experiences.',
+    summary: 'Specialized in crafting modern, bespoke PowerPoint and Canva presentations that captivate audiences, command boardroom respect, and close investor rounds. Every slide is architected with obsessive attention to typographic scale, narrative pacing, data visualization, and brand cohesion.',
+    overallProficiency: 95,
+    tools: [
+      { name: 'Microsoft PowerPoint', proficiency: 96, description: 'Master templates, vector icons, customized color themes & smooth slide builds' },
+      { name: 'Canva Pro', proficiency: 92, description: 'Modern collaborative presentations, fast turnarounds & interactive presentations' },
+      { name: 'Adobe Illustrator', proficiency: 88, description: 'Bespoke infographics, custom vector assets & branded diagram styling' },
+      { name: 'Google Slides', proficiency: 90, description: 'Cross-functional enterprise collaboration & cloud deck synchronization' },
+    ],
+    skills: [
+      {
+        id: 'powerpoint',
+        title: 'Professional PowerPoint Presentations',
+        category: 'Corporate & Executive',
+        proficiency: 96,
+        description: 'Bespoke slide master creation, custom vector icon libraries, subtle motion builds, and executive boardroom aesthetics.',
+        iconName: 'PowerPoint',
+        badge: 'Master Level',
+        deliverables: ['Custom Master Slide Themes', 'Executive Presentation Decks', 'Interactive Hyperlinked Navigation', 'Print & High-Res PDF Export']
+      },
+      {
+        id: 'pitch-decks',
+        title: 'Pitch Deck Design',
+        category: 'Startups & Fundraising',
+        proficiency: 95,
+        description: 'High-converting investor pitch decks that distill complex business models, market TAM, and unit economics into crisp slides.',
+        iconName: 'TrendingUp',
+        badge: 'Investor Ready',
+        deliverables: ['Problem-Solution Framing', 'Market Sizing & TAM Charts', 'Financial Modeling Slides', 'Traction & Team Showcases']
+      },
+      {
+        id: 'business',
+        title: 'Business Presentations',
+        category: 'Corporate Strategy',
+        proficiency: 94,
+        description: 'Quarterly reviews, sales proposals, stakeholder updates, and company capability profiles that command boardroom attention.',
+        iconName: 'Briefcase',
+        badge: 'Enterprise',
+        deliverables: ['Sales Pitch Proposals', 'Quarterly Business Reviews (QBR)', 'Company Overview Profiles', 'Stakeholder & Board Reports']
+      },
+      {
+        id: 'infographics',
+        title: 'Infographics & Data Visualization',
+        category: 'Data & Analytics',
+        proficiency: 93,
+        description: 'Transforming dry spreadsheets, metrics, and workflows into intuitive, beautiful charts, timelines, and graphical diagrams.',
+        iconName: 'BarChart3',
+        badge: 'Visual Analytics',
+        deliverables: ['Custom Growth Charts', 'Process & Flow Architecture', 'Timeline & Milestone Graphics', 'Comparison & Matrix Tables']
+      },
+      {
+        id: 'educational',
+        title: 'Educational Presentations',
+        category: 'Academia & Training',
+        proficiency: 91,
+        description: 'Structured courseware, training modules, student webinars, and interactive workshop slides with high retention design.',
+        iconName: 'GraduationCap',
+        badge: 'Instructional',
+        deliverables: ['Workshop & Training Decks', 'Course Curriculum Modules', 'Step-by-Step Guides', 'Student Handouts & Notes']
+      },
+      {
+        id: 'creative',
+        title: 'Creative Slide Design',
+        category: 'Modern Aesthetics',
+        proficiency: 95,
+        description: 'Dynamic layouts, dark-mode luxury decks, custom geometric framing, and modern editorial composition that stands out.',
+        iconName: 'Sparkles',
+        badge: 'Creative Flow',
+        deliverables: ['Dark-Luxe Visual Styles', 'Editorial Magazine Layouts', 'Custom Geometric Masking', 'Visual Storytelling Sequences']
+      },
+      {
+        id: 'typography',
+        title: 'Presentation Layout & Typography',
+        category: 'Visual Hierarchy',
+        proficiency: 96,
+        description: 'Mastery of grid alignment, typographic scale, white space discipline, and scannable visual anchors for effortless reading.',
+        iconName: 'Type',
+        badge: 'Typography',
+        deliverables: ['Golden Ratio Visual Grids', 'High-Contrast Typographic Pairings', 'Zero Clutter Cognitive Layout', 'Accessible Color Contrasts']
+      },
+      {
+        id: 'canva',
+        title: 'Canva Presentation Design',
+        category: 'Rapid & Collaborative',
+        proficiency: 92,
+        description: 'Modern, shareable Canva decks with interactive elements, animations, and ready-to-present online links for agile teams.',
+        iconName: 'Palette',
+        badge: 'Collaborative',
+        deliverables: ['Editable Canva Templates', 'Live Interactive Web Links', 'Social Carousel Decks', 'Animated Brand Presentations']
+      }
+    ],
+    slides: [
+      {
+        id: 1,
+        slideNumber: '01 / 05',
+        title: 'AI-Driven FinTech Global Ecosystem',
+        subtitle: 'Series Seed Investor Pitch Deck',
+        deckType: 'Investor Pitch Deck',
+        category: 'Startup & Capital Raise',
+        headline: 'Empowering seamless cross-border liquidity with zero-latency automated settlements.',
+        visualType: 'cover',
+        points: [
+          { label: 'Target Funding', value: '$2.5M Seed Round', desc: 'Accelerating AI infrastructure and Southeast Asia expansion.', highlight: true },
+          { label: 'Traction', value: '140K+ Active Users', desc: '+38% MoM retention rate across multi-currency business accounts.', highlight: false },
+          { label: 'Regulatory', value: 'Full Compliance', desc: 'State-certified AML/KYC institutional banking APIs.', highlight: false }
+        ],
+        statMetric: {
+          value: '$4.8B',
+          label: 'Total Addressable Market',
+          growth: '+42% YoY'
+        }
+      },
+      {
+        id: 2,
+        slideNumber: '02 / 05',
+        title: 'Market Inefficiency & The Core Bottleneck',
+        subtitle: 'Problem vs Solution Analysis',
+        deckType: 'Problem & Opportunity',
+        category: 'Market Dynamics',
+        headline: 'Traditional B2B payment corridors lose $82B annually to manual reconciliation delays.',
+        visualType: 'comparison',
+        points: [
+          { label: 'Legacy Banking Lag', value: '3 - 5 Days', desc: 'High intermediary FX spreads and opaque settlement fees.', highlight: false },
+          { label: 'Our AI Automated Engine', value: '< 2.4 Seconds', desc: 'Direct algorithmic liquidity routing with 0.15% flat transparent rate.', highlight: true },
+          { label: 'Efficiency Gain', value: '94% Cost Reduction', desc: 'Saving enterprise clients an average of $38,000 monthly.', highlight: true }
+        ],
+        statMetric: {
+          value: '94%',
+          label: 'Processing Cost Saved',
+          growth: 'Immediate ROI'
+        }
+      },
+      {
+        id: 3,
+        slideNumber: '03 / 05',
+        title: 'High-Impact Data Visualization & TAM Sizing',
+        subtitle: 'Market Size & Revenue Trajectory',
+        deckType: 'Market TAM & Infographic',
+        category: 'Data Visualization',
+        headline: 'Capturing a defensible $480M SOM slice within 36 months through automated digital distribution.',
+        visualType: 'market_tam',
+        points: [
+          { label: 'TAM (Total Available)', value: '$48.2 Billion', desc: 'Global cross-border digital merchant transaction volume.', highlight: false },
+          { label: 'SAM (Serviceable Market)', value: '$6.4 Billion', desc: 'Emerging tech hubs across APAC, Middle East and EU corridors.', highlight: false },
+          { label: 'SOM (Our 3-Year Target)', value: '$480 Million', desc: 'Initial focused footprint via direct API merchant partnerships.', highlight: true }
+        ],
+        statMetric: {
+          value: '$480M',
+          label: 'Serviceable Obtainable Market',
+          growth: '3-Year Horizon'
+        }
+      },
+      {
+        id: 4,
+        slideNumber: '04 / 05',
+        title: 'Scalable Technical Architecture & Security',
+        subtitle: 'Enterprise-Grade Microservices',
+        deckType: 'System Architecture',
+        category: 'Technical Flow',
+        headline: 'Resilient multi-cloud microservices engineered for 99.99% uptime and sub-second execution.',
+        visualType: 'process_flow',
+        points: [
+          { label: 'Smart Routing Layer', value: 'Sub-20ms Engine', desc: 'Intelligent latency-optimized routing between global tier-1 payment rails.', highlight: true },
+          { label: 'Bank-Grade Vaults', value: 'AES-256 + HSM', desc: 'Zero-knowledge biometric authentication with decentralized audits.', highlight: false },
+          { label: 'Automated CI/CD', value: 'Kubernetes Cloud', desc: 'Zero-downtime rolling deployments across GCP, AWS and Cloudflare Edge.', highlight: false }
+        ],
+        statMetric: {
+          value: '99.99%',
+          label: 'Platform Reliability',
+          growth: 'SOC2 Compliant'
+        }
+      },
+      {
+        id: 5,
+        slideNumber: '05 / 05',
+        title: '5-Year Revenue Roadmap & Strategic Milestones',
+        subtitle: 'Financial Forecast & Unit Economics',
+        deckType: 'Financial Forecast',
+        category: 'Strategic Vision',
+        headline: 'Projected cashflow positive by Month 18 with an expected 7.2x enterprise valuation multiplier.',
+        visualType: 'kpi_dashboard',
+        points: [
+          { label: 'Year 1 Revenue Target', value: '$1.8M ARR', desc: 'Establishment of 24 strategic enterprise merchant pilot accounts.', highlight: false },
+          { label: 'Year 3 Scaled Target', value: '$8.4M ARR', desc: 'Regional licensing, automated self-serve platform launch.', highlight: true },
+          { label: 'Year 5 Market Leader', value: '$24.6M ARR', desc: 'Dominant liquidity provider with institutional tier-1 integration.', highlight: true }
+        ],
+        statMetric: {
+          value: '$24.6M',
+          label: 'Year 5 ARR Projection',
+          growth: '+210% CAGR'
+        }
+      }
+    ]
+  } as PresentationDesignConfig,
 
   services: [
     {
@@ -283,6 +540,24 @@ export const PORTFOLIO_DATA = {
         name: 'Furniture Store By Sheheryar',
         url: 'https://furniture-store-gules-six.vercel.app/',
         tagline: 'Luxury Designer Showroom & Furniture Web Platform'
+      }
+    },
+    {
+      id: 'presentation-design',
+      title: 'Presentation & Pitch Deck Design',
+      description: 'Bespoke PowerPoint and Canva presentations designed for investor pitching, C-level corporate strategy, and educational masterclasses.',
+      icon: 'Presentation',
+      deliverables: [
+        'Custom master slide decks in 16:9 widescreen format',
+        'Pitch decks for venture capital & investor seed rounds',
+        'Complex infographics, financial models & data visualization',
+        'High-resolution PowerPoint (.pptx), Canva and PDF outputs'
+      ],
+      popular: true,
+      featuredProject: {
+        name: 'AI FinTech Seed Pitch Deck Showcase',
+        url: '/skills#presentation-design',
+        tagline: 'Interactive 16:9 Widescreen Pitch Deck & Data Visualization'
       }
     },
     {
@@ -928,6 +1203,10 @@ export const PORTFOLIO_DATA = {
       {
         category: 'AI Mastery & Modern Tools',
         items: ['Anthropic Claude Academy Certified', 'Claude 3.7 Sonnet', 'AI Workflows', 'Git & GitHub', 'Vite & Vercel']
+      },
+      {
+        category: 'Presentation Design',
+        items: ['PowerPoint Presentations', 'Pitch Deck Design', 'Infographics & Data Vis', 'Canva Presentations', 'Layout & Typography']
       }
     ],
     featuredProjects: [

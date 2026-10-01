@@ -12,7 +12,8 @@ import {
   Sparkles,
   HelpCircle,
   Phone,
-  ExternalLink
+  ExternalLink,
+  Presentation
 } from 'lucide-react';
 import { PORTFOLIO_DATA, Service } from '../portfolioData';
 
@@ -29,6 +30,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
       case 'Rocket': return <Rocket className="w-6 h-6 text-pink-400" />;
       case 'Layout': return <Layout className="w-6 h-6 text-emerald-400" />;
       case 'RefreshCw': return <RefreshCw className="w-6 h-6 text-amber-400" />;
+      case 'Presentation': return <Presentation className="w-6 h-6 text-orange-400" />;
       default: return <Monitor className="w-6 h-6 text-blue-400" />;
     }
   };
