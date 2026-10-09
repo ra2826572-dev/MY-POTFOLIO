@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   X, 
@@ -20,6 +20,12 @@ interface QuoteModalProps {
 
 export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, initialService }) => {
   const [selectedService, setSelectedService] = useState<string>(initialService || 'Website Design');
+
+  useEffect(() => {
+    if (initialService) {
+      setSelectedService(initialService);
+    }
+  }, [initialService, isOpen]);
   const [pageCount, setPageCount] = useState<string>('1-5 Pages');
   const [timeline, setTimeline] = useState<string>('2-3 Weeks');
   const [clientName, setClientName] = useState<string>('');
@@ -35,6 +41,8 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, initial
     'E-Commerce Website',
     'Landing Page',
     'UI/UX Design',
+    'Content Writing',
+    'Presentation & Pitch Deck Design',
     'Website Redesign'
   ];
 

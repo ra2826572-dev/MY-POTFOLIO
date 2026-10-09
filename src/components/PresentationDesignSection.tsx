@@ -17,9 +17,10 @@ import {
   ArrowRight, 
   Sliders, 
   Layers, 
-  Monitor
+  Monitor, 
+  Star
 } from 'lucide-react';
-import { PORTFOLIO_DATA, PresentationSlide } from '../portfolioData';
+import { PORTFOLIO_DATA, PresentationSkillItem, PresentationSlide } from '../portfolioData';
 import { Link } from 'react-router-dom';
 
 // Custom Authentic PowerPoint Icon
@@ -73,13 +74,13 @@ export const PresentationDesignSection: React.FC = () => {
       case 'TrendingUp':
         return <TrendingUp className="w-6 h-6 text-purple-400" />;
       case 'BarChart3':
-        return <BarChart3 className="w-6 h-6 text-cyan-400" />;
+        return <BarChart3 className="w-6 h-6 text-amber-400" />;
       case 'Sparkles':
-        return <Sparkles className="w-6 h-6 text-indigo-400" />;
+        return <Sparkles className="w-6 h-6 text-pink-400" />;
       case 'Type':
-        return <Type className="w-6 h-6 text-blue-400" />;
+        return <Type className="w-6 h-6 text-cyan-400" />;
       case 'Palette':
-        return <Palette className="w-6 h-6 text-violet-400" />;
+        return <Palette className="w-6 h-6 text-indigo-400" />;
       default:
         return <Presentation className="w-6 h-6 text-blue-400" />;
     }
@@ -97,18 +98,18 @@ export const PresentationDesignSection: React.FC = () => {
   return (
     <section 
       id="presentation-design" 
-      className="py-24 relative overflow-hidden bg-[#080B11] border-t border-slate-800/80"
+      className="py-20 relative overflow-hidden bg-[#080B11] border-t border-slate-800/80"
     >
-      {/* Background Ambience Matching Website Palette */}
-      <div className="absolute top-1/3 left-10 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-10 w-[450px] h-[450px] bg-indigo-600/10 rounded-full blur-[160px] pointer-events-none" />
+      {/* Background Ambience consistent with hero & services */}
+      <div className="absolute top-1/4 left-10 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/3 right-10 w-[450px] h-[450px] bg-indigo-600/10 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="flex flex-col items-center text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
+            <Sparkles className="w-3.5 h-3.5" />
             <span>{presentationDesign.badge}</span>
           </div>
 
@@ -122,28 +123,28 @@ export const PresentationDesignSection: React.FC = () => {
 
           {/* Quick Metrics Bar */}
           <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-3xl">
-            <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 text-center">
+            <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800/80 text-center backdrop-blur-sm">
               <span className="text-xs text-slate-400 block mb-0.5">Overall Proficiency</span>
               <strong className="text-xl font-black text-blue-400 font-mono">{presentationDesign.overallProficiency}%</strong>
             </div>
-            <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 text-center">
+            <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800/80 text-center backdrop-blur-sm">
               <span className="text-xs text-slate-400 block mb-0.5">Primary Tool</span>
               <strong className="text-base font-bold text-white flex items-center justify-center gap-1.5">
                 <PowerPointIcon className="w-4 h-4" />
                 PowerPoint
               </strong>
             </div>
-            <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 text-center">
+            <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800/80 text-center backdrop-blur-sm">
               <span className="text-xs text-slate-400 block mb-0.5">Standard Format</span>
               <strong className="text-base font-bold text-slate-200 font-mono">16:9 Widescreen</strong>
             </div>
-            <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 text-center">
+            <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800/80 text-center backdrop-blur-sm">
               <span className="text-xs text-slate-400 block mb-0.5">Delivery Formats</span>
               <strong className="text-base font-bold text-emerald-400">PPTX • PDF • Canva</strong>
             </div>
           </div>
 
-          <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-6" />
+          <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-8" />
         </div>
 
         {/* ========================================================================= */}
@@ -152,7 +153,7 @@ export const PresentationDesignSection: React.FC = () => {
         <div className="mb-20">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-inner">
                 <Monitor className="w-5 h-5" />
               </div>
               <div>
@@ -208,55 +209,58 @@ export const PresentationDesignSection: React.FC = () => {
             
             {/* Presentation Chrome Top Bar */}
             <div className="px-4 sm:px-6 py-3 bg-[#0A0E17] border-b border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-              <div className="flex items-center gap-2.5">
-                <PowerPointIcon className="w-4 h-4" />
-                <span className="font-semibold text-slate-300 truncate max-w-xs sm:max-w-md">
-                  Rizwan_Ahmad_Presentation_Showcase.pptx
-                </span>
+              <div className="flex items-center gap-2">
+                <PowerPointIcon className="w-3.5 h-3.5" />
+                <span className="font-mono text-slate-300">Investor_PitchDeck_Widescreen_2026.pptx</span>
               </div>
 
-              <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 rounded bg-slate-900 text-[10px] font-mono border border-slate-800 text-slate-300">
-                  {currentSlide.deckType}
+              <div className="flex items-center gap-3">
+                <span className="hidden md:inline-block px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-mono">
+                  16:9 Widescreen Master
                 </span>
-                <span className="text-[11px] text-blue-400 font-semibold hidden md:inline">
-                  Slide {activeSlideIndex + 1} of {presentationDesign.slides.length}
+                <span className="text-slate-400 font-mono text-xs">
+                  Slide {activeSlideIndex + 1} / {presentationDesign.slides.length}
                 </span>
               </div>
             </div>
 
-            {/* Slide Body Canvas (16:9 aspect container) */}
-            <div className="relative min-h-[460px] sm:min-h-[520px] lg:min-h-[560px] p-6 sm:p-10 lg:p-12 bg-gradient-to-br from-[#0B0F19] via-[#090D16] to-[#0F172A] flex flex-col justify-between overflow-hidden">
+            {/* Slide Body (16:9 Ratio Canvas) */}
+            <div className="p-6 sm:p-10 lg:p-14 bg-gradient-to-br from-[#090D16] via-[#0D1322] to-[#0A0E17] relative min-h-[380px] sm:min-h-[440px] flex flex-col justify-between">
               
-              {/* Subtle slide watermark & grid */}
-              <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none" />
-              <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+              {/* Subtle background slide geometry grid */}
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b0a_1px,transparent_1px),linear-gradient(to_bottom,#1e293b0a_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
+              <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none" />
 
-              {/* Top of Slide */}
+              {/* Slide Top Metadata */}
               <div className="relative z-10">
-                <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-                  <span className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider">
-                    {currentSlide.category}
-                  </span>
-                  <span className="text-xs font-mono text-slate-500">
-                    Confidential • Investor Presentation
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider">
+                    <Sparkles className="w-3 h-3" />
+                    <span>{currentSlide.category}</span>
+                  </div>
+
+                  <span className="text-xs font-mono text-slate-400 tracking-wider">
+                    PROJECT PROTOCOL // 0{activeSlideIndex + 1}
                   </span>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight max-w-3xl">
+                {/* Slide Headings */}
+                <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-tight max-w-4xl">
                   {currentSlide.title}
                 </h3>
-                <p className="text-xs sm:text-sm font-semibold text-indigo-300 mt-1 uppercase tracking-wide">
+                <p className="text-sm sm:text-base font-semibold text-indigo-300 mt-1">
                   {currentSlide.subtitle}
                 </p>
 
-                <p className="text-sm sm:text-base text-slate-300 mt-4 max-w-3xl leading-relaxed font-normal">
+                {/* Slide Headline / Executive Summary */}
+                <div className="mt-4 p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-200 text-xs sm:text-sm font-medium leading-relaxed max-w-4xl">
                   "{currentSlide.headline}"
-                </p>
+                </div>
               </div>
 
-              {/* Middle: Content Blocks & Stat Metric */}
-              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 my-8 items-center">
+              {/* Middle Section: Points Grid + Stat Highlight */}
+              <div className="relative z-10 my-6 grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
                 
                 {/* Points Column */}
                 <div className="lg:col-span-8 space-y-3.5">
@@ -265,8 +269,8 @@ export const PresentationDesignSection: React.FC = () => {
                       key={pIdx}
                       className={`p-4 rounded-2xl border transition-all ${
                         pt.highlight 
-                          ? 'bg-gradient-to-r from-blue-950/40 via-indigo-950/40 to-slate-900/80 border-blue-500/40 shadow-lg shadow-blue-950/20' 
-                          : 'bg-slate-900/60 border-slate-800'
+                          ? 'bg-gradient-to-r from-blue-950/40 to-slate-900/80 border-blue-500/40 shadow-lg shadow-blue-950/20' 
+                          : 'bg-slate-900/60 border-slate-800/80'
                       }`}
                     >
                       <div className="flex flex-wrap items-baseline justify-between gap-1 mb-1">
@@ -289,7 +293,7 @@ export const PresentationDesignSection: React.FC = () => {
 
                 {/* Big Stat Metric Showcase Card */}
                 {currentSlide.statMetric && (
-                  <div className="lg:col-span-4 p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-slate-900 to-slate-950 border border-blue-500/30 text-center flex flex-col justify-center items-center shadow-xl shadow-black/50">
+                  <div className="lg:col-span-4 p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-slate-900/80 to-slate-950 border border-blue-500/30 text-center flex flex-col justify-center items-center shadow-xl shadow-black/50">
                     <span className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">
                       Key Performance Metric
                     </span>
@@ -311,14 +315,22 @@ export const PresentationDesignSection: React.FC = () => {
 
               {/* Bottom Footer of Slide */}
               <div className="relative z-10 pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between text-xs text-slate-400 gap-2">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   <span className="font-bold text-white">Rizwan Ahmad</span>
                   <span>•</span>
-                  <span>Lead Presentation & Web Designer</span>
+                  <span>{currentSlide.contact?.role || 'Lead Presentation & Web Designer'}</span>
+                  {currentSlide.contact?.phone && (
+                    <>
+                      <span className="text-slate-600">•</span>
+                      <span className="text-blue-300 font-mono">📱 {currentSlide.contact.phone}</span>
+                      <span className="text-slate-600">•</span>
+                      <span className="text-slate-300 font-mono">✉️ {currentSlide.contact.email}</span>
+                    </>
+                  )}
                 </div>
                 <div className="flex items-center gap-4">
                   <span className="font-mono text-blue-400">{currentSlide.slideNumber}</span>
-                  <span className="text-[11px] text-slate-500">Designed with PowerPoint & Illustrator</span>
+                  <span className="text-[11px] text-slate-500">Designed with PowerPoint & React</span>
                 </div>
               </div>
 
@@ -334,7 +346,7 @@ export const PresentationDesignSection: React.FC = () => {
                     onClick={() => setActiveSlideIndex(idx)}
                     className={`flex-1 min-w-[140px] p-2.5 rounded-xl text-left transition-all border ${
                       activeSlideIndex === idx
-                        ? 'bg-blue-950/50 border-blue-500/50 text-white shadow-md shadow-blue-500/15'
+                        ? 'bg-blue-950/50 border-blue-500/50 text-white shadow-md'
                         : 'bg-slate-900/60 border-slate-800/70 text-slate-400 hover:text-slate-200 hover:bg-slate-900'
                     }`}
                   >
@@ -377,9 +389,9 @@ export const PresentationDesignSection: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setActiveTab('all')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                   activeTab === 'all' 
-                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25' 
+                    ? 'bg-blue-600 text-white shadow-sm' 
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
@@ -388,9 +400,9 @@ export const PresentationDesignSection: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setActiveTab('corporate')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                   activeTab === 'corporate' 
-                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25' 
+                    ? 'bg-blue-600 text-white shadow-sm' 
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
@@ -399,9 +411,9 @@ export const PresentationDesignSection: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setActiveTab('analytics')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                   activeTab === 'analytics' 
-                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25' 
+                    ? 'bg-blue-600 text-white shadow-sm' 
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
@@ -410,9 +422,9 @@ export const PresentationDesignSection: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setActiveTab('creative')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                   activeTab === 'creative' 
-                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25' 
+                    ? 'bg-blue-600 text-white shadow-sm' 
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
@@ -432,7 +444,7 @@ export const PresentationDesignSection: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.35, delay: index * 0.04 }}
-                  className="group relative p-6 rounded-2xl bg-slate-900/60 border border-slate-800/90 hover:border-blue-500/40 backdrop-blur-xl shadow-lg shadow-black/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                  className="group relative p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-blue-500/40 backdrop-blur-xl shadow-lg shadow-black/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
                 >
                   {/* Hover ambient highlight */}
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 via-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
@@ -440,10 +452,10 @@ export const PresentationDesignSection: React.FC = () => {
                   <div>
                     {/* Top Row: Icon + Badge */}
                     <div className="flex items-center justify-between mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-slate-800/90 border border-slate-700/60 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                      <div className="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
                         {renderSkillIcon(skill.iconName)}
                       </div>
-                      <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-400">
+                      <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-800/90 border border-slate-700/50 text-blue-400">
                         {skill.badge}
                       </span>
                     </div>
@@ -480,13 +492,13 @@ export const PresentationDesignSection: React.FC = () => {
                       <span className="text-slate-400">Proficiency Level</span>
                       <span className="font-mono text-blue-400 font-bold">{skill.proficiency}%</span>
                     </div>
-                    <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden p-0.5">
                       <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${skill.proficiency}%` }}
                         viewport={{ once: true }}
                         transition={{ duration: 1, ease: 'easeOut', delay: 0.15 }}
-                        className="h-full rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"
+                        className="h-full rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500"
                       />
                     </div>
                   </div>
@@ -535,18 +547,18 @@ export const PresentationDesignSection: React.FC = () => {
         </div>
 
         {/* ========================================================================= */}
-        {/* Call to Action Banner */}
+        {/* Call to Action Banner (Matches standard website cards) */}
         {/* ========================================================================= */}
-        <div className="p-8 rounded-3xl bg-gradient-to-r from-blue-950/60 via-slate-900/90 to-indigo-950/60 border border-blue-500/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl shadow-blue-950/30">
+        <div className="p-8 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-blue-500/40 backdrop-blur-xl shadow-lg shadow-black/40 flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-300">
           <div className="flex items-start sm:items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-400 shrink-0">
+            <div className="w-14 h-14 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center text-blue-400 shrink-0 shadow-inner">
               <PowerPointIcon className="w-8 h-8" />
             </div>
             <div>
               <h4 className="text-xl font-bold text-white">
                 Need a High-Impact Pitch Deck or Corporate Presentation?
               </h4>
-              <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl leading-relaxed">
                 Whether pitching venture capital for a seed round, preparing an executive QBR, or designing an interactive training masterclass, I deliver presentation decks that command attention.
               </p>
             </div>
@@ -555,7 +567,7 @@ export const PresentationDesignSection: React.FC = () => {
           <div className="flex items-center gap-3 shrink-0 flex-wrap">
             <Link
               to="/contact"
-              className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-bold text-xs sm:text-sm shadow-xl shadow-blue-600/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 border border-blue-400/30"
+              className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-500/25 hover:scale-105 active:scale-95 transition-all flex items-center gap-2"
             >
               <span>Order Presentation Deck</span>
               <ArrowRight className="w-4 h-4" />
@@ -565,7 +577,7 @@ export const PresentationDesignSection: React.FC = () => {
               href={PORTFOLIO_DATA.contact.socials.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-3 rounded-full bg-slate-900 border border-slate-700 hover:border-blue-500/40 text-slate-200 hover:text-white font-semibold text-xs sm:text-sm transition-all"
+              className="px-5 py-3 rounded-full bg-slate-800/80 border border-slate-700 hover:border-slate-600 text-slate-200 hover:text-white font-semibold text-xs sm:text-sm transition-all"
             >
               <span>Discuss on WhatsApp</span>
             </a>
@@ -620,7 +632,7 @@ export const PresentationDesignSection: React.FC = () => {
               </div>
 
               {/* Modal Slide Canvas */}
-              <div className="p-8 sm:p-12 overflow-y-auto bg-gradient-to-br from-[#0B0F19] to-[#0F172A] flex-grow">
+              <div className="p-8 sm:p-12 overflow-y-auto bg-gradient-to-br from-[#090D16] to-[#0D1322] flex-grow">
                 <span className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider inline-block mb-3">
                   {currentSlide.category}
                 </span>

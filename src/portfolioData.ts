@@ -6,6 +6,7 @@
  */
 
 import rizwanProfileImg from './assets/images/rizwan_poster_emblem_1788178172045.jpg';
+import { WRITING_PROJECTS, CONTENT_WRITING_SERVICE_INFO } from './contentWritingData';
 
 export interface Project {
   id: string;
@@ -64,7 +65,12 @@ export interface PresentationSlide {
     label: string;
     growth?: string;
   };
-  visualType: 'cover' | 'comparison' | 'market_tam' | 'process_flow' | 'kpi_dashboard';
+  visualType: 'cover' | 'comparison' | 'market_tam' | 'process_flow' | 'kpi_dashboard' | 'executive_profile';
+  contact?: {
+    email?: string;
+    phone?: string;
+    role?: string;
+  };
 }
 
 export interface PresentationDesignConfig {
@@ -85,6 +91,7 @@ export interface PresentationDesignConfig {
 export interface Service {
   id: string;
   title: string;
+  subtitle?: string;
   description: string;
   icon: string;
   deliverables: string[];
@@ -168,6 +175,19 @@ export interface CVData {
   }[];
 }
 
+export interface CollaboratorProfile {
+  name: string;
+  shortName: string;
+  role: string;
+  headline: string;
+  description: string;
+  email: string;
+  portfolioUrl: string;
+  contactUrl: string;
+  availabilityNote: string;
+  tags: string[];
+}
+
 export const PORTFOLIO_DATA = {
   personal: {
     name: 'RIZWAN AHMAD',
@@ -210,6 +230,18 @@ export const PORTFOLIO_DATA = {
     whatsappNumber: '923081509520',
     whatsappMessage: "Hi Rizwan, I visited your portfolio and would like to discuss a web design/development project with you!",
     location: 'Faisalabad, Pakistan',
+    collaborator: {
+      name: 'Umer',
+      shortName: 'UA',
+      role: 'Web Developer & AI Solutions Creator',
+      headline: 'Building Digital Experiences That Matter',
+      description: 'Collaborative development partner specialized in modern responsive web apps, intelligent AI-powered solutions, and interactive experiences.',
+      email: 'janjuau824@gmail.com',
+      portfolioUrl: 'https://portfolio-umar-liart.vercel.app',
+      contactUrl: 'https://portfolio-umar-liart.vercel.app/#contact',
+      availabilityNote: 'Available for Projects',
+      tags: ['Web Development', 'AI Solutions', 'Interactive Apps']
+    } as CollaboratorProfile,
     socials: {
       whatsapp: 'https://wa.me/923081509520?text=Hi%20Rizwan%2C%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project!',
       email: 'mailto:ra2826572@gmail.com',
@@ -350,8 +382,34 @@ export const PORTFOLIO_DATA = {
     ],
     slides: [
       {
+        id: 0,
+        slideNumber: '01 / 06',
+        title: 'Rizwan Ahmad — Web Developer | Front-End & AI',
+        subtitle: 'Executive Technical Capability & Portfolio Presentation',
+        deckType: 'Executive Capability Deck',
+        category: 'Web Developer & AI Workflow',
+        headline: 'Web Developer focused on building modern, responsive, and user-friendly web experiences. Skilled in HTML, CSS, JavaScript, and React, with an interest in applying AI tools and workflows to digital products.',
+        visualType: 'executive_profile',
+        points: [
+          { label: 'Technical Core Skills', value: 'HTML, CSS, JS, React', desc: 'Semantic page structure, responsive layouts & styling, interactive experiences, and component-based UI development.', highlight: true },
+          { label: 'AI Mastery', value: 'AI Tools & Workflow Exploration', desc: 'Certified AI workflows, prompt engineering, and intelligent agents applied to digital web solutions.', highlight: true },
+          { label: 'Professional Experience', value: 'Frontend Engineering', desc: 'Developing responsive desktop/mobile interfaces, reusable UI components, and exploring AI-assisted workflows.', highlight: false },
+          { label: 'Core Strengths', value: 'Responsive & Agile', desc: 'UI Development, Problem Solving, Continuous Learning, and AI-assisted Workflows.', highlight: false }
+        ],
+        statMetric: {
+          value: '100%',
+          label: 'Client-Focused Delivery',
+          growth: 'Clean Code & Fast Loads'
+        },
+        contact: {
+          email: 'ra2826572@gmail.com',
+          phone: '03081509520',
+          role: 'WEB DEVELOPER | FRONT-END & AI'
+        }
+      },
+      {
         id: 1,
-        slideNumber: '01 / 05',
+        slideNumber: '02 / 06',
         title: 'AI-Driven FinTech Global Ecosystem',
         subtitle: 'Series Seed Investor Pitch Deck',
         deckType: 'Investor Pitch Deck',
@@ -371,7 +429,7 @@ export const PORTFOLIO_DATA = {
       },
       {
         id: 2,
-        slideNumber: '02 / 05',
+        slideNumber: '03 / 06',
         title: 'Market Inefficiency & The Core Bottleneck',
         subtitle: 'Problem vs Solution Analysis',
         deckType: 'Problem & Opportunity',
@@ -391,7 +449,7 @@ export const PORTFOLIO_DATA = {
       },
       {
         id: 3,
-        slideNumber: '03 / 05',
+        slideNumber: '04 / 06',
         title: 'High-Impact Data Visualization & TAM Sizing',
         subtitle: 'Market Size & Revenue Trajectory',
         deckType: 'Market TAM & Infographic',
@@ -411,7 +469,7 @@ export const PORTFOLIO_DATA = {
       },
       {
         id: 4,
-        slideNumber: '04 / 05',
+        slideNumber: '05 / 06',
         title: 'Scalable Technical Architecture & Security',
         subtitle: 'Enterprise-Grade Microservices',
         deckType: 'System Architecture',
@@ -431,7 +489,7 @@ export const PORTFOLIO_DATA = {
       },
       {
         id: 5,
-        slideNumber: '05 / 05',
+        slideNumber: '06 / 06',
         title: '5-Year Revenue Roadmap & Strategic Milestones',
         subtitle: 'Financial Forecast & Unit Economics',
         deckType: 'Financial Forecast',
@@ -555,9 +613,31 @@ export const PORTFOLIO_DATA = {
       ],
       popular: true,
       featuredProject: {
-        name: 'AI FinTech Seed Pitch Deck Showcase',
-        url: '/skills#presentation-design',
-        tagline: 'Interactive 16:9 Widescreen Pitch Deck & Data Visualization'
+        name: 'Rizwan Ahmad — Web Developer & AI Presentation',
+        url: '#presentation-design',
+        tagline: 'Live 16:9 Executive Capability Presentation'
+      }
+    },
+    {
+      id: 'content-writing',
+      title: 'Content Writing',
+      subtitle: 'Words That Inform, Engage & Convert',
+      description: 'I create clear, engaging, and reader-focused content for websites, blogs, SEO, and social media. My goal is to help brands communicate their message effectively through well-structured, valuable, and compelling writing.',
+      icon: 'PenTool',
+      deliverables: [
+        'Website Content Writing',
+        'Blog & Article Writing',
+        'SEO Content Writing',
+        'Social Media Copywriting',
+        'Landing Page Copy',
+        'Product Descriptions',
+        'AI-Assisted Content Creation with human editing'
+      ],
+      popular: true,
+      featuredProject: {
+        name: 'Content Writing Portfolio & Samples',
+        url: '/content-writing',
+        tagline: '4 Complete Real-World Writing Portfolio Projects'
       }
     },
     {
@@ -1239,5 +1319,6 @@ export const PORTFOLIO_DATA = {
         link: 'https://liberty-grand-marquee.vercel.app/'
       }
     ]
-  } as CVData
+  } as CVData,
+  contentWriting: WRITING_PROJECTS
 };

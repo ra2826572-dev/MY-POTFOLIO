@@ -7,10 +7,8 @@ import {
   Terminal, 
   Code, 
   Zap, 
-  ExternalLink, 
   Copy, 
   Check, 
-  Sliders, 
   Maximize2,
   FileCode,
   Layers,
@@ -174,22 +172,22 @@ export const VSCodeSection: React.FC = () => {
   return (
     <>
       {/* ========================================================================= */}
-      {/* Visual Studio Code Showcase Card (Inside Skills Section) */}
+      {/* Visual Studio Code Card (Matches exact website card styling) */}
       {/* ========================================================================= */}
-      <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-blue-950/60 via-slate-900/90 to-cyan-950/50 border border-blue-500/30 backdrop-blur-xl shadow-2xl shadow-blue-950/40 relative overflow-hidden">
-        {/* Glow backdrop */}
-        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-56 h-56 bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="mt-10 p-6 sm:p-8 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-blue-500/40 backdrop-blur-xl shadow-lg shadow-black/40 relative overflow-hidden transition-all duration-300">
+        {/* Subtle hover glow layer */}
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 via-indigo-500/5 to-transparent pointer-events-none" />
 
         <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
           <div className="flex items-start sm:items-center gap-5">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-600 border border-blue-400/40 flex items-center justify-center text-white shrink-0 shadow-lg shadow-blue-600/30 p-2.5">
+            <div className="w-14 h-14 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center text-white shrink-0 shadow-inner p-2.5">
               <VSCodeIcon className="w-full h-full" />
             </div>
 
             <div>
-              <div className="flex items-center gap-2 flex-wrap mb-1">
-                <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[11px] font-bold border border-blue-500/30 uppercase tracking-wider flex items-center gap-1">
-                  <Keyboard className="w-3 h-3" /> Microsoft VS Code Expert
+              <div className="flex items-center gap-2 flex-wrap mb-1.5">
+                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-800/90 text-blue-400 border border-slate-700/50">
+                  Microsoft VS Code Expert
                 </span>
                 <span className="text-emerald-400 text-xs font-semibold flex items-center gap-1">
                   <Zap className="w-3.5 h-3.5" /> 98% Keystroke Mastery
@@ -200,30 +198,30 @@ export const VSCodeSection: React.FC = () => {
                 <span>Visual Studio Code Keyboard Shortcuts & Workflow</span>
               </h3>
 
-              <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl leading-relaxed">
                 Expert-level developer velocity utilizing multi-cursor refactoring, Command Palette orchestration, regex stream find/replace, and terminal automation across enterprise React and TypeScript architectures.
               </p>
 
               {/* Quick shortcut pills */}
-              <div className="mt-3 flex flex-wrap items-center gap-2">
-                <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-700/80 text-[11px] text-slate-300 font-mono">
+              <div className="mt-3.5 flex flex-wrap items-center gap-2">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950/80 border border-slate-800 text-[11px] text-slate-300 font-mono">
                   <span className="text-blue-400 font-bold">Ctrl+Shift+P</span>
-                  <span className="text-slate-500">•</span>
+                  <span className="text-slate-600">•</span>
                   <span>Palette</span>
                 </div>
-                <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-700/80 text-[11px] text-slate-300 font-mono">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950/80 border border-slate-800 text-[11px] text-slate-300 font-mono">
                   <span className="text-blue-400 font-bold">Alt+Click / Ctrl+D</span>
-                  <span className="text-slate-500">•</span>
+                  <span className="text-slate-600">•</span>
                   <span>Multi-Cursor</span>
                 </div>
-                <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-700/80 text-[11px] text-slate-300 font-mono">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950/80 border border-slate-800 text-[11px] text-slate-300 font-mono">
                   <span className="text-blue-400 font-bold">Shift+Alt+F</span>
-                  <span className="text-slate-500">•</span>
+                  <span className="text-slate-600">•</span>
                   <span>Format</span>
                 </div>
-                <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-700/80 text-[11px] text-slate-300 font-mono">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950/80 border border-slate-800 text-[11px] text-slate-300 font-mono">
                   <span className="text-blue-400 font-bold">Ctrl+`</span>
-                  <span className="text-slate-500">•</span>
+                  <span className="text-slate-600">•</span>
                   <span>Terminal</span>
                 </div>
               </div>
@@ -235,11 +233,11 @@ export const VSCodeSection: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 text-white font-bold text-sm shadow-xl shadow-blue-600/30 hover:scale-105 active:scale-95 transition-all duration-300 border border-blue-400/30 group"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-500/25 hover:scale-105 active:scale-95 transition-all"
             >
-              <Keyboard className="w-4 h-4 text-blue-200" />
+              <Keyboard className="w-4 h-4" />
               <span>Open Shortcuts Cheatsheet</span>
-              <Maximize2 className="w-3.5 h-3.5 text-blue-200 group-hover:scale-110 transition-transform" />
+              <Maximize2 className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
@@ -255,18 +253,18 @@ export const VSCodeSection: React.FC = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-5xl rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]"
+              className="relative w-full max-w-5xl rounded-2xl bg-[#080B11] border border-slate-800 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]"
             >
               {/* Modal Top Bar */}
-              <div className="p-4 sm:p-5 bg-slate-950 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+              <div className="p-4 sm:p-5 bg-slate-900/60 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center p-1.5">
+                  <div className="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center p-1.5">
                     <VSCodeIcon className="w-full h-full" />
                   </div>
                   <div>
                     <h3 className="font-bold text-white text-base sm:text-lg flex items-center gap-2">
                       <span>Visual Studio Code Keyboard Shortcuts</span>
-                      <span className="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-mono font-bold border border-blue-500/30">
+                      <span className="px-2 py-0.5 rounded-full bg-slate-800 text-blue-400 text-[10px] font-mono font-bold border border-slate-700">
                         Windows Edition
                       </span>
                     </h3>
@@ -279,14 +277,14 @@ export const VSCodeSection: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition-colors"
+                  className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
               {/* Search & Category Filter Bar */}
-              <div className="p-4 bg-slate-900/90 border-b border-slate-800 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+              <div className="p-4 bg-slate-900/40 border-b border-slate-800 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
                 {/* Search Bar */}
                 <div className="relative flex-1">
                   <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -295,7 +293,7 @@ export const VSCodeSection: React.FC = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search shortcuts (e.g. comment, format, terminal, cursor, find)..."
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-blue-500 text-sm text-white placeholder-slate-500 outline-none transition-colors"
+                    className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-blue-500 text-sm text-white placeholder-slate-500 outline-none transition-colors"
                   />
                   {searchQuery && (
                     <button
@@ -309,13 +307,13 @@ export const VSCodeSection: React.FC = () => {
                 </div>
 
                 {/* Total count badge */}
-                <span className="text-xs font-mono text-slate-400 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 shrink-0 self-center">
+                <span className="text-xs font-mono text-slate-400 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800 shrink-0 self-center">
                   Showing <strong className="text-blue-400">{filteredShortcuts.length}</strong> of {VSCODE_SHORTCUTS.length} shortcuts
                 </span>
               </div>
 
               {/* Categories Pills */}
-              <div className="px-4 py-2.5 bg-slate-950 border-b border-slate-800 overflow-x-auto flex items-center gap-1.5">
+              <div className="px-4 py-2.5 bg-slate-900/20 border-b border-slate-800 overflow-x-auto flex items-center gap-1.5">
                 {categories.map((cat) => (
                   <button
                     key={cat}
@@ -324,7 +322,7 @@ export const VSCodeSection: React.FC = () => {
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
                       selectedCategory === cat
                         ? 'bg-blue-600 text-white shadow-sm'
-                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
                     }`}
                   >
                     {cat}
@@ -350,7 +348,7 @@ export const VSCodeSection: React.FC = () => {
                     {filteredShortcuts.map((sc, idx) => (
                       <div
                         key={idx}
-                        className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800/80 hover:border-blue-500/40 transition-all flex items-center justify-between gap-3 group"
+                        className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-blue-500/40 transition-all flex items-center justify-between gap-3 group"
                       >
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
@@ -399,12 +397,12 @@ export const VSCodeSection: React.FC = () => {
               </div>
 
               {/* Modal Footer */}
-              <div className="p-4 bg-slate-950 border-t border-slate-800 flex flex-wrap items-center justify-between text-xs text-slate-400 gap-2">
+              <div className="p-4 bg-slate-900/60 border-t border-slate-800 flex flex-wrap items-center justify-between text-xs text-slate-400 gap-2">
                 <span>
                   Source: <strong className="text-white">aka.ms/vscodekeybindings</strong> • Windows Keyboard Bindings
                 </span>
                 <span className="text-emerald-400 font-semibold">
-                  ✓ 100% Integrated into Rizwan's Daily Development Velocity
+                  ✓ Integrated into Daily Development Velocity
                 </span>
               </div>
             </motion.div>

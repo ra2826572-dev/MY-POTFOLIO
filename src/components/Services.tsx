@@ -1,5 +1,6 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { 
   Monitor, 
   Briefcase, 
@@ -9,19 +10,29 @@ import {
   RefreshCw, 
   ArrowRight, 
   Check, 
-  Sparkles,
-  HelpCircle,
-  Phone,
-  ExternalLink,
-  Presentation
+  Sparkles, 
+  ExternalLink, 
+  Presentation,
+  PenTool,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Maximize2
 } from 'lucide-react';
 import { PORTFOLIO_DATA, Service } from '../portfolioData';
+import { PowerPointIcon } from './PresentationDesignSection';
 
 interface ServicesProps {
   onOpenQuoteModal: (preselectedService?: string) => void;
 }
 
 export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
+  const [isPresentationModalOpen, setIsPresentationModalOpen] = useState(false);
+  const [activeSlideIdx, setActiveSlideIdx] = useState(0);
+
+  const presentationSlides = PORTFOLIO_DATA.presentationDesign.slides;
+  const currentSlide = presentationSlides[activeSlideIdx] || presentationSlides[0];
+
   const getServiceIcon = (iconName: string) => {
     switch (iconName) {
       case 'Monitor': return <Monitor className="w-6 h-6 text-blue-400" />;
@@ -30,7 +41,8 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
       case 'Rocket': return <Rocket className="w-6 h-6 text-pink-400" />;
       case 'Layout': return <Layout className="w-6 h-6 text-emerald-400" />;
       case 'RefreshCw': return <RefreshCw className="w-6 h-6 text-amber-400" />;
-      case 'Presentation': return <Presentation className="w-6 h-6 text-orange-400" />;
+      case 'Presentation': return <Presentation className="w-6 h-6 text-blue-400" />;
+      case 'PenTool': return <PenTool className="w-6 h-6 text-blue-400" />;
       default: return <Monitor className="w-6 h-6 text-blue-400" />;
     }
   };
@@ -71,7 +83,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
             >
               {/* Popular Badge */}
               {service.popular && (
-                <div className="absolute top-5 right-5 px-3 py-1 rounded-full bg-gradient-to-r from-blue-600/30 to-purple-600/30 border border-blue-400/40 text-[11px] font-bold text-blue-300">
+                <div className="absolute top-5 right-5 px-3 py-1 rounded-full bg-slate-800/90 border border-slate-700/80 text-[11px] font-bold text-blue-300">
                   Most Requested
                 </div>
               )}
@@ -82,9 +94,15 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
                   {getServiceIcon(service.icon)}
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">
+                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">
                   {service.title}
                 </h3>
+
+                {service.subtitle && (
+                  <p className="text-xs font-semibold text-blue-400 mb-2.5">
+                    {service.subtitle}
+                  </p>
+                )}
 
                 <p className="text-sm text-slate-300/90 leading-relaxed mb-6 font-normal">
                   {service.description}
@@ -102,13 +120,19 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
                   ))}
                 </div>
 
-                {/* Featured Live Client Project Link if available */}
+                {/* Featured Live Project / Presentation / Portfolio Link */}
                 {service.featuredProject && (
-                  <div className="mb-6 p-3.5 rounded-2xl bg-gradient-to-r from-blue-950/60 via-slate-900/90 to-purple-950/40 border border-blue-500/30 shadow-lg flex items-center justify-between gap-3">
+                  <div className="mb-6 p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800/80 hover:border-blue-500/40 transition-colors shadow-md flex items-center justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-blue-400">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        <span>Live Client Project</span>
+                        <span>
+                          {service.id === 'presentation-design' 
+                            ? 'Live Presentation Deck' 
+                            : service.id === 'content-writing'
+                            ? 'Writing Portfolio Samples'
+                            : 'Live Client Project'}
+                        </span>
                       </div>
                       <p className="text-xs font-bold text-white truncate mt-0.5">
                         {service.featuredProject.name}
@@ -117,62 +141,216 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
                         {service.featuredProject.tagline}
                       </p>
                     </div>
-                    <a
-                      href={service.featuredProject.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-md shadow-blue-600/30 transition-all hover:scale-105 active:scale-95"
-                      title={`Visit ${service.featuredProject.name} live store`}
-                    >
-                      <span>Live Site</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
+
+                    {service.id === 'presentation-design' ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setActiveSlideIdx(0);
+                          setIsPresentationModalOpen(true);
+                        }}
+                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-md shadow-blue-600/30 transition-all hover:scale-105 active:scale-95"
+                        title="View live presentation slide deck"
+                      >
+                        <PowerPointIcon className="w-3.5 h-3.5" />
+                        <span>Live Presentation</span>
+                      </button>
+                    ) : service.id === 'content-writing' ? (
+                      <Link
+                        to="/content-writing"
+                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-md shadow-blue-600/30 transition-all hover:scale-105 active:scale-95"
+                        title="View Content Writing portfolio and samples"
+                      >
+                        <PenTool className="w-3.5 h-3.5" />
+                        <span>View My Work</span>
+                      </Link>
+                    ) : (
+                      <a
+                        href={service.featuredProject.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-md shadow-blue-600/30 transition-all hover:scale-105 active:scale-95"
+                        title={`Visit ${service.featuredProject.name} live store`}
+                      >
+                        <span>Live Site</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
                   </div>
                 )}
               </div>
 
-              {/* Get a Quote Action */}
+              {/* Card Action Buttons */}
               <div className="pt-2">
-                <button
-                  type="button"
-                  onClick={() => onOpenQuoteModal(service.title)}
-                  className="w-full py-3 px-4 rounded-xl bg-slate-800/80 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 text-slate-200 hover:text-white font-semibold text-xs sm:text-sm border border-slate-700 hover:border-transparent transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-md"
-                >
-                  <span>Get a Quote</span>
-                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                </button>
+                {service.id === 'content-writing' ? (
+                  <div className="flex flex-col sm:flex-row items-center gap-2 w-full">
+                    <Link
+                      to="/content-writing"
+                      className="w-full sm:flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs sm:text-sm shadow-md shadow-blue-500/25 transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                    >
+                      <PenTool className="w-4 h-4" />
+                      <span>View My Work</span>
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => onOpenQuoteModal(service.title)}
+                      className="w-full sm:w-auto py-3 px-4 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white font-semibold text-xs sm:text-sm border border-slate-700 transition-all duration-300 flex items-center justify-center gap-1.5"
+                    >
+                      <span>Quote</span>
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => onOpenQuoteModal(service.title)}
+                    className="w-full py-3 px-4 rounded-xl bg-slate-800/80 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 text-slate-200 hover:text-white font-semibold text-xs sm:text-sm border border-slate-700 hover:border-transparent transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-md"
+                  >
+                    <span>Get a Quote</span>
+                    <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
+                )}
               </div>
 
             </motion.div>
           ))}
         </div>
 
-        {/* Bottom Fast Assistance Banner */}
-        <div className="mt-16 p-8 rounded-3xl bg-slate-900/60 border border-slate-800 backdrop-blur-xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
-              <Phone className="w-6 h-6" />
-            </div>
-            <div>
-              <h4 className="text-base font-bold text-white">Need a quick custom proposal or estimate?</h4>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Send your requirements directly via WhatsApp and receive a tailored quote within 24 hours.
-              </p>
-            </div>
-          </div>
-
-          <a
-            href={PORTFOLIO_DATA.contact.socials.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 px-6 py-3 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm transition-all shadow-lg shadow-emerald-500/20 flex items-center gap-2"
-          >
-            <Phone className="w-4 h-4" />
-            <span>WhatsApp Quick Quote</span>
-          </a>
-        </div>
-
       </div>
+
+      {/* ========================================================================= */}
+      {/* Live 16:9 Presentation Modal (Loaded directly from service card) */}
+      {/* ========================================================================= */}
+      <AnimatePresence>
+        {isPresentationModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/90 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative w-full max-w-6xl rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden flex flex-col max-h-[95vh]"
+            >
+              {/* Modal Top Bar */}
+              <div className="p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <PowerPointIcon className="w-5 h-5" />
+                  <span className="font-bold text-white text-sm">
+                    {currentSlide.title} • {currentSlide.slideNumber}
+                  </span>
+                  <span className="hidden sm:inline-block px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-mono font-bold">
+                    Live 16:9 Deck
+                  </span>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setActiveSlideIdx((prev) => (prev === 0 ? presentationSlides.length - 1 : prev - 1))}
+                    className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white transition-colors"
+                    title="Previous Slide"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-blue-400">
+                    {activeSlideIdx + 1} / {presentationSlides.length}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setActiveSlideIdx((prev) => (prev === presentationSlides.length - 1 ? 0 : prev + 1))}
+                    className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white transition-colors"
+                    title="Next Slide"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsPresentationModalOpen(false)}
+                    className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white transition-colors ml-1"
+                    title="Close Presentation"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Slide Canvas */}
+              <div className="p-6 sm:p-10 lg:p-12 overflow-y-auto bg-gradient-to-br from-[#080B11] via-[#0D1322] to-[#0A0E17] flex-grow flex flex-col justify-between">
+                <div>
+                  <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+                    <span className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider inline-block">
+                      {currentSlide.category}
+                    </span>
+                    <span className="text-xs font-mono text-slate-400">
+                      16:9 WIDESCREEN MASTER // {currentSlide.slideNumber}
+                    </span>
+                  </div>
+
+                  <h3 className="text-2xl sm:text-4xl font-black text-white mb-1.5 tracking-tight">
+                    {currentSlide.title}
+                  </h3>
+                  <p className="text-sm sm:text-base font-bold text-indigo-300 mb-5">
+                    {currentSlide.subtitle}
+                  </p>
+
+                  <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-200 text-xs sm:text-sm font-medium leading-relaxed mb-6">
+                    "{currentSlide.headline}"
+                  </div>
+
+                  {/* Points Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    {currentSlide.points.map((pt, i) => (
+                      <div key={i} className={`p-4 rounded-2xl border transition-all ${
+                        pt.highlight 
+                          ? 'bg-slate-900/80 border-blue-500/40 shadow-lg' 
+                          : 'bg-slate-900/50 border-slate-800'
+                      }`}>
+                        <strong className="text-sm font-bold text-white block mb-1">{pt.label}</strong>
+                        {pt.value && <p className="text-xs font-mono font-bold text-blue-400 mb-2">{pt.value}</p>}
+                        <p className="text-xs text-slate-300 leading-relaxed">{pt.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {currentSlide.statMetric && (
+                    <div className="p-5 rounded-2xl bg-slate-900/60 border border-blue-500/30 text-center max-w-sm mx-auto mb-4">
+                      <span className="text-xs text-blue-400 uppercase font-bold tracking-wider">{currentSlide.statMetric.label}</span>
+                      <p className="text-4xl font-black text-white font-mono my-1">{currentSlide.statMetric.value}</p>
+                      {currentSlide.statMetric.growth && <span className="text-xs text-emerald-400 font-bold">{currentSlide.statMetric.growth}</span>}
+                    </div>
+                  )}
+                </div>
+
+                {/* Modal Slide Footer */}
+                <div className="pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between text-xs text-slate-400 gap-2 mt-4">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="font-bold text-white">Rizwan Ahmad</span>
+                    <span>•</span>
+                    <span>{currentSlide.contact?.role || 'Web Developer & Presentation Designer'}</span>
+                    {currentSlide.contact?.phone && (
+                      <>
+                        <span className="text-slate-600">•</span>
+                        <span className="text-blue-300 font-mono">📱 {currentSlide.contact.phone}</span>
+                        <span className="text-slate-600">•</span>
+                        <span className="text-slate-300 font-mono">✉️ {currentSlide.contact.email}</span>
+                      </>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <a
+                      href="#presentation-design"
+                      onClick={() => setIsPresentationModalOpen(false)}
+                      className="text-xs text-blue-400 hover:underline flex items-center gap-1 font-semibold"
+                    >
+                      <span>Jump to Full Presentation Section</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
     </section>
   );
 };

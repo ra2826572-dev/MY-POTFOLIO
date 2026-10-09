@@ -238,14 +238,14 @@ export const Skills: React.FC = () => {
         <VSCodeSection />
 
         {/* Highlight Banner */}
-        <div className="mt-14 p-6 rounded-2xl bg-gradient-to-r from-blue-950/40 via-indigo-950/40 to-purple-950/40 border border-blue-800/30 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-14 p-6 sm:p-8 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-blue-500/40 backdrop-blur-xl shadow-lg shadow-black/40 flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-300">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-400 shrink-0">
+            <div className="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center text-blue-400 shrink-0 shadow-inner">
               <Sparkles className="w-6 h-6" />
             </div>
             <div>
               <h4 className="text-base font-bold text-white">Have a specific tech stack in mind?</h4>
-              <p className="text-xs text-slate-300 mt-0.5">
+              <p className="text-xs text-slate-400 mt-0.5">
                 Whether you prefer React, custom WordPress, Elementor, Shopify or custom HTML/CSS, I adapt to your business needs.
               </p>
             </div>
@@ -253,7 +253,7 @@ export const Skills: React.FC = () => {
 
           <a
             href="#contact"
-            className="shrink-0 px-6 py-2.5 rounded-full bg-white text-slate-950 font-bold text-xs sm:text-sm hover:bg-blue-50 transition-colors shadow-md"
+            className="shrink-0 px-6 py-2.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-500/25 hover:scale-105 active:scale-95 transition-all"
           >
             Discuss Your Stack
           </a>
