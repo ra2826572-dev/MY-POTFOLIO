@@ -15,8 +15,7 @@ import {
   MapPin,
   ExternalLink,
   Copy,
-  Check,
-  Bot
+  Check
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
 
@@ -32,15 +31,6 @@ export const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [copiedPartnerEmail, setCopiedPartnerEmail] = useState(false);
-
-  const handleCopyPartnerEmail = () => {
-    if (PORTFOLIO_DATA.contact.collaborator?.email) {
-      navigator.clipboard.writeText(PORTFOLIO_DATA.contact.collaborator.email);
-      setCopiedPartnerEmail(true);
-      setTimeout(() => setCopiedPartnerEmail(false), 2500);
-    }
-  };
 
   const projectTypes = [
     'Website Design',
@@ -231,136 +221,7 @@ export const Contact: React.FC = () => {
               </div>
             </div>
 
-            {/* Dedicated Partner Developer & Collaborator Contact Desk */}
-            {PORTFOLIO_DATA.contact.collaborator && (
-              <div 
-                id="collaborator-contact-card"
-                className="relative p-6 sm:p-7 rounded-3xl bg-gradient-to-br from-[#0B0F19] via-slate-900/90 to-[#0A0D16] border border-blue-500/30 hover:border-blue-400/60 backdrop-blur-xl shadow-xl shadow-black/50 transition-all duration-300 group"
-              >
-                {/* Background ambient glow */}
-                <div className="absolute -top-10 -right-10 w-36 h-36 bg-blue-600/10 rounded-full blur-2xl group-hover:bg-blue-600/20 transition-all pointer-events-none" />
-
-                {/* Top Label & Status Header */}
-                <div className="flex items-start justify-between gap-3 mb-4">
-                  <div className="flex items-center gap-3">
-                    {/* Monogram Avatar with animated presence pulse */}
-                    <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-500 p-[1.5px] shadow-lg shadow-blue-500/20 shrink-0">
-                      <div className="w-full h-full bg-[#080B11] rounded-[14px] flex items-center justify-center">
-                        <span className="font-extrabold text-base text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-indigo-200 to-purple-300">
-                          {PORTFOLIO_DATA.contact.collaborator.shortName}
-                        </span>
-                      </div>
-                      <span 
-                        className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-[#080B11] flex items-center justify-center"
-                        title={PORTFOLIO_DATA.contact.collaborator.availabilityNote}
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping opacity-75" />
-                      </span>
-                    </div>
-
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-blue-400 flex items-center gap-1">
-                          <Bot className="w-3 h-3 text-blue-400" />
-                          <span>Collaborator Desk</span>
-                        </span>
-                      </div>
-                      <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-blue-300 transition-colors">
-                        {PORTFOLIO_DATA.contact.collaborator.name}
-                      </h4>
-                    </div>
-                  </div>
-
-                  {/* Availability Badge */}
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-[11px] font-semibold text-emerald-300 shrink-0">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span>{PORTFOLIO_DATA.contact.collaborator.availabilityNote}</span>
-                  </span>
-                </div>
-
-                {/* Subtitle Role & Description */}
-                <div className="mb-4">
-                  <p className="text-xs font-semibold text-indigo-300 mb-1">
-                    {PORTFOLIO_DATA.contact.collaborator.role}
-                  </p>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    {PORTFOLIO_DATA.contact.collaborator.description}
-                  </p>
-                </div>
-
-                {/* Expertise Tag Chips */}
-                <div className="flex flex-wrap gap-1.5 mb-5">
-                  {PORTFOLIO_DATA.contact.collaborator.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-[11px] font-medium text-slate-300"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Action Buttons: Direct Contact Desk & Email */}
-                <div className="flex flex-col sm:flex-row items-center gap-2.5">
-                  <a
-                    href={PORTFOLIO_DATA.contact.collaborator.contactUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    id="collaborator-contact-link-btn"
-                    className="w-full sm:flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-600/25 hover:shadow-blue-600/40 transition-all flex items-center justify-center gap-2 group/btn"
-                  >
-                    <span>Open Umer's Contact Desk</span>
-                    <ExternalLink className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                  </a>
-
-                  <div className="flex items-center gap-1.5 w-full sm:w-auto">
-                    <button
-                      type="button"
-                      onClick={handleCopyPartnerEmail}
-                      className="flex-1 sm:flex-none p-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white transition-colors flex items-center justify-center gap-1.5"
-                      title={`Copy ${PORTFOLIO_DATA.contact.collaborator.email}`}
-                    >
-                      {copiedPartnerEmail ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-emerald-400" />
-                          <span className="text-[11px] text-emerald-300 sm:hidden">Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span className="text-[11px] text-slate-300 sm:hidden">Copy Email</span>
-                        </>
-                      )}
-                    </button>
-
-                    <a
-                      href={`mailto:${PORTFOLIO_DATA.contact.collaborator.email}?subject=Project%20Inquiry%20via%20Rizwan%20Ahmad%20Portfolio`}
-                      className="flex-1 sm:flex-none p-3 rounded-xl bg-slate-800/90 hover:bg-blue-900/40 border border-slate-700 hover:border-blue-500/50 text-slate-300 hover:text-blue-400 transition-colors flex items-center justify-center gap-1.5"
-                      title={`Email ${PORTFOLIO_DATA.contact.collaborator.email}`}
-                    >
-                      <Mail className="w-3.5 h-3.5" />
-                      <span className="text-[11px] sm:hidden">Direct Mail</span>
-                    </a>
-                  </div>
-                </div>
-
-                <div className="mt-3.5 pt-2.5 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
-                  <span className="flex items-center gap-1 truncate">
-                    <span className="text-slate-500">Live Destination:</span>
-                    <span className="text-blue-400 font-mono">portfolio-umar-liart.vercel.app/#contact</span>
-                  </span>
-                  <a
-                    href={PORTFOLIO_DATA.contact.collaborator.portfolioUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate-400 hover:text-slate-200 underline ml-2 shrink-0"
-                  >
-                    Portfolio Home
-                  </a>
-                </div>
-              </div>
-            )}
-
+            
           </motion.div>
 
           {/* Right Column: Interactive Contact Form */}

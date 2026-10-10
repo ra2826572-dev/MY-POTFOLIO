@@ -26,7 +26,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
     { name: 'Resume / CV', href: '/cv' },
     { name: 'Skills', href: '/skills' },
     { name: 'Services', href: '/services' },
-    { name: 'Writing', href: '/content-writing' },
     { name: 'Projects', href: '/projects' },
     { name: 'Process', href: '/process' },
     { name: 'Contact', href: '/contact' },

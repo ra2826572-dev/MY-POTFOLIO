@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Link } from 'react-router-dom';
 import { 
   Monitor, 
   Briefcase, 
@@ -129,8 +128,6 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
                         <span>
                           {service.id === 'presentation-design' 
                             ? 'Live Presentation Deck' 
-                            : service.id === 'content-writing'
-                            ? 'Writing Portfolio Samples'
                             : 'Live Client Project'}
                         </span>
                       </div>
@@ -155,15 +152,6 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
                         <PowerPointIcon className="w-3.5 h-3.5" />
                         <span>Live Presentation</span>
                       </button>
-                    ) : service.id === 'content-writing' ? (
-                      <Link
-                        to="/content-writing"
-                        className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-md shadow-blue-600/30 transition-all hover:scale-105 active:scale-95"
-                        title="View Content Writing portfolio and samples"
-                      >
-                        <PenTool className="w-3.5 h-3.5" />
-                        <span>View My Work</span>
-                      </Link>
                     ) : (
                       <a
                         href={service.featuredProject.url}
@@ -182,33 +170,14 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
 
               {/* Card Action Buttons */}
               <div className="pt-2">
-                {service.id === 'content-writing' ? (
-                  <div className="flex flex-col sm:flex-row items-center gap-2 w-full">
-                    <Link
-                      to="/content-writing"
-                      className="w-full sm:flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs sm:text-sm shadow-md shadow-blue-500/25 transition-all duration-300 flex items-center justify-center gap-2 group/btn"
-                    >
-                      <PenTool className="w-4 h-4" />
-                      <span>View My Work</span>
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={() => onOpenQuoteModal(service.title)}
-                      className="w-full sm:w-auto py-3 px-4 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white font-semibold text-xs sm:text-sm border border-slate-700 transition-all duration-300 flex items-center justify-center gap-1.5"
-                    >
-                      <span>Quote</span>
-                    </button>
-                  </div>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => onOpenQuoteModal(service.title)}
-                    className="w-full py-3 px-4 rounded-xl bg-slate-800/80 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 text-slate-200 hover:text-white font-semibold text-xs sm:text-sm border border-slate-700 hover:border-transparent transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-md"
-                  >
-                    <span>Get a Quote</span>
-                    <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                  </button>
-                )}
+                <button
+                  type="button"
+                  onClick={() => onOpenQuoteModal(service.title)}
+                  className="w-full py-3 px-4 rounded-xl bg-slate-800/80 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 text-slate-200 hover:text-white font-semibold text-xs sm:text-sm border border-slate-700 hover:border-transparent transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-md"
+                >
+                  <span>Get a Quote</span>
+                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                </button>
               </div>
 
             </motion.div>

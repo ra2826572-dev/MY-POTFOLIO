@@ -33,7 +33,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
   const [isManagerModalOpen, setIsManagerModalOpen] = useState<boolean>(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [spotlightProjectId, setSpotlightProjectId] = useState<string>('proj-the-dentist-kl');
+  const [spotlightProjectId, setSpotlightProjectId] = useState<string>('proj-umar-portfolio');
 
   // Admin PIN Protection State
   const [isLockModalOpen, setIsLockModalOpen] = useState<boolean>(false);
@@ -55,10 +55,10 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
       if (projectsData.length === 0) {
         setProjects(PORTFOLIO_DATA.projects);
       } else {
-        // Merge default projects that aren't yet in Firestore so new showcase projects (like SHOE CASA) always appear
+        // Merge default projects that aren't yet in Firestore so new showcase projects always appear
         const firestoreIds = new Set(projectsData.map(p => p.id));
         const mergedDefaults = PORTFOLIO_DATA.projects.filter(p => !firestoreIds.has(p.id));
-        setProjects([...projectsData, ...mergedDefaults]);
+        setProjects([...mergedDefaults, ...projectsData]);
       }
       setIsLoading(false);
     }, (error) => {
@@ -243,6 +243,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
         {/* Featured Project Spotlight: Dynamic Toggle */}
         {(() => {
           const spotlightProject = projects.find(p => p.id === spotlightProjectId) 
+            || projects.find(p => p.id === 'proj-umar-portfolio')
             || projects.find(p => p.id === 'proj-der-salon')
             || projects.find(p => p.id === 'proj-the-dentist-kl')
             || projects.find(p => p.id === 'proj-voiceflow')
@@ -267,6 +268,17 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Featured Deployments:</span>
                   <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-950/90 border border-slate-800 flex-wrap">
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightProjectId('proj-umar-portfolio')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        spotlightProject.id === 'proj-umar-portfolio'
+                          ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 text-white font-bold shadow-md shadow-blue-600/30'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      💼 Umer Portfolio
+                    </button>
                     <button
                       type="button"
                       onClick={() => setSpotlightProjectId('proj-der-salon')}
@@ -582,7 +594,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                         <span className="px-3 py-1 rounded-full bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-[11px] font-bold text-blue-300">
                           {project.category}
                         </span>
-                        {(project.id === 'proj-voiceflow' || project.id === 'proj-delaqua' || project.id === 'proj-mezturkish' || project.id === 'proj-thedonpizza' || project.id === 'proj-libertygrand' || project.id === 'proj-furniture-sheheryar' || project.id === 'proj-flyingscissor' || project.id === 'proj-neonstrike' || project.id === 'proj-shoecasa' || project.id === 'proj-adnansweets' || project.id === 'proj-groomermen') && (
+                        {(project.id === 'proj-umar-portfolio' || project.id === 'proj-voiceflow' || project.id === 'proj-delaqua' || project.id === 'proj-mezturkish' || project.id === 'proj-thedonpizza' || project.id === 'proj-libertygrand' || project.id === 'proj-furniture-sheheryar' || project.id === 'proj-flyingscissor' || project.id === 'proj-neonstrike' || project.id === 'proj-shoecasa' || project.id === 'proj-adnansweets' || project.id === 'proj-groomermen') && (
                           <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-500/40 text-[10px] font-bold text-amber-300 flex items-center gap-1">
                             <Sparkles className="w-2.5 h-2.5" />
                             Featured

@@ -22,7 +22,6 @@ export const Footer: React.FC<FooterProps> = () => {
     { name: 'About', href: '/about' },
     { name: 'Skills', href: '/skills' },
     { name: 'Services', href: '/services' },
-    { name: 'Writing', href: '/content-writing' },
     { name: 'Projects', href: '/projects' },
     { name: 'Process', href: '/process' },
     { name: 'Contact', href: '/contact' },

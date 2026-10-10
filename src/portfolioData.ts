@@ -175,19 +175,6 @@ export interface CVData {
   }[];
 }
 
-export interface CollaboratorProfile {
-  name: string;
-  shortName: string;
-  role: string;
-  headline: string;
-  description: string;
-  email: string;
-  portfolioUrl: string;
-  contactUrl: string;
-  availabilityNote: string;
-  tags: string[];
-}
-
 export const PORTFOLIO_DATA = {
   personal: {
     name: 'RIZWAN AHMAD',
@@ -230,18 +217,6 @@ export const PORTFOLIO_DATA = {
     whatsappNumber: '923081509520',
     whatsappMessage: "Hi Rizwan, I visited your portfolio and would like to discuss a web design/development project with you!",
     location: 'Faisalabad, Pakistan',
-    collaborator: {
-      name: 'Umer',
-      shortName: 'UA',
-      role: 'Web Developer & AI Solutions Creator',
-      headline: 'Building Digital Experiences That Matter',
-      description: 'Collaborative development partner specialized in modern responsive web apps, intelligent AI-powered solutions, and interactive experiences.',
-      email: 'janjuau824@gmail.com',
-      portfolioUrl: 'https://portfolio-umar-liart.vercel.app',
-      contactUrl: 'https://portfolio-umar-liart.vercel.app/#contact',
-      availabilityNote: 'Available for Projects',
-      tags: ['Web Development', 'AI Solutions', 'Interactive Apps']
-    } as CollaboratorProfile,
     socials: {
       whatsapp: 'https://wa.me/923081509520?text=Hi%20Rizwan%2C%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project!',
       email: 'mailto:ra2826572@gmail.com',
@@ -617,49 +592,30 @@ export const PORTFOLIO_DATA = {
         url: '#presentation-design',
         tagline: 'Live 16:9 Executive Capability Presentation'
       }
-    },
-    {
-      id: 'content-writing',
-      title: 'Content Writing',
-      subtitle: 'Words That Inform, Engage & Convert',
-      description: 'I create clear, engaging, and reader-focused content for websites, blogs, SEO, and social media. My goal is to help brands communicate their message effectively through well-structured, valuable, and compelling writing.',
-      icon: 'PenTool',
-      deliverables: [
-        'Website Content Writing',
-        'Blog & Article Writing',
-        'SEO Content Writing',
-        'Social Media Copywriting',
-        'Landing Page Copy',
-        'Product Descriptions',
-        'AI-Assisted Content Creation with human editing'
-      ],
-      popular: true,
-      featuredProject: {
-        name: 'Content Writing Portfolio & Samples',
-        url: '/content-writing',
-        tagline: '4 Complete Real-World Writing Portfolio Projects'
-      }
-    },
-    {
-      id: 'website-redesign',
-      title: 'Website Redesign',
-      description: 'Transform outdated websites into modern, responsive experiences.',
-      icon: 'RefreshCw',
-      deliverables: [
-        'Complete visual overhaul to modern 2026 standards',
-        'Performance upgrade & code modernization',
-        'Mobile optimization & UX streamlining',
-        'Retain your existing SEO rankings & content'
-      ],
-      featuredProject: {
-        name: 'Liberty Grand Marquee',
-        url: 'https://liberty-grand.vercel.app/',
-        tagline: 'Luxury Wedding Marquee & Event Venue Web Platform'
-      }
     }
   ] as Service[],
 
   projects: [
+    {
+      id: 'proj-umar-portfolio',
+      name: 'Umer — Web Developer & AI Solutions Creator Portfolio',
+      category: 'Portfolio',
+      tagline: 'Modern Web Development, Interactive Experiences & AI Solutions',
+      description: 'A modern, responsive developer portfolio and digital consultation platform engineered for Umer (Web Developer & AI Solutions Creator). Showcases full-stack web applications, interactive digital experiences, AI-powered systems, and a direct client contact desk.',
+      image: 'https://portfolio-umar-liart.vercel.app/assets/portfolio_preview_1791543144733-CBhnXrji.jpg',
+      technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'AI Solutions', 'Vercel Deployment'],
+      features: [
+        'Interactive digital showcase with high-performance responsive UI',
+        'Direct contact desk & consultation portal (#contact)',
+        'Modern dark aesthetic with seamless animations and UX design',
+        'AI-powered systems & full-stack web application features',
+        'Live deployed on Vercel with high-speed global CDN delivery'
+      ],
+      liveUrl: 'https://portfolio-umar-liart.vercel.app/#contact',
+      clientName: 'Umer (Web & AI Solutions)',
+      completionTime: '1 Week',
+      overview: 'Designed and deployed a state-of-the-art developer portfolio and client inquiry platform for Umer. Built with high-contrast typography, interactive showcase sections, streamlined mobile responsiveness, and an integrated contact & discussion channel.'
+    },
     {
       id: 'proj-the-dentist-kl',
       name: 'The Dentist@KL — Premium Dental Clinic & Healthcare Booking',
