@@ -19,7 +19,7 @@ import {
   Maximize2
 } from 'lucide-react';
 import { PORTFOLIO_DATA, Service } from '../portfolioData';
-import { PowerPointIcon } from './PresentationDesignSection';
+import { PowerPointIcon } from './icons/PowerPointIcon';
 
 interface ServicesProps {
   onOpenQuoteModal: (preselectedService?: string) => void;
@@ -74,12 +74,15 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
           {PORTFOLIO_DATA.services.map((service, index) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: '-50px' }}
+              whileHover={{ y: -6 }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="group relative p-8 rounded-3xl bg-slate-900/60 border border-slate-800/90 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between"
+              className="group relative p-8 rounded-3xl bg-slate-900/60 border border-slate-800/90 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col justify-between overflow-hidden"
             >
+              {/* Animated hover gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-indigo-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               {/* Popular Badge */}
               {service.popular && (
                 <div className="absolute top-5 right-5 px-3 py-1 rounded-full bg-slate-800/90 border border-slate-700/80 text-[11px] font-bold text-blue-300">

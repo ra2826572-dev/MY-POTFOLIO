@@ -5,12 +5,11 @@ import {
   ArrowRight, 
   Eye, 
   MessageSquare,
-  Award,
-  ExternalLink,
   FileText
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
 import { RizwanBadge } from './RizwanBadge';
+import { AnimatedCounter } from './AnimatedCounter';
 
 interface HeroProps {
   onOpenQuoteModal: () => void;
@@ -48,7 +47,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7 flex flex-col items-start text-left"
           >
-            {/* Status & Credential Badges */}
+            {/* Status Badge */}
             <div className="flex items-center gap-3 flex-wrap mb-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 backdrop-blur-md shadow-sm">
                 <span className="relative flex h-2.5 w-2.5">
@@ -59,18 +58,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                   Available for New Projects
                 </span>
               </div>
-
-              <a
-                href="https://academy.claude.com/verify/756dec40601edbd310dabed4772c31e8"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Verify Official Anthropic Claude Academy Credential"
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-950/70 hover:bg-purple-900/90 border border-purple-500/40 text-purple-200 text-xs font-semibold transition-all duration-200 hover:scale-105 shadow-md shadow-purple-950/50 group"
-              >
-                <Award className="w-3.5 h-3.5 text-purple-400 group-hover:rotate-12 transition-transform" />
-                <span>Claude Certified AI Specialist</span>
-                <ExternalLink className="w-3 h-3 text-purple-400 group-hover:translate-x-0.5 transition-transform" />
-              </a>
             </div>
 
             {/* Main Greeting and Name */}
@@ -132,19 +119,25 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               </Link>
             </div>
 
-            {/* Quick trust metrics under hero buttons */}
+            {/* Quick trust metrics under hero buttons with AnimatedCounter */}
             <div className="mt-10 pt-6 border-t border-slate-800/80 grid grid-cols-3 gap-6 w-full max-w-lg">
-              <div>
-                <p className="text-2xl font-bold text-white font-mono">80+</p>
-                <p className="text-xs text-slate-400">Projects Done</p>
+              <div className="group">
+                <p className="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight group-hover:text-blue-400 transition-colors">
+                  <AnimatedCounter value={80} suffix="+" />
+                </p>
+                <p className="text-xs text-slate-400 mt-0.5">Projects Done</p>
               </div>
-              <div>
-                <p className="text-2xl font-bold text-white font-mono">50+</p>
-                <p className="text-xs text-slate-400">Websites Live</p>
+              <div className="group">
+                <p className="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight group-hover:text-indigo-400 transition-colors">
+                  <AnimatedCounter value={50} suffix="+" />
+                </p>
+                <p className="text-xs text-slate-400 mt-0.5">Websites Live</p>
               </div>
-              <div>
-                <p className="text-2xl font-bold text-emerald-400 font-mono">100%</p>
-                <p className="text-xs text-slate-400">Responsive</p>
+              <div className="group">
+                <p className="text-2xl sm:text-3xl font-black text-emerald-400 font-mono tracking-tight">
+                  <AnimatedCounter value={100} suffix="%" />
+                </p>
+                <p className="text-xs text-slate-400 mt-0.5">Responsive</p>
               </div>
             </div>
           </motion.div>

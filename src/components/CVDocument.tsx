@@ -197,32 +197,23 @@ export const CVDocument: React.FC<CVDocumentProps> = ({
                 <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400">
                   <Award className="w-4 h-4" />
                 </div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-purple-400">
-                  Certification
+                <h3 className="text-xs font-bold uppercase tracking-wider text-blue-400">
+                  Certification & Expertise
                 </h3>
               </div>
 
               <div className={`p-3 rounded-xl border text-xs ${
                 isLight 
-                  ? 'bg-purple-50 border-purple-200 text-purple-950' 
-                  : 'bg-purple-950/30 border-purple-500/30 text-purple-200'
+                  ? 'bg-blue-50 border-blue-200 text-blue-950' 
+                  : 'bg-blue-950/30 border-blue-500/30 text-blue-200'
               }`}>
                 <div className="flex items-center gap-1.5 font-bold mb-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-                  <span>Anthropic Claude Academy</span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                  <span>Frontend & Web Engineering</span>
                 </div>
-                <p className="text-[11px] text-slate-400 leading-snug mb-2">
-                  Official Verified Credential in Claude AI, prompt architecture & agents.
+                <p className="text-[11px] text-slate-400 leading-snug">
+                  Modern Responsive Web Architecture, React SPA, WordPress & High-Converting UI/UX.
                 </p>
-                <a
-                  href="https://academy.claude.com/verify/756dec40601edbd310dabed4772c31e8"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[10px] font-bold text-purple-400 hover:text-purple-300 underline"
-                >
-                  <span>Verify Credential</span>
-                  <ExternalLink className="w-2.5 h-2.5" />
-                </a>
               </div>
             </div>
 

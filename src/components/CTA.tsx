@@ -29,8 +29,30 @@ export const CTA: React.FC<CTAProps> = ({ onOpenQuoteModal }) => {
           className="relative rounded-3xl p-8 sm:p-14 lg:p-16 overflow-hidden bg-gradient-to-b from-slate-900/90 via-[#0B0F19] to-slate-950 border border-slate-700/70 shadow-2xl shadow-black/80"
         >
           {/* Animated Background Gradients & Glow Accents */}
-          <div className="absolute -top-32 -left-32 w-80 h-80 bg-blue-600/25 rounded-full blur-[100px] pointer-events-none animate-pulse" />
-          <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-purple-600/25 rounded-full blur-[100px] pointer-events-none animate-pulse" />
+          <motion.div 
+            animate={{
+              scale: [1, 1.25, 1],
+              opacity: [0.25, 0.5, 0.25]
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: 'easeInOut'
+            }}
+            className="absolute -top-32 -left-32 w-80 h-80 bg-blue-600/30 rounded-full blur-[100px] pointer-events-none" 
+          />
+          <motion.div 
+            animate={{
+              scale: [1.2, 1, 1.2],
+              opacity: [0.2, 0.45, 0.2]
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: 'easeInOut'
+            }}
+            className="absolute -bottom-32 -right-32 w-80 h-80 bg-purple-600/30 rounded-full blur-[100px] pointer-events-none" 
+          />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-transparent to-transparent pointer-events-none" />
 
           {/* Grid pattern overlay */}

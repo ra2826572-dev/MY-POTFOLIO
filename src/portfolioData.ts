@@ -187,7 +187,7 @@ export const PORTFOLIO_DATA = {
       'Cloud Expert & DevOps',
       'UI/UX Specialist',
       'WordPress & React Expert',
-      'Claude & AI Specialist'
+      'Content Writer & Copywriter'
     ],
     bio: "I create modern, responsive and conversion-focused websites that help businesses build a strong online presence.",
     aboutDetailed: "I'm a creative web designer and developer passionate about building modern websites for businesses and personal brands. I focus on clean UI, responsive layouts, smooth user experiences and professional visual design.",
@@ -195,14 +195,6 @@ export const PORTFOLIO_DATA = {
     location: 'Faisalabad, Pakistan (Available Worldwide)',
     availabilityStatus: '🟢 Available for new projects',
     experienceYears: '2+ Years Experience',
-    claudeCertification: {
-      title: 'Anthropic Claude Academy Certified',
-      credentialId: '756dec40601edbd310dabed4772c31e8',
-      verifyUrl: 'https://academy.claude.com/verify/756dec40601edbd310dabed4772c31e8',
-      badge: 'Official Verified Credential',
-      issuedBy: 'Anthropic Claude Academy',
-      description: 'Officially verified credentials in Claude AI architecture, prompt engineering, agentic systems, and full-stack AI integration.'
-    },
     stats: [
       { label: 'Completed Projects', value: '80+', note: 'Delivered on time', icon: 'FolderGit2' },
       { label: 'Websites Built', value: '50+', note: 'For diverse industries', icon: 'Globe' },
@@ -236,17 +228,9 @@ export const PORTFOLIO_DATA = {
     { name: 'Elementor', iconName: 'LayoutGrid', category: 'CMS & Platforms', level: 95, experience: 'Pixel-Perfect Builder', highlight: true },
     { name: 'UI/UX Design', iconName: 'Figma', category: 'Design & Creative', level: 92, experience: 'Wireframes & Visual Flow', highlight: true },
     { name: 'Responsive Web Design', iconName: 'Smartphone', category: 'Frontend & Code', level: 98, experience: 'Mobile-First Perfection', highlight: true },
-    { 
-      name: 'Claude & AI Expert', 
-      iconName: 'Bot', 
-      category: 'Tools & AI', 
-      level: 95, 
-      experience: 'Claude 3.7 Sonnet, AI Agents & Certified Workflows', 
-      highlight: true,
-      certificateUrl: 'https://academy.claude.com/verify/756dec40601edbd310dabed4772c31e8',
-      certificateTitle: 'Anthropic Claude Academy Certified'
-    },
+    { name: 'AI-Assisted Development', iconName: 'Bot', category: 'Tools & AI', level: 92, experience: 'AI Coding Tools, Prompt Engineering & Modern Workflows', highlight: true },
     { name: 'Graphic Design', iconName: 'PenTool', category: 'Design & Creative', level: 85, experience: 'Branding & Social Assets', highlight: false },
+    { name: 'Content Writing & Copywriting', iconName: 'PenTool', category: 'Design & Creative', level: 93, experience: 'SEO Articles, Website Copy, Blogs & Social Media', highlight: true },
     { name: 'AI Tools', iconName: 'Sparkles', category: 'Tools & AI', level: 90, experience: 'Workflow & Content Boost', highlight: true },
     { name: 'VS Code & Shortcuts', iconName: 'VSCode', category: 'Tools & AI', level: 98, experience: 'Keyboard Shortcuts, Multi-Cursor & Velocity Workflows', highlight: true },
     { name: 'Tailwind CSS', iconName: 'Layers', category: 'Frontend & Code', level: 94, experience: 'Rapid Utility Styling', highlight: false },
@@ -592,30 +576,24 @@ export const PORTFOLIO_DATA = {
         url: '#presentation-design',
         tagline: 'Live 16:9 Executive Capability Presentation'
       }
+    },
+    {
+      id: 'content-writing',
+      title: 'Content Writing & Copywriting',
+      subtitle: 'Words That Inform, Engage & Convert',
+      description: 'Clear, engaging, and audience-focused copy for modern websites, SEO blog articles, and social media campaigns engineered to drive real user action.',
+      icon: 'PenTool',
+      deliverables: [
+        'Website copy & high-converting landing page headlines',
+        'SEO blog posts & long-form editorial articles',
+        'Brand messaging, value propositions & elevator pitches',
+        'Social media captions, campaign copy & content strategy'
+      ],
+      popular: true
     }
   ] as Service[],
 
   projects: [
-    {
-      id: 'proj-umar-portfolio',
-      name: 'Umer — Web Developer & AI Solutions Creator Portfolio',
-      category: 'Portfolio',
-      tagline: 'Modern Web Development, Interactive Experiences & AI Solutions',
-      description: 'A modern, responsive developer portfolio and digital consultation platform engineered for Umer (Web Developer & AI Solutions Creator). Showcases full-stack web applications, interactive digital experiences, AI-powered systems, and a direct client contact desk.',
-      image: 'https://portfolio-umar-liart.vercel.app/assets/portfolio_preview_1791543144733-CBhnXrji.jpg',
-      technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'AI Solutions', 'Vercel Deployment'],
-      features: [
-        'Interactive digital showcase with high-performance responsive UI',
-        'Direct contact desk & consultation portal (#contact)',
-        'Modern dark aesthetic with seamless animations and UX design',
-        'AI-powered systems & full-stack web application features',
-        'Live deployed on Vercel with high-speed global CDN delivery'
-      ],
-      liveUrl: 'https://portfolio-umar-liart.vercel.app/#contact',
-      clientName: 'Umer (Web & AI Solutions)',
-      completionTime: '1 Week',
-      overview: 'Designed and deployed a state-of-the-art developer portfolio and client inquiry platform for Umer. Built with high-contrast typography, interactive showcase sections, streamlined mobile responsiveness, and an integrated contact & discussion channel.'
-    },
     {
       id: 'proj-the-dentist-kl',
       name: 'The Dentist@KL — Premium Dental Clinic & Healthcare Booking',
@@ -1213,8 +1191,8 @@ export const PORTFOLIO_DATA = {
       },
       {
         degree: 'Continuous Technical Development & Web Engineering',
-        institution: 'Frontend Development, React SPA Architecture & Anthropic Claude Academy',
-        status: 'Certified / Active',
+        institution: 'Frontend Development & Modern React SPA Architecture',
+        status: 'Active',
         year: '2023 - Present'
       }
     ],
@@ -1237,8 +1215,8 @@ export const PORTFOLIO_DATA = {
         items: ['Adobe Photoshop', 'Figma', 'Graphic Design', 'Brand Identity', 'UI/UX Prototyping']
       },
       {
-        category: 'AI Mastery & Modern Tools',
-        items: ['Anthropic Claude Academy Certified', 'Claude 3.7 Sonnet', 'AI Workflows', 'Git & GitHub', 'Vite & Vercel']
+        category: 'AI & Modern Developer Tools',
+        items: ['AI Prompt Engineering', 'Developer Workflows', 'Git & GitHub', 'Vite & Vercel']
       },
       {
         category: 'Presentation Design',

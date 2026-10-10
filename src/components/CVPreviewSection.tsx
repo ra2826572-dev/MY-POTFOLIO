@@ -191,7 +191,7 @@ export const CVPreviewSection: React.FC<CVPreviewSectionProps> = ({
                   </div>
                   <div className="flex items-center justify-between text-slate-300">
                     <span className="text-slate-400">Certification:</span>
-                    <strong className="text-purple-300">Anthropic Claude AI</strong>
+                    <strong className="text-blue-300">Web Engineering & UI/UX</strong>
                   </div>
                   <div className="flex items-center justify-between text-slate-300">
                     <span className="text-slate-400">Languages:</span>

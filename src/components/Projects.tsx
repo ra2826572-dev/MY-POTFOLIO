@@ -33,7 +33,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
   const [isManagerModalOpen, setIsManagerModalOpen] = useState<boolean>(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [spotlightProjectId, setSpotlightProjectId] = useState<string>('proj-umar-portfolio');
+  const [spotlightProjectId, setSpotlightProjectId] = useState<string>('proj-the-dentist-kl');
 
   // Admin PIN Protection State
   const [isLockModalOpen, setIsLockModalOpen] = useState<boolean>(false);
@@ -243,7 +243,6 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
         {/* Featured Project Spotlight: Dynamic Toggle */}
         {(() => {
           const spotlightProject = projects.find(p => p.id === spotlightProjectId) 
-            || projects.find(p => p.id === 'proj-umar-portfolio')
             || projects.find(p => p.id === 'proj-der-salon')
             || projects.find(p => p.id === 'proj-the-dentist-kl')
             || projects.find(p => p.id === 'proj-voiceflow')
@@ -268,17 +267,6 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Featured Deployments:</span>
                   <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-950/90 border border-slate-800 flex-wrap">
-                    <button
-                      type="button"
-                      onClick={() => setSpotlightProjectId('proj-umar-portfolio')}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                        spotlightProject.id === 'proj-umar-portfolio'
-                          ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 text-white font-bold shadow-md shadow-blue-600/30'
-                          : 'text-slate-400 hover:text-slate-200'
-                      }`}
-                    >
-                      💼 Umer Portfolio
-                    </button>
                     <button
                       type="button"
                       onClick={() => setSpotlightProjectId('proj-der-salon')}
@@ -520,22 +508,34 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
           );
         })()}
 
-        {/* Category Filter Tabs */}
+        {/* Category Filter Tabs with Smooth Animated Indicator */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
-                activeCategory === category
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25 scale-105'
-                  : 'bg-slate-900/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-800'
-              }`}
-            >
-              {category}
-              {category === 'All' ? ` (${projects.length})` : ''}
-            </button>
-          ))}
+          {categories.map((category) => {
+            const isSelected = activeCategory === category;
+            return (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`relative px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
+                  isSelected
+                    ? 'text-white shadow-lg shadow-blue-500/25'
+                    : 'bg-slate-900/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-800'
+                }`}
+              >
+                {isSelected && (
+                  <motion.div
+                    layoutId="activeProjectCategoryTab"
+                    className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 shadow-md shadow-blue-500/30"
+                    transition={{ type: 'spring', stiffness: 450, damping: 32 }}
+                  />
+                )}
+                <span className="relative z-10">
+                  {category}
+                  {category === 'All' ? ` (${projects.length})` : ''}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Empty State if no projects in category */}
@@ -594,7 +594,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                         <span className="px-3 py-1 rounded-full bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-[11px] font-bold text-blue-300">
                           {project.category}
                         </span>
-                        {(project.id === 'proj-umar-portfolio' || project.id === 'proj-voiceflow' || project.id === 'proj-delaqua' || project.id === 'proj-mezturkish' || project.id === 'proj-thedonpizza' || project.id === 'proj-libertygrand' || project.id === 'proj-furniture-sheheryar' || project.id === 'proj-flyingscissor' || project.id === 'proj-neonstrike' || project.id === 'proj-shoecasa' || project.id === 'proj-adnansweets' || project.id === 'proj-groomermen') && (
+                        {(project.id === 'proj-voiceflow' || project.id === 'proj-delaqua' || project.id === 'proj-mezturkish' || project.id === 'proj-thedonpizza' || project.id === 'proj-libertygrand' || project.id === 'proj-furniture-sheheryar' || project.id === 'proj-flyingscissor' || project.id === 'proj-neonstrike' || project.id === 'proj-shoecasa' || project.id === 'proj-adnansweets' || project.id === 'proj-groomermen') && (
                           <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-500/40 text-[10px] font-bold text-amber-300 flex items-center gap-1">
                             <Sparkles className="w-2.5 h-2.5" />
                             Featured

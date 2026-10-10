@@ -100,7 +100,11 @@ export const Contact: React.FC = () => {
             className="lg:col-span-5 flex flex-col gap-6"
           >
             {/* Prominent WhatsApp Me Highlight Card */}
-            <div className="relative p-7 rounded-3xl bg-gradient-to-br from-emerald-950/70 via-slate-900/90 to-slate-900/90 border border-emerald-500/40 backdrop-blur-xl shadow-xl shadow-black/50 overflow-hidden">
+            <motion.div 
+              whileHover={{ y: -5, scale: 1.01 }}
+              transition={{ duration: 0.3 }}
+              className="relative p-7 rounded-3xl bg-gradient-to-br from-emerald-950/70 via-slate-900/90 to-slate-900/90 border border-emerald-500/40 backdrop-blur-xl shadow-xl shadow-black/50 overflow-hidden"
+            >
               <div className="flex items-center justify-between mb-4">
                 <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
                   <Phone className="w-6 h-6" />
@@ -129,10 +133,14 @@ export const Contact: React.FC = () => {
                 <span>WhatsApp Me</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
-            </div>
+            </motion.div>
 
             {/* Email Contact Card */}
-            <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800/90 backdrop-blur-xl shadow-xl shadow-black/40 flex items-center justify-between gap-4">
+            <motion.div 
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.25 }}
+              className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800/90 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 flex items-center justify-between gap-4 transition-colors"
+            >
               <div className="flex items-center gap-4 min-w-0">
                 <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0">
                   <Mail className="w-5 h-5" />
@@ -160,7 +168,7 @@ export const Contact: React.FC = () => {
                   <ExternalLink className="w-4 h-4" />
                 </a>
               </div>
-            </div>
+            </motion.div>
 
             {/* Social Channels Required */}
             <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800/90 backdrop-blur-xl shadow-xl shadow-black/40">

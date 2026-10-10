@@ -53,8 +53,16 @@ export const Process: React.FC = () => {
         {/* 5-Step Timeline Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5 relative">
           
-          {/* Subtle horizontal connecting line on desktop */}
-          <div className="hidden lg:block absolute top-14 left-10 right-10 h-[2px] bg-gradient-to-r from-blue-600/40 via-purple-600/40 to-amber-600/40 z-0" />
+          {/* Animated horizontal connecting line on desktop */}
+          <div className="hidden lg:block absolute top-14 left-10 right-10 h-[2px] bg-slate-800 z-0 overflow-hidden">
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: 'easeInOut' }}
+              className="h-full w-full bg-gradient-to-r from-blue-500 via-purple-500 to-amber-500 origin-left"
+            />
+          </div>
 
           {PORTFOLIO_DATA.process.map((step, index) => {
             const isSelected = activeStep === index;
@@ -65,11 +73,12 @@ export const Process: React.FC = () => {
                 initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                whileHover={{ y: -6 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 onClick={() => setActiveStep(index)}
                 className={`relative z-10 cursor-pointer p-6 rounded-3xl backdrop-blur-xl transition-all duration-300 flex flex-col justify-between ${
                   isSelected 
-                    ? 'bg-slate-900/90 border-2 border-blue-500/80 shadow-2xl shadow-blue-500/20 -translate-y-2'
+                    ? 'bg-slate-900/95 border-2 border-blue-500 shadow-2xl shadow-blue-500/25 -translate-y-2'
                     : 'bg-slate-900/50 border border-slate-800/80 hover:border-slate-700 hover:bg-slate-900/70 hover:-translate-y-1'
                 }`}
               >

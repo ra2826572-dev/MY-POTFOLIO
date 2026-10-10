@@ -54,12 +54,15 @@ export const WhyChooseMe: React.FC = () => {
           {PORTFOLIO_DATA.whyChooseMe.map((item, index) => (
             <motion.div
               key={item.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.07 }}
-              className="group relative p-7 rounded-3xl bg-slate-900/60 border border-slate-800/80 hover:border-blue-500/40 backdrop-blur-xl shadow-xl shadow-black/40 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col justify-between"
+              viewport={{ once: true, margin: '-50px' }}
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.45, delay: index * 0.08 }}
+              className="group relative p-7 rounded-3xl bg-slate-900/60 border border-slate-800/80 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col justify-between overflow-hidden"
             >
+              {/* Animated hover gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-indigo-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               <div>
                 <div className="flex items-center justify-between mb-5">
                   <div className="w-13 h-13 rounded-2xl bg-slate-800/90 border border-slate-700/80 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner">
