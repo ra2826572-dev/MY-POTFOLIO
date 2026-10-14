@@ -16,16 +16,39 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.05,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 14 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.35,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+  };
+
   return (
     <section 
       id="home" 
       className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-16 lg:py-32 overflow-hidden"
     >
-      {/* Background Ambient Glows & Grid Pattern */}
+      {/* Background Ambient Glows & Subtle Grid Pattern */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/15 rounded-full blur-[140px]" />
-        <div className="absolute top-1/3 right-10 w-[450px] h-[450px] bg-purple-600/15 rounded-full blur-[130px]" />
-        <div className="absolute bottom-10 left-10 w-[350px] h-[350px] bg-amber-500/10 rounded-full blur-[120px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[140px]" />
+        <div className="absolute top-1/3 right-10 w-[450px] h-[450px] bg-purple-600/10 rounded-full blur-[130px]" />
+        <div className="absolute bottom-10 left-10 w-[350px] h-[350px] bg-amber-500/8 rounded-full blur-[120px]" />
         
         {/* Subtle grid lines */}
         <div 
@@ -40,15 +63,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Left Column: Headline, Bio & Action Buttons */}
+          {/* Left Column: Headline, Bio & Action Buttons with Staggered Entrance */}
           <motion.div 
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
             className="lg:col-span-7 flex flex-col items-start text-left"
           >
             {/* Status Badge */}
-            <div className="flex items-center gap-3 flex-wrap mb-6">
+            <motion.div variants={itemVariants} className="flex items-center gap-3 flex-wrap mb-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 backdrop-blur-md shadow-sm">
                 <span className="relative flex h-2.5 w-2.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -58,69 +81,50 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                   Available for New Projects
                 </span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Main Greeting and Name */}
-            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-4">
+            <motion.h1 variants={itemVariants} className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-4">
               Hi, I'm <br className="hidden sm:inline" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">
                 {PORTFOLIO_DATA.personal.name}
               </span>
-            </h1>
+            </motion.h1>
 
             {/* Subheading / Role */}
-            <div className="flex items-center gap-3 mb-6">
+            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
               <span className="h-[2px] w-8 bg-gradient-to-r from-blue-500 to-indigo-500 inline-block rounded-full" />
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-200 tracking-wide">
                 {PORTFOLIO_DATA.personal.role}
               </h2>
-            </div>
+            </motion.div>
 
             {/* Short Description */}
-            <p className="text-base sm:text-lg text-slate-300/90 max-w-2xl leading-relaxed mb-9 font-normal">
+            <motion.p variants={itemVariants} className="text-base sm:text-lg text-slate-300/90 max-w-2xl leading-relaxed mb-9 font-normal">
               "{PORTFOLIO_DATA.personal.bio}"
-            </p>
+            </motion.p>
 
             {/* Primary Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto">
+            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 w-full sm:w-auto">
               {/* View My Work */}
-              <Link
-                to="/projects"
-                id="hero-view-work-btn"
-                className="relative inline-flex items-center justify-center px-7 py-4 rounded-full font-semibold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 shadow-xl shadow-blue-600/25 hover:shadow-blue-600/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 group overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                <span className="relative z-10 flex items-center gap-2 text-base">
-                  <Eye className="w-5 h-5" />
-                  <span>View My Work</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </Link>
-
-              {/* Let's Work Together */}
-              <Link
-                to="/contact"
-                id="hero-work-together-btn"
-                className="inline-flex items-center justify-center px-7 py-4 rounded-full font-semibold text-slate-200 bg-slate-900/90 hover:bg-slate-800/90 border border-slate-700/80 hover:border-slate-600 hover:text-white hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-lg shadow-black/40 text-base gap-2"
-              >
-                <MessageSquare className="w-5 h-5 text-blue-400" />
-                <span>Let's Work Together</span>
-              </Link>
-
-              {/* View & Download CV */}
-              <Link
-                to="/cv"
-                id="hero-cv-btn"
-                className="inline-flex items-center justify-center px-6 py-4 rounded-full font-semibold text-slate-300 hover:text-white bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-sm gap-2"
-                title="View & Download Rizwan's Resume / CV"
-              >
-                <FileText className="w-4 h-4 text-blue-400" />
-                <span>View CV (PDF)</span>
-              </Link>
-            </div>
+              <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2 }}>
+                <Link
+                  to="/projects"
+                  id="hero-view-work-btn"
+                  className="relative inline-flex items-center justify-center px-7 py-4 rounded-full font-semibold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 shadow-xl shadow-blue-600/25 hover:shadow-blue-600/40 transition-shadow duration-300 group overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-white/15 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                  <span className="relative z-10 flex items-center gap-2 text-base">
+                    <Eye className="w-5 h-5" />
+                    <span>View My Work</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </Link>
+              </motion.div>
+            </motion.div>
 
             {/* Quick trust metrics under hero buttons with AnimatedCounter */}
-            <div className="mt-10 pt-6 border-t border-slate-800/80 grid grid-cols-3 gap-6 w-full max-w-lg">
+            <motion.div variants={itemVariants} className="mt-10 pt-6 border-t border-slate-800/80 grid grid-cols-3 gap-6 w-full max-w-lg">
               <div className="group">
                 <p className="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight group-hover:text-blue-400 transition-colors">
                   <AnimatedCounter value={80} suffix="+" />
@@ -139,14 +143,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 </p>
                 <p className="text-xs text-slate-400 mt-0.5">Responsive</p>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* Right Column: High-End Circular 3D Emblem Badge */}
+          {/* Right Column: High-End Circular 3D Emblem Badge with Smooth Reveal */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, scale: 0.95, y: 14 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative flex items-center justify-center"
           >
             <RizwanBadge />

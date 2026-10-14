@@ -190,12 +190,12 @@ export const Testimonials: React.FC = () => {
           {filteredTestimonials.map((item, index) => (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -6 }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="group relative p-8 rounded-3xl bg-slate-900/80 border border-slate-800/90 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col justify-between overflow-hidden"
+              viewport={{ once: true, margin: '-40px' }}
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.28, delay: index * 0.05 }}
+              className="group relative p-8 rounded-3xl bg-slate-900/80 border border-slate-800/90 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 transition-colors duration-200 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col justify-between overflow-hidden"
             >
               {/* Subtle hover sheen */}
               <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-indigo-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />

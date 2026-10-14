@@ -10,7 +10,7 @@ interface AnimatedCounterProps {
 export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   value,
   suffix = '',
-  duration = 1800,
+  duration = 900,
   className = '',
 }) => {
   const [count, setCount] = useState(0);
@@ -18,6 +18,12 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
+    // Check prefers-reduced-motion
+    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setCount(value);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && !hasAnimatedRef.current) {

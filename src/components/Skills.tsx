@@ -21,8 +21,10 @@ import {
   Briefcase,
   BarChart3,
   GraduationCap,
-  Type
+  Type,
+  MessageSquare
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { PORTFOLIO_DATA, Skill } from '../portfolioData';
 import { PowerPointIcon } from './icons/PowerPointIcon';
 
@@ -136,19 +138,20 @@ export const Skills: React.FC = () => {
               <motion.div
                 key={skill.name}
                 layout
-                initial={{ opacity: 0, scale: 0.9, y: 15 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: -10 }}
-                whileHover={{ y: -6, scale: 1.01 }}
-                transition={{ duration: 0.35, delay: index * 0.02 }}
-                className="group relative p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-blue-500/50 backdrop-blur-xl shadow-lg shadow-black/40 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/15 flex flex-col justify-between overflow-hidden"
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-20px' }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.28, delay: Math.min(index * 0.03, 0.3) }}
+                className="group relative p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-blue-500/50 backdrop-blur-xl shadow-lg shadow-black/40 transition-colors duration-200 hover:shadow-xl hover:shadow-blue-500/10 flex flex-col justify-between overflow-hidden"
               >
-                {/* Glow layer on hover */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/10 via-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                {/* Subtle glow layer on hover */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/10 via-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none" />
 
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner">
+                    <div className="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center group-hover:scale-105 group-hover:border-blue-500/40 group-hover:bg-slate-800 transition-all duration-200 shadow-inner">
                       {renderSkillIcon(skill.iconName)}
                     </div>
                     <div className="flex items-center gap-1.5 flex-wrap justify-end">
@@ -163,7 +166,7 @@ export const Skills: React.FC = () => {
                     </div>
                   </div>
 
-                  <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">
+                  <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-300 transition-colors duration-150">
                     {skill.name}
                   </h3>
 
@@ -173,20 +176,32 @@ export const Skills: React.FC = () => {
                 </div>
 
                 {/* Skill Level Progress Bar */}
-                <div className="space-y-1.5 pt-3 border-t border-slate-800/60">
-                  <div className="flex justify-between text-[11px] font-semibold">
-                    <span className="text-slate-400">Proficiency</span>
-                    <span className="text-blue-400 font-mono">{skill.level}%</span>
+                <div className="space-y-3 pt-3 border-t border-slate-800/60">
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between text-[11px] font-semibold">
+                      <span className="text-slate-400">Proficiency</span>
+                      <span className="text-blue-400 font-mono">{skill.level}%</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
+                        className="h-full rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500"
+                      />
+                    </div>
                   </div>
-                  <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, ease: 'easeOut', delay: 0.1 }}
-                      className="h-full rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500"
-                    />
-                  </div>
+
+                  {/* Hire / Contact Button for this Skill */}
+                  <Link
+                    to="/contact"
+                    className="w-full py-2 px-3 rounded-xl bg-slate-800/80 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 border border-slate-700/80 hover:border-blue-500 text-slate-200 hover:text-white text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm group/btn"
+                    title={`Discuss ${skill.name} project with Rizwan`}
+                  >
+                    <MessageSquare className="w-3.5 h-3.5 text-blue-400 group-hover/btn:text-white transition-colors" />
+                    <span>Contact About {skill.name}</span>
+                  </Link>
                 </div>
 
               </motion.div>

@@ -75,10 +75,10 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
           
           {/* Left: About Text & Pillars */}
           <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7 flex flex-col gap-6"
           >
             <div className="p-8 rounded-3xl bg-slate-900/60 border border-slate-800 backdrop-blur-xl shadow-xl shadow-black/40">
@@ -94,11 +94,11 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
                 Whether you need a custom-built corporate website, a high-converting landing page, an e-commerce shop, or a complete modern redesign, I bridge the gap between creative visual artistry and robust technical execution.
               </p>
 
-              {/* Action row */}
+              {/* Action row with smooth button hover */}
               <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-slate-800">
                 <Link
                   to="/cv"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white text-xs font-bold shadow-lg shadow-blue-600/25 hover:scale-[1.02] transition-all"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white text-xs font-bold shadow-lg shadow-blue-600/25 hover:shadow-blue-600/40 hover:-translate-y-0.5 transition-all duration-200"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   <span>View Resume / CV</span>
@@ -106,7 +106,7 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
 
                 <Link
                   to="/cv"
-                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-900 border border-slate-700 hover:border-blue-500/40 text-slate-200 hover:text-white text-xs font-semibold transition-all hover:scale-[1.02]"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-900 border border-slate-700 hover:border-blue-500/40 text-slate-200 hover:text-white text-xs font-semibold hover:-translate-y-0.5 transition-all duration-200"
                   title="Download Rizwan's CV in PDF"
                 >
                   <Download className="w-3.5 h-3.5 text-blue-400" />
@@ -115,7 +115,7 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
 
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-800/80 hover:bg-slate-800 text-slate-200 text-xs font-medium border border-slate-700 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-800/80 hover:bg-slate-800 text-slate-200 text-xs font-medium border border-slate-700 hover:-translate-y-0.5 transition-all duration-200"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
                   <span>Get in Touch</span>
@@ -123,12 +123,17 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
               </div>
             </div>
 
-            {/* Core Pillars Grid */}
+            {/* Core Pillars Grid with Staggered Fade-Up */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {corePillars.map((pillar, idx) => (
-                <div 
-                  key={idx} 
-                  className="p-5 rounded-2xl bg-slate-900/40 border border-slate-800/70 hover:border-slate-700 transition-all duration-300 flex flex-col gap-2"
+                <motion.div 
+                  key={idx}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  whileHover={{ y: -3 }}
+                  transition={{ duration: 0.25, delay: idx * 0.05 }}
+                  className="p-5 rounded-2xl bg-slate-900/40 border border-slate-800/70 hover:border-slate-700 transition-all duration-200 flex flex-col gap-2"
                 >
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-xl bg-slate-800/80 border border-slate-700/50">
@@ -139,34 +144,28 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
                   <p className="text-xs text-slate-400 leading-normal pl-1">
                     {pillar.desc}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
 
-          {/* Right: The 4 Required Key Statistics & Cards */}
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4"
-          >
+          {/* Right: The 4 Key Statistics Cards with Staggered Fade-Up */}
+          <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {PORTFOLIO_DATA.personal.stats.map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -6, scale: 1.02 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.3, delay: index * 0.06 }}
                 className="group relative p-6 rounded-3xl bg-slate-900/70 border border-slate-800/90 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/50 transition-all duration-300 flex flex-col justify-between overflow-hidden"
               >
                 {/* Glow on hover */}
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-600/10 via-indigo-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-slate-800/90 border border-slate-700/80 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-slate-800 transition-all">
+                  <div className="w-12 h-12 rounded-2xl bg-slate-800/90 border border-slate-700/80 flex items-center justify-center mb-4 group-hover:scale-105 group-hover:bg-slate-800 transition-transform">
                     {statIcons[stat.icon] || <Zap className="w-6 h-6 text-blue-400" />}
                   </div>
                   
@@ -184,7 +183,7 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
                 </p>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
 
         </div>
 

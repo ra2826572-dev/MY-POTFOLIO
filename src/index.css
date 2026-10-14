@@ -123,6 +123,18 @@
   animation: shimmer 2.5s infinite;
 }
 
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Glow highlights */
 .gradient-text-blue {
   background: linear-gradient(135deg, #60A5FA 0%, #A78BFA 50%, #F472B6 100%);

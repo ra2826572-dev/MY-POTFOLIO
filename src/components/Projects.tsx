@@ -567,11 +567,13 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                 <motion.div
                   key={project.id}
                   layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.35, delay: index * 0.05 }}
-                  className="group relative rounded-3xl bg-slate-900/60 border border-slate-800/90 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/10"
+                  transition={{ duration: 0.3, delay: Math.min(index * 0.04, 0.25) }}
+                  whileHover={{ y: -5 }}
+                  className="group relative rounded-3xl bg-slate-900/60 border border-slate-800/90 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 overflow-hidden flex flex-col justify-between transition-colors duration-200 hover:shadow-2xl hover:shadow-blue-500/10"
                 >
                   <div>
                     {/* Screenshot Container with Actions Overlay */}
@@ -676,40 +678,49 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                     </div>
                   </div>
 
-                  {/* Card Action Buttons: Live Demo & View Project */}
+                  {/* Card Action Buttons: Live Demo & View Project with Interactive Micro-Interactions */}
                   <div className="px-6 pb-6 pt-2 grid grid-cols-2 gap-3 border-t border-slate-800/60">
                     {/* Live Demo button */}
-                    <button
+                    <motion.button
                       type="button"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={{ duration: 0.15 }}
                       onClick={(e) => handleLiveDemoClick(e, project)}
                       className="py-2.5 px-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-slate-200 hover:text-white text-xs font-semibold border border-slate-700 transition-colors flex items-center justify-center gap-1.5 shadow-sm"
                       title="Open interactive device preview"
                     >
                       <Eye className="w-3.5 h-3.5 text-blue-400" />
                       <span>Live Preview</span>
-                    </button>
+                    </motion.button>
 
                     {/* View / Visit button */}
                     {project.liveUrl && project.liveUrl !== '#' && project.liveUrl.startsWith('http') ? (
-                      <a
+                      <motion.a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ duration: 0.15 }}
                         className="py-2.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-md shadow-blue-600/20 hover:shadow-blue-600/40 transition-all flex items-center justify-center gap-1.5"
                         title="Visit live website in new tab"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
                         <span>Visit Site ↗</span>
-                      </a>
+                      </motion.a>
                     ) : (
-                      <button
+                      <motion.button
                         type="button"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ duration: 0.15 }}
                         onClick={() => setSelectedProject(project)}
                         className="py-2.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-semibold shadow-md shadow-blue-600/20 hover:shadow-blue-600/40 hover:opacity-95 transition-all flex items-center justify-center gap-1.5"
                       >
                         <Eye className="w-3.5 h-3.5" />
                         <span>View Project</span>
-                      </button>
+                      </motion.button>
                     )}
                   </div>
 

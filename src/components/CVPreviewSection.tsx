@@ -137,10 +137,10 @@ export const CVPreviewSection: React.FC<CVPreviewSectionProps> = ({
             
             {/* Left 4 Cols: Executive Card Snapshot */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               className="lg:col-span-4 rounded-3xl bg-slate-900/70 border border-slate-800/90 p-6 sm:p-8 flex flex-col justify-between backdrop-blur-xl shadow-xl shadow-black/40"
             >
               <div>
@@ -214,10 +214,10 @@ export const CVPreviewSection: React.FC<CVPreviewSectionProps> = ({
 
             {/* Right 8 Cols: Interactive CV Preview Document */}
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.35, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
               className="lg:col-span-8 rounded-3xl bg-[#090D16] border border-slate-800 p-6 sm:p-8 flex flex-col justify-between shadow-2xl relative group"
             >
               {/* Top Banner inside preview */}

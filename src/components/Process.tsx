@@ -70,15 +70,15 @@ export const Process: React.FC = () => {
             return (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, y: 25 }}
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -6 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true, margin: '-40px' }}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.3, delay: index * 0.06 }}
                 onClick={() => setActiveStep(index)}
-                className={`relative z-10 cursor-pointer p-6 rounded-3xl backdrop-blur-xl transition-all duration-300 flex flex-col justify-between ${
+                className={`relative z-10 cursor-pointer p-6 rounded-3xl backdrop-blur-xl transition-all duration-200 flex flex-col justify-between ${
                   isSelected 
-                    ? 'bg-slate-900/95 border-2 border-blue-500 shadow-2xl shadow-blue-500/25 -translate-y-2'
+                    ? 'bg-slate-900/95 border-2 border-blue-500 shadow-2xl shadow-blue-500/25 -translate-y-1.5'
                     : 'bg-slate-900/50 border border-slate-800/80 hover:border-slate-700 hover:bg-slate-900/70 hover:-translate-y-1'
                 }`}
               >
