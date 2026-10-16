@@ -567,13 +567,13 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                 <motion.div
                   key={project.id}
                   layout
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: 14 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3, delay: Math.min(index * 0.04, 0.25) }}
-                  whileHover={{ y: -5 }}
-                  className="group relative rounded-3xl bg-slate-900/60 border border-slate-800/90 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 overflow-hidden flex flex-col justify-between transition-colors duration-200 hover:shadow-2xl hover:shadow-blue-500/10"
+                  transition={{ duration: 0.3, delay: Math.min(index * 0.035, 0.25), ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -6 }}
+                  className="group relative rounded-3xl bg-slate-900/60 border border-slate-800/90 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/15"
                 >
                   <div>
                     {/* Screenshot Container with Actions Overlay */}
@@ -581,7 +581,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                       <img
                         src={project.image}
                         alt={project.name}
-                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
+                        className="w-full h-full object-cover object-top group-hover:scale-[1.06] transition-transform duration-500 ease-out"
                         loading="lazy"
                         onError={(e) => {
                           e.currentTarget.src = 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop';

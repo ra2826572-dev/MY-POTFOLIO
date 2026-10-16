@@ -151,9 +151,15 @@ export const Skills: React.FC = () => {
 
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center group-hover:scale-105 group-hover:border-blue-500/40 group-hover:bg-slate-800 transition-all duration-200 shadow-inner">
+                    <motion.div 
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.25, delay: Math.min(index * 0.035 + 0.05, 0.35), ease: 'easeOut' }}
+                      className="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center group-hover:scale-110 group-hover:border-blue-500/50 group-hover:bg-slate-800 transition-all duration-200 shadow-inner"
+                    >
                       {renderSkillIcon(skill.iconName)}
-                    </div>
+                    </motion.div>
                     <div className="flex items-center gap-1.5 flex-wrap justify-end">
                       {skill.name.toLowerCase().includes('expert') && (
                         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30 shadow-sm shadow-amber-500/10">

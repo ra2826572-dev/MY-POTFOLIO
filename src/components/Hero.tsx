@@ -21,19 +21,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08,
+        staggerChildren: 0.06,
         delayChildren: 0.05,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 14 },
+    hidden: { opacity: 0, y: 12 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.35,
+        duration: 0.32,
         ease: [0.16, 1, 0.3, 1],
       },
     },
@@ -44,12 +44,22 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
       id="home" 
       className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-16 lg:py-32 overflow-hidden"
     >
-      {/* Background Ambient Glows & Subtle Grid Pattern */}
+      {/* Background Ambient Glows & Subtle Grid Pattern (Original Blue/Purple Theme) */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[140px]" />
-        <div className="absolute top-1/3 right-10 w-[450px] h-[450px] bg-purple-600/10 rounded-full blur-[130px]" />
-        <div className="absolute bottom-10 left-10 w-[350px] h-[350px] bg-amber-500/8 rounded-full blur-[120px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/12 rounded-full blur-[140px]" />
+        <div className="absolute top-1/3 right-10 w-[450px] h-[450px] bg-purple-600/12 rounded-full blur-[130px]" />
+        <div className="absolute bottom-10 left-10 w-[350px] h-[350px] bg-indigo-600/10 rounded-full blur-[120px]" />
         
+        {/* Volumetric Soft Light Ray (Original Blue / Indigo Theme) */}
+        <div 
+          className="absolute -top-24 -right-24 w-[550px] sm:w-[750px] h-[550px] sm:h-[750px] opacity-35 pointer-events-none"
+          style={{
+            background: 'conic-gradient(from 215deg at 80% 10%, rgba(59, 130, 246, 0.3) 0deg, rgba(99, 102, 241, 0.18) 28deg, transparent 60deg)',
+            filter: 'blur(45px)',
+            transform: 'rotate(-10deg)',
+          }}
+        />
+
         {/* Subtle grid lines */}
         <div 
           className="absolute inset-0 opacity-[0.03]"

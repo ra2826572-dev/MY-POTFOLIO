@@ -58,8 +58,14 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-16">
+        {/* Section Header with Scroll Reveal */}
+        <motion.div 
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/60 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Discover My Background</span>
@@ -68,7 +74,7 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
             About <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">Me</span>
           </h2>
           <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-4" />
-        </div>
+        </motion.div>
 
         {/* Two Column Content: Bio & Narrative + Stats */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">

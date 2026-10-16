@@ -28,10 +28,14 @@ export const CTA: React.FC<CTAProps> = ({ onOpenQuoteModal }) => {
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           className="relative rounded-3xl p-8 sm:p-14 lg:p-16 overflow-hidden bg-gradient-to-b from-slate-900/90 via-[#0B0F19] to-slate-950 border border-slate-700/70 shadow-2xl shadow-black/80"
         >
+          {/* Radiant Horizon Arc in Original Deep Blue & Purple */}
+          <div className="absolute -bottom-36 left-1/2 -translate-x-1/2 w-[140%] max-w-[1200px] h-72 rounded-[50%] bg-gradient-to-t from-blue-600/30 via-indigo-500/15 to-transparent blur-2xl pointer-events-none" />
+          <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[120%] max-w-[1000px] h-40 rounded-[50%] border-t-2 border-blue-500/50 shadow-[0_-15px_60px_rgba(59,130,246,0.4)] pointer-events-none" />
+
           {/* Subtle Ambient Background Glows */}
           <div className="absolute -top-32 -left-32 w-80 h-80 bg-blue-600/20 rounded-full blur-[100px] pointer-events-none" />
           <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-purple-600/20 rounded-full blur-[100px] pointer-events-none" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-950/25 via-transparent to-transparent pointer-events-none" />
 
           {/* Grid pattern overlay */}
           <div 

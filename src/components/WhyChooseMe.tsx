@@ -35,7 +35,13 @@ export const WhyChooseMe: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Uncompromising Quality</span>
@@ -47,7 +53,7 @@ export const WhyChooseMe: React.FC = () => {
             Every website is crafted with meticulous attention to visual elegance, speed, and business conversion goals.
           </p>
           <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-4" />
-        </div>
+        </motion.div>
 
         {/* 6 Benefits Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -46,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
         id="main-navbar"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'py-3 bg-[#080B11]/85 backdrop-blur-md border-b border-slate-800/80 shadow-lg shadow-black/20'
+            ? 'py-3 bg-[#080B11]/90 backdrop-blur-xl border-b border-slate-800/80 shadow-xl shadow-black/40'
             : 'py-5 bg-transparent'
         }`}
       >
@@ -124,7 +124,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               <Link
                 to="/contact"
                 id="nav-lets-talk-btn"
-                className="relative inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-full overflow-hidden group bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all duration-300"
+                className="relative inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-full overflow-hidden group bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
               >
                 <span className="relative z-10 flex items-center gap-1.5">
                   <span>Let's Talk</span>
