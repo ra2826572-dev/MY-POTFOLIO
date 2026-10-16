@@ -54,8 +54,14 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-16">
+        {/* Section Header with Scroll Reveal */}
+        <motion.div 
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>High Impact Solutions</span>
@@ -67,7 +73,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
             Specialized design and development services built to transform your online presence into a powerful business asset.
           </p>
           <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-4" />
-        </div>
+        </motion.div>
 
         {/* 6 Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
@@ -77,9 +83,9 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
-              whileHover={{ y: -4 }}
-              transition={{ duration: 0.28, delay: index * 0.05 }}
-              className="group relative p-8 rounded-3xl bg-slate-900/60 border border-slate-800/90 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 transition-colors duration-200 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col justify-between overflow-hidden"
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.3, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+              className="group relative p-8 rounded-3xl bg-slate-900/60 border border-slate-800/90 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/15 flex flex-col justify-between overflow-hidden"
             >
               {/* Animated hover gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-indigo-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -92,7 +98,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
 
               {/* Service Header */}
               <div>
-                <div className="w-14 h-14 rounded-2xl bg-slate-800/90 border border-slate-700/80 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-slate-800 transition-all shadow-lg shadow-black/30">
+                <div className="w-14 h-14 rounded-2xl bg-slate-800/90 border border-slate-700/80 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-[-2deg] group-hover:border-blue-500/50 group-hover:bg-slate-800 transition-all duration-300 shadow-lg shadow-black/30">
                   {getServiceIcon(service.icon)}
                 </div>
 

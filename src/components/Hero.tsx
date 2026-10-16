@@ -93,10 +93,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               </div>
             </motion.div>
 
-            {/* Main Greeting and Name */}
+            {/* Main Greeting and Name with subtle gradient shine */}
             <motion.h1 variants={itemVariants} className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-4">
               Hi, I'm <br className="hidden sm:inline" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">
+              <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400 bg-[length:200%_auto] transition-all duration-700">
                 {PORTFOLIO_DATA.personal.name}
               </span>
             </motion.h1>
@@ -117,17 +117,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             {/* Primary Action Buttons */}
             <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 w-full sm:w-auto">
               {/* View My Work */}
-              <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2 }}>
+              <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2 }}>
                 <Link
                   to="/projects"
                   id="hero-view-work-btn"
-                  className="relative inline-flex items-center justify-center px-7 py-4 rounded-full font-semibold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 shadow-xl shadow-blue-600/25 hover:shadow-blue-600/40 transition-shadow duration-300 group overflow-hidden"
+                  className="relative inline-flex items-center justify-center px-8 py-4 rounded-full font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 shadow-xl shadow-blue-600/30 hover:shadow-blue-600/50 border border-blue-400/20 transition-all duration-300 group overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-white/15 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                   <span className="relative z-10 flex items-center gap-2 text-base">
                     <Eye className="w-5 h-5" />
                     <span>View My Work</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-200" />
                   </span>
                 </Link>
               </motion.div>

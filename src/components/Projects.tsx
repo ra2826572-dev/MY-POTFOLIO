@@ -15,6 +15,7 @@ import { PORTFOLIO_DATA, Project } from '../portfolioData';
 import { ProjectModal } from './ProjectModal';
 import { ProjectManagerModal } from './ProjectManagerModal';
 import { AdminLockModal } from './AdminLockModal';
+import { Card3D } from './Card3D';
 import { Lock } from 'lucide-react';
 import { collection, query, orderBy, onSnapshot, doc, deleteDoc, writeBatch, setDoc } from 'firebase/firestore';
 import { db, OperationType, handleFirestoreError, serverTimestamp } from '../firebase';
@@ -572,9 +573,10 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                   viewport={{ once: true, margin: '-40px' }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3, delay: Math.min(index * 0.035, 0.25), ease: [0.16, 1, 0.3, 1] }}
-                  whileHover={{ y: -6 }}
-                  className="group relative rounded-3xl bg-slate-900/60 border border-slate-800/90 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/15"
+                  className="h-full"
                 >
+                  <Card3D maxTilt={5} liftOnHover={-6}>
+                    <div className="group relative h-full rounded-3xl bg-slate-900/60 border border-slate-800/90 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/15">
                   <div>
                     {/* Screenshot Container with Actions Overlay */}
                     <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
@@ -723,8 +725,9 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                       </motion.button>
                     )}
                   </div>
-
-                </motion.div>
+                </div>
+              </Card3D>
+            </motion.div>
               ))}
             </AnimatePresence>
           </motion.div>
