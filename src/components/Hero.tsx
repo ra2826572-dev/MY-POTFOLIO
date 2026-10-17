@@ -78,7 +78,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="lg:col-span-7 flex flex-col items-start text-left"
+            className="lg:col-span-7 flex flex-col items-start text-left pa-no-card !shadow-none !border-none !outline-none"
+            style={{ boxShadow: 'none', border: 'none', outline: 'none' }}
           >
             {/* Status Badge */}
             <motion.div variants={itemVariants} className="flex items-center gap-3 flex-wrap mb-6">

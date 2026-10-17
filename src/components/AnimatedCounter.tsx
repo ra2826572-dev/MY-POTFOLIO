@@ -24,30 +24,43 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
       return;
     }
 
+    const startAnimation = () => {
+      if (hasAnimatedRef.current) return;
+      hasAnimatedRef.current = true;
+      let startTime: number | null = null;
+
+      const animate = (timestamp: number) => {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        // Ease-out cubic
+        const easeOutProgress = 1 - Math.pow(1 - progress, 3);
+        setCount(Math.floor(easeOutProgress * value));
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          setCount(value);
+        }
+      };
+
+      requestAnimationFrame(animate);
+    };
+
+    // Check if already in viewport on mount
+    if (elementRef.current) {
+      const rect = elementRef.current.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        startAnimation();
+      }
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && !hasAnimatedRef.current) {
-          hasAnimatedRef.current = true;
-          let startTime: number | null = null;
-
-          const animate = (timestamp: number) => {
-            if (!startTime) startTime = timestamp;
-            const progress = Math.min((timestamp - startTime) / duration, 1);
-            // Ease-out cubic
-            const easeOutProgress = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.floor(easeOutProgress * value));
-
-            if (progress < 1) {
-              requestAnimationFrame(animate);
-            } else {
-              setCount(value);
-            }
-          };
-
-          requestAnimationFrame(animate);
+          startAnimation();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
 
     if (elementRef.current) {
