@@ -32,6 +32,17 @@ export const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const skillParam = params.get('skill');
+    if (skillParam) {
+      setFormData(prev => ({
+        ...prev,
+        message: `Hi Rizwan, I would like to discuss a project regarding your expertise in ${skillParam}. Let's connect!`
+      }));
+    }
+  }, []);
+
   const projectTypes = [
     'Website Design',
     'Business Website',

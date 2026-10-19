@@ -24,12 +24,29 @@ export interface Project {
   overview: string;
 }
 
+export interface AIVideoProject {
+  id: string;
+  title: string;
+  tagline: string;
+  category: 'Cinematic' | 'Shorts & Reels' | 'Storytelling' | 'Product Promo';
+  description: string;
+  thumbnail: string;
+  videoUrl?: string; // YouTube / MP4 / Vimeo embed URL
+  duration: string;
+  ratio: '16:9' | '9:16';
+  tools: string[];
+  features: string[];
+  isPlaceholder: boolean;
+}
+
 export interface Skill {
   name: string;
   iconName: string;
-  category: 'Frontend & Code' | 'CMS & Platforms' | 'Design & Creative' | 'Tools & AI' | 'Cloud & Hosting' | 'Presentation Design';
+  category: 'Frontend & Code' | 'CMS & Platforms' | 'Design & Creative' | 'Tools & AI' | 'Cloud & Hosting' | 'Presentation Design' | 'AI Video Creation';
   level: number; // 0 to 100
   experience: string;
+  description?: string;
+  subSkills?: string[];
   highlight?: boolean;
   certificateUrl?: string;
   certificateTitle?: string;
@@ -179,9 +196,10 @@ export const PORTFOLIO_DATA = {
   personal: {
     name: 'RIZWAN AHMAD',
     shortName: 'Rizwan',
-    role: 'Web Designer & Developer',
+    role: 'Web Developer & AI Video Creator',
     secondaryRoles: [
-      'Web Designer & Developer',
+      'Web Developer & AI Video Creator',
+      'AI Video Generation & Prompt Specialist',
       'Professional Presentation Designer',
       'Pitch Deck & Slide Specialist',
       'Cloud Expert & DevOps',
@@ -189,8 +207,8 @@ export const PORTFOLIO_DATA = {
       'WordPress & React Expert',
       'Content Writer & Copywriter'
     ],
-    bio: "I create modern, responsive and conversion-focused websites that help businesses build a strong online presence.",
-    aboutDetailed: "I'm a creative web designer and developer passionate about building modern websites for businesses and personal brands. I focus on clean UI, responsive layouts, smooth user experiences and professional visual design.",
+    bio: "I create modern, responsive websites and cinematic AI-generated video content that help businesses build a strong online presence.",
+    aboutDetailed: "I'm a creative web designer, developer, and AI video creator passionate about building modern websites and cinematic AI content for businesses and personal brands. I focus on clean UI, responsive layouts, smooth user experiences, and high-impact AI visual storytelling.",
     avatar: rizwanProfileImg,
     location: 'Faisalabad, Pakistan (Available Worldwide)',
     availabilityStatus: '🟢 Available for new projects',
@@ -219,30 +237,264 @@ export const PORTFOLIO_DATA = {
   },
 
   skills: [
-    { name: 'Cloud Expert', iconName: 'Cloud', category: 'Cloud & Hosting', level: 96, experience: 'GCP, Firebase, AWS, Vercel & CI/CD', highlight: true },
-    { name: 'HTML5', iconName: 'FileCode', category: 'Frontend & Code', level: 95, experience: 'Advanced Structure', highlight: true },
-    { name: 'CSS3', iconName: 'Palette', category: 'Frontend & Code', level: 95, experience: 'Modern Layouts & Animations', highlight: true },
-    { name: 'JavaScript', iconName: 'Code2', category: 'Frontend & Code', level: 90, experience: 'ES6+ & Dynamic Logic', highlight: true },
-    { name: 'React', iconName: 'Atom', category: 'Frontend & Code', level: 88, experience: 'Modern SPA & Components', highlight: true },
-    { name: 'WordPress', iconName: 'Globe2', category: 'CMS & Platforms', level: 92, experience: 'Custom Themes & Speed', highlight: true },
-    { name: 'Elementor', iconName: 'LayoutGrid', category: 'CMS & Platforms', level: 95, experience: 'Pixel-Perfect Builder', highlight: true },
-    { name: 'UI/UX Design', iconName: 'Figma', category: 'Design & Creative', level: 92, experience: 'Wireframes & Visual Flow', highlight: true },
-    { name: 'Responsive Web Design', iconName: 'Smartphone', category: 'Frontend & Code', level: 98, experience: 'Mobile-First Perfection', highlight: true },
-    { name: 'AI-Assisted Development', iconName: 'Bot', category: 'Tools & AI', level: 92, experience: 'AI Coding Tools, Prompt Engineering & Modern Workflows', highlight: true },
-    { name: 'Graphic Design', iconName: 'PenTool', category: 'Design & Creative', level: 85, experience: 'Branding & Social Assets', highlight: false },
-    { name: 'Content Writing & Copywriting', iconName: 'PenTool', category: 'Design & Creative', level: 93, experience: 'SEO Articles, Website Copy, Blogs & Social Media', highlight: true },
-    { name: 'AI Tools', iconName: 'Sparkles', category: 'Tools & AI', level: 90, experience: 'Workflow & Content Boost', highlight: true },
-    { name: 'VS Code & Shortcuts', iconName: 'VSCode', category: 'Tools & AI', level: 98, experience: 'Keyboard Shortcuts, Multi-Cursor & Velocity Workflows', highlight: true },
-    { name: 'Tailwind CSS', iconName: 'Layers', category: 'Frontend & Code', level: 94, experience: 'Rapid Utility Styling', highlight: false },
-    { name: 'Speed Optimization', iconName: 'Zap', category: 'CMS & Platforms', level: 90, experience: 'Core Web Vitals & SEO', highlight: false },
-    { name: 'Presentation Design', iconName: 'PowerPoint', category: 'Presentation Design', level: 96, experience: 'Executive Slides, Pitch Decks & Master Templates', highlight: true },
-    { name: 'PowerPoint Expert', iconName: 'PowerPoint', category: 'Presentation Design', level: 96, experience: 'Custom Master Layouts, Vector Graphics & Transitions', highlight: true },
-    { name: 'Pitch Deck Design', iconName: 'TrendingUp', category: 'Presentation Design', level: 95, experience: 'Investor-Ready Fundraising Decks & Market TAM', highlight: true },
-    { name: 'Business Presentations', iconName: 'Briefcase', category: 'Presentation Design', level: 94, experience: 'Corporate Proposals, Strategy Decks & C-Level Reports', highlight: true },
-    { name: 'Infographics & Data Vis', iconName: 'BarChart3', category: 'Presentation Design', level: 93, experience: 'Complex Metrics, Timelines & Visual Charts', highlight: true },
-    { name: 'Educational Presentations', iconName: 'GraduationCap', category: 'Presentation Design', level: 91, experience: 'Courseware, Training Slides & Academic Workshops', highlight: false },
-    { name: 'Creative Slide Design', iconName: 'Sparkles', category: 'Presentation Design', level: 95, experience: 'High-Impact Typography & Dark-Luxe Visual Compositions', highlight: false },
-    { name: 'Canva Presentations', iconName: 'Palette', category: 'Presentation Design', level: 92, experience: 'Rapid Collaborative Decks & Live Interactive Links', highlight: false },
+    { 
+      name: 'AI Video Creation', 
+      iconName: 'Clapperboard', 
+      category: 'Tools & AI', 
+      level: 96, 
+      experience: 'Cinematic AI Videos, Shorts, Storytelling & Text-to-Video', 
+      description: 'I create cinematic AI-generated videos, engaging YouTube Shorts, motivational storytelling videos, product promos, and professional social media content using modern AI video tools.',
+      subSkills: [
+        'AI Video Generation',
+        'Cinematic AI Videos',
+        'YouTube Shorts & Reels',
+        'AI Storytelling',
+        'Text-to-Video',
+        'Image-to-Video Animation',
+        'AI Voiceover & Narration',
+        'Video Prompt Engineering'
+      ],
+      highlight: true 
+    },
+    { 
+      name: 'Cloud & Hosting', 
+      iconName: 'Cloud', 
+      category: 'Cloud & Hosting', 
+      level: 92, 
+      experience: 'GCP, Firebase, AWS, Vercel & CI/CD',
+      description: 'Deploying high-performance web applications with secure cloud databases, serverless functions, automated deployments, and custom domains.',
+      subSkills: ['Google Cloud Platform', 'Firebase Firestore', 'Vercel Deployment', 'AWS S3', 'CI/CD Pipelines', 'SSL & DNS Setup'],
+      highlight: true 
+    },
+    { 
+      name: 'HTML5', 
+      iconName: 'FileCode', 
+      category: 'Frontend & Code', 
+      level: 95, 
+      experience: 'Advanced Semantic Structure',
+      description: 'Writing clean, accessible, and semantic HTML markup optimized for modern web browsers, SEO crawlers, and screen readers.',
+      subSkills: ['Semantic Markup', 'Web Accessibility (a11y)', 'SEO Meta Tags', 'SVG Integration', 'Forms & Validation'],
+      highlight: true 
+    },
+    { 
+      name: 'CSS3', 
+      iconName: 'Palette', 
+      category: 'Frontend & Code', 
+      level: 94, 
+      experience: 'Modern Layouts & Keyframe Animations',
+      description: 'Crafting stunning visual layouts with advanced CSS grid, flexbox, custom variables, responsive media queries, and smooth keyframe animations.',
+      subSkills: ['Flexbox & Grid', 'CSS Variables', 'Keyframe Animations', 'Responsive Design', 'Glassmorphism', 'Media Queries'],
+      highlight: true 
+    },
+    { 
+      name: 'JavaScript', 
+      iconName: 'Code2', 
+      category: 'Frontend & Code', 
+      level: 90, 
+      experience: 'ES6+ & Dynamic Logic',
+      description: 'Building interactive web functionality, asynchronous API integrations, state management, and DOM manipulations with modern ES6+ JavaScript.',
+      subSkills: ['ES6+ Syntax', 'Async/Await & Fetch', 'DOM Manipulation', 'Event Handling', 'Array Methods', 'Local Storage'],
+      highlight: true 
+    },
+    { 
+      name: 'React', 
+      iconName: 'Atom', 
+      category: 'Frontend & Code', 
+      level: 88, 
+      experience: 'Modern SPA & Component Architecture',
+      description: 'Developing high-performance Single Page Applications using React functional components, custom hooks, context API, and routing.',
+      subSkills: ['Functional Components', 'React Hooks', 'Context API', 'React Router', 'State Management', 'Vite Bundler'],
+      highlight: true 
+    },
+    { 
+      name: 'WordPress', 
+      iconName: 'Globe2', 
+      category: 'CMS & Platforms', 
+      level: 92, 
+      experience: 'Custom Themes, Plugins & Security',
+      description: 'Developing bespoke WordPress websites, custom post types, secure WooCommerce stores, and speed-optimized CMS solutions.',
+      subSkills: ['Custom Themes', 'WooCommerce Stores', 'Plugin Configuration', 'Security Hardening', 'Database Management', 'Migrating Sites'],
+      highlight: true 
+    },
+    { 
+      name: 'Elementor', 
+      iconName: 'LayoutGrid', 
+      category: 'CMS & Platforms', 
+      level: 95, experience: 'Pixel-Perfect Visual Builder',
+      description: 'Building custom responsive layouts, interactive motion effects, global design systems, and high-converting landing pages with Elementor Pro.',
+      subSkills: ['Elementor Pro', 'Dynamic Content', 'Global Theme Builder', 'Popup Builder', 'Motion Effects', 'Custom CSS Styling'],
+      highlight: true 
+    },
+    { 
+      name: 'UI/UX Design', 
+      iconName: 'Figma', 
+      category: 'Design & Creative', 
+      level: 92, 
+      experience: 'Wireframes, Prototypes & User Flow',
+      description: 'Designing intuitive user interfaces, interactive wireframes, and polished design systems in Figma before translating them into clean code.',
+      subSkills: ['Figma Prototyping', 'Wireframing', 'Design Systems', 'User Journey Mapping', 'Interactive Mockups', 'Component Libraries'],
+      highlight: true 
+    },
+    { 
+      name: 'Responsive Web Design', 
+      iconName: 'Smartphone', 
+      category: 'Frontend & Code', 
+      level: 98, 
+      experience: 'Mobile-First Perfection',
+      description: 'Ensuring flawless visual presentation and touch-friendly interactions across smartphones, tablets, laptops, and ultra-wide desktop displays.',
+      subSkills: ['Mobile-First Approach', 'Fluid Typography', 'Touch Optimization', 'Cross-Browser Testing', 'Retina Displays'],
+      highlight: true 
+    },
+    { 
+      name: 'AI-Assisted Development', 
+      iconName: 'Bot', 
+      category: 'Tools & AI', 
+      level: 92, 
+      experience: 'AI Coding Tools & Prompt Engineering',
+      description: 'Leveraging cutting-edge AI coding assistants and prompt engineering workflows to build production-grade web apps with unmatched speed.',
+      subSkills: ['Prompt Engineering', 'AI Code Generation', 'Bug Debugging', 'Architecture Planning', 'Automated Refactoring'],
+      highlight: true 
+    },
+    { 
+      name: 'Graphic Design', 
+      iconName: 'PenTool', 
+      category: 'Design & Creative', 
+      level: 85, 
+      experience: 'Branding & Social Assets',
+      description: 'Creating professional brand logos, social media banners, marketing graphics, and vector illustrations with sharp visual appeal.',
+      subSkills: ['Logo Branding', 'Social Banners', 'Vector Graphics', 'Marketing Assets', 'Color Theory'],
+      highlight: false 
+    },
+    { 
+      name: 'Content Writing & Copywriting', 
+      iconName: 'PenTool', 
+      category: 'Design & Creative', 
+      level: 93, 
+      experience: 'SEO Articles, Website Copy & Blogs',
+      description: 'Writing compelling website copy, engaging blog posts, SEO-optimized articles, and high-converting marketing text that connects with audiences.',
+      subSkills: ['SEO Copywriting', 'Landing Page Copy', 'Blog Articles', 'Brand Voice', 'Call-to-Action Writing'],
+      highlight: true 
+    },
+    { 
+      name: 'AI Tools', 
+      iconName: 'Sparkles', 
+      category: 'Tools & AI', 
+      level: 90, 
+      experience: 'Workflow & Content Boost',
+      description: 'Integrating state-of-the-art AI productivity tools to accelerate content creation, automate workflows, and enhance digital deliverables.',
+      subSkills: ['Workflow Automation', 'Content Generation', 'Prompt Libraries', 'AI Image Upscaling', 'Smart Assistants'],
+      highlight: true 
+    },
+    { 
+      name: 'VS Code & Shortcuts', 
+      iconName: 'VSCode', 
+      category: 'Tools & AI', 
+      level: 98, 
+      experience: 'Keyboard Shortcuts & Multi-Cursor Velocity',
+      description: 'Maximizing coding speed using advanced VS Code keyboard shortcuts, multi-cursor editing, custom extensions, and efficient workspace setups.',
+      subSkills: ['Keyboard Shortcuts', 'Multi-Cursor Editing', 'Custom Extensions', 'Emmet Snippets', 'Git Integration'],
+      highlight: true 
+    },
+    { 
+      name: 'Tailwind CSS', 
+      iconName: 'Layers', 
+      category: 'Frontend & Code', 
+      level: 94, 
+      experience: 'Rapid Utility Styling',
+      description: 'Building custom responsive designs at lightning speed using Tailwind CSS utility classes, custom themes, and optimized production builds.',
+      subSkills: ['Utility-First CSS', 'Responsive Modifiers', 'Custom Config', 'Dark Mode Styling', 'Component States'],
+      highlight: false 
+    },
+    { 
+      name: 'Speed Optimization', 
+      iconName: 'Zap', 
+      category: 'CMS & Platforms', 
+      level: 90, 
+      experience: 'Core Web Vitals & SEO',
+      description: 'Optimizing website performance, compressing images, deferring scripts, and achieving top Google PageSpeed Core Web Vitals scores.',
+      subSkills: ['Core Web Vitals', 'Image Compression', 'Lazy Loading', 'Caching Strategies', 'PageSpeed Insights'],
+      highlight: false 
+    },
+    { 
+      name: 'Presentation Design', 
+      iconName: 'PowerPoint', 
+      category: 'Presentation Design', 
+      level: 96, 
+      experience: 'Executive Slides & Pitch Decks',
+      description: 'Transforming complex business ideas into stunning, investor-ready executive slides and high-impact visual presentations.',
+      subSkills: ['Executive Slide Decks', 'Master Templates', 'Visual Storytelling', 'Data Diagrams', 'Typography Hierarchy'],
+      highlight: true 
+    },
+    { 
+      name: 'PowerPoint Expert', 
+      iconName: 'PowerPoint', 
+      category: 'Presentation Design', 
+      level: 96, 
+      experience: 'Custom Master Layouts & Transitions',
+      description: 'Designing bespoke PowerPoint presentations with custom master slides, vector graphics, seamless animations, and clean formatting.',
+      subSkills: ['Master Slide Design', 'Custom Animations', 'Vector Graphics', 'Typography Layouts', 'Clean Formatting'],
+      highlight: true 
+    },
+    { 
+      name: 'Pitch Deck Design', 
+      iconName: 'TrendingUp', 
+      category: 'Presentation Design', 
+      level: 95, 
+      experience: 'Investor-Ready Fundraising Decks',
+      description: 'Crafting compelling pitch decks for startups and enterprises to secure venture funding, showcase market TAM, and impress investors.',
+      subSkills: ['Investor Pitch Decks', 'TAM & Market Slides', 'Financial Highlights', 'Problem-Solution Flow', 'Fundraising Polish'],
+      highlight: true 
+    },
+    { 
+      name: 'Business Presentations', 
+      iconName: 'Briefcase', 
+      category: 'Presentation Design', 
+      level: 94, 
+      experience: 'Corporate Proposals & Strategy Decks',
+      description: 'Designing professional business proposals, quarterly reviews, and corporate strategy decks that command boardroom attention.',
+      subSkills: ['Corporate Proposals', 'Quarterly Review Decks', 'Client Presentations', 'Strategy Roadmaps', 'Executive Summaries'],
+      highlight: true 
+    },
+    { 
+      name: 'Infographics & Data Vis', 
+      iconName: 'BarChart3', 
+      category: 'Presentation Design', 
+      level: 93, 
+      experience: 'Complex Metrics & Visual Charts',
+      description: 'Converting dry data spreadsheets and metrics into clear, beautiful infographics, timelines, and graphical charts.',
+      subSkills: ['Data Visualization', 'Custom Infographics', 'Process Timelines', 'Statistical Charts', 'Workflow Diagrams'],
+      highlight: true 
+    },
+    { 
+      name: 'Educational Presentations', 
+      iconName: 'GraduationCap', 
+      category: 'Presentation Design', 
+      level: 91, 
+      experience: 'Courseware & Academic Workshops',
+      description: 'Designing engaging educational courseware, training modules, and academic workshop slides optimized for high audience retention.',
+      subSkills: ['Training Slide Decks', 'Course Curriculum', 'Workshop Materials', 'Educational Charts', 'Interactive Slides'],
+      highlight: false 
+    },
+    { 
+      name: 'Creative Slide Design', 
+      iconName: 'Sparkles', 
+      category: 'Presentation Design', 
+      level: 95, 
+      experience: 'High-Impact Dark-Luxe Visuals',
+      description: 'Creating visually striking dark-luxe presentations with exceptional typographic hierarchy, neon accents, and modern layouts.',
+      subSkills: ['Dark-Luxe Aesthetics', 'Neon Accents', 'High-Impact Typography', 'Visual Compositions', 'Art Direction'],
+      highlight: false 
+    },
+    { 
+      name: 'Canva Presentations', 
+      iconName: 'Palette', 
+      category: 'Presentation Design', 
+      level: 92, 
+      experience: 'Rapid Collaborative Decks',
+      description: 'Designing fast, modern collaborative presentations and interactive web-ready decks using Canva Pro.',
+      subSkills: ['Canva Pro Decks', 'Collaborative Editing', 'Animated Stickers', 'Quick Turnarounds', 'Web Links'],
+      highlight: false 
+    },
   ] as Skill[],
 
   presentationDesign: {
@@ -1254,5 +1506,115 @@ export const PORTFOLIO_DATA = {
       }
     ]
   } as CVData,
-  contentWriting: WRITING_PROJECTS
+  contentWriting: WRITING_PROJECTS,
+  aiVideos: [
+    {
+      id: 'aivideo-cinematic',
+      title: 'Cinematic AI Video Creation',
+      tagline: 'High-Resolution Photorealistic Scenery & Cinematic Visual Pacing',
+      category: 'Cinematic',
+      description: 'Atmospheric, photorealistic cinematic sequence generated using prompt-engineered AI image-to-video and text-to-video motion models with realistic depth of field.',
+      thumbnail: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1200&q=80',
+      videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+      duration: '1:15',
+      ratio: '16:9',
+      tools: ['Runway Gen-3', 'Midjourney v6', 'ElevenLabs', 'CapCut Pro'],
+      features: [
+        'Prompt-engineered 4K resolution camera sweeps & panning',
+        'Realistic volumetric lighting & natural physics motion',
+        'Original AI-composed atmospheric sound design & FX'
+      ],
+      isPlaceholder: true
+    },
+    {
+      id: 'aivideo-shorts',
+      title: 'YouTube Shorts & Instagram Reels',
+      tagline: 'High-Retention Short-Form Vertical Motion & Viral Pacing',
+      category: 'Shorts & Reels',
+      description: 'Engaging vertical videos designed for TikTok, Instagram Reels, and YouTube Shorts with dynamic captions, pacing, and viral hooks.',
+      thumbnail: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80',
+      videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+      duration: '0:58',
+      ratio: '9:16',
+      tools: ['Kling AI', 'Midjourney v6', 'CapCut', 'ElevenLabs'],
+      features: [
+        'Optimized 9:16 vertical framing for mobile feeds',
+        'Animated dynamic caption styling & engagement hooks',
+        'High-retention editing tempo to maximize viewer watch time'
+      ],
+      isPlaceholder: false
+    },
+    {
+      id: 'aivideo-storytelling',
+      title: 'AI Storytelling Videos',
+      tagline: 'Bilingual Narrative & Visual World-Building Experience',
+      category: 'Storytelling',
+      description: 'Rich character-led episodic story crafted with consistent AI keyframes, atmospheric soundscapes, and expressive voiceover narration.',
+      thumbnail: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80',
+      videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+      duration: '1:42',
+      ratio: '16:9',
+      tools: ['Luma Dream Machine', 'ChatGPT Storyboard', 'ElevenLabs', 'After Effects'],
+      features: [
+        'Cinematic visual world-building with fantasy & sci-fi realism',
+        'Multi-scene narrative continuity with keyframe locking',
+        'Expressive bilingual Urdu & English storytelling voice'
+      ],
+      isPlaceholder: true
+    },
+    {
+      id: 'aivideo-product-promo',
+      title: 'AI Product Promotional Videos',
+      tagline: 'E-Commerce & High-Converting Commercial Motion Showcase',
+      category: 'Product Promo',
+      description: 'Dynamic 3D product showcase with clean commercial camera moves, lighting highlights, and conversion-focused social media motion.',
+      thumbnail: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=80',
+      videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+      duration: '0:45',
+      ratio: '16:9',
+      tools: ['Pika Labs', 'Midjourney v6', 'ElevenLabs', 'CapCut Pro'],
+      features: [
+        'Commercial 3D orbital camera sweeps with studio reflections',
+        'Dynamic macro zooms on premium materials & textures',
+        'High-converting call-to-action motion graphics for TikTok/Reels'
+      ],
+      isPlaceholder: true
+    },
+    {
+      id: 'aivideo-image-to-video',
+      title: 'Image-to-Video Animation',
+      tagline: 'Transforming Static Photos into Fluid Cinematic Motion',
+      category: 'Cinematic',
+      description: 'Bringing static brand imagery, concept art, and product photos to life with advanced physics-based image-to-video animation.',
+      thumbnail: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80',
+      videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+      duration: '0:30',
+      ratio: '16:9',
+      tools: ['Runway Gen-3 Alpha', 'Kling AI', 'Photoshop'],
+      features: [
+        'Seamless motion injection into still photography',
+        'Realistic fluid, wind, and lighting particle simulations',
+        'Immaculate edge preservation and high-resolution output'
+      ],
+      isPlaceholder: true
+    },
+    {
+      id: 'aivideo-voiceover-editing',
+      title: 'AI Voiceover & Video Editing',
+      tagline: 'Studio-Grade Neural Narration & Professional AI Post-Production',
+      category: 'Shorts & Reels',
+      description: 'Professional neural voiceover narration in multiple languages and accents, paired with rhythmic AI-assisted video editing.',
+      thumbnail: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1200&q=80',
+      videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+      duration: '1:00',
+      ratio: '16:9',
+      tools: ['ElevenLabs Voice AI', 'Premiere Pro', 'CapCut Pro'],
+      features: [
+        'Ultra-realistic human-like emotional neural voiceover',
+        'Automated beat-matched cuts and professional color grading',
+        'Clean audio mastering with background noise removal'
+      ],
+      isPlaceholder: true
+    }
+  ] as AIVideoProject[]
 };

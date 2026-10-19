@@ -128,8 +128,25 @@ export const ProjectManagerModal: React.FC<ProjectManagerModalProps> = ({
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
-        const result = event.target?.result as string;
-        setImage(result);
+        const rawResult = event.target?.result as string;
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 1280;
+          const scale = Math.min(1, MAX_WIDTH / img.width);
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            const compressed = canvas.toDataURL('image/jpeg', 0.82);
+            setImage(compressed);
+          } else {
+            setImage(rawResult);
+          }
+        };
+        img.onerror = () => setImage(rawResult);
+        img.src = rawResult;
       };
       reader.readAsDataURL(file);
     }

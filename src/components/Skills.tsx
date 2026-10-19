@@ -22,7 +22,10 @@ import {
   BarChart3,
   GraduationCap,
   Type,
-  MessageSquare
+  MessageSquare,
+  Clapperboard,
+  Film,
+  Video
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PORTFOLIO_DATA, Skill } from '../portfolioData';
@@ -42,12 +45,15 @@ const VSCodeIcon: React.FC<{ className?: string }> = ({ className = "w-6 h-6" })
 export const Skills: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
-  const categories = ['All', 'Presentation Design', 'Cloud & Hosting', 'Frontend & Code', 'CMS & Platforms', 'Design & Creative', 'Tools & AI'];
+  const categories = ['All', 'AI & Video', 'Tools & AI', 'Frontend & Code', 'CMS & Platforms', 'Presentation Design', 'Cloud & Hosting', 'Design & Creative'];
 
   // Map icon names to Lucide icons
   const renderSkillIcon = (iconName: string) => {
     const props = { className: "w-6 h-6" };
     switch (iconName) {
+      case 'Clapperboard': return <Clapperboard {...props} className="w-6 h-6 text-rose-400" />;
+      case 'Video': return <Video {...props} className="w-6 h-6 text-rose-400" />;
+      case 'Film': return <Film {...props} className="w-6 h-6 text-purple-400" />;
       case 'VSCode': return <VSCodeIcon className="w-6 h-6" />;
       case 'PowerPoint': return <PowerPointIcon className="w-6 h-6" />;
       case 'TrendingUp': return <TrendingUp {...props} className="w-6 h-6 text-purple-400" />;
@@ -76,6 +82,8 @@ export const Skills: React.FC = () => {
 
   const filteredSkills = selectedCategory === 'All'
     ? PORTFOLIO_DATA.skills
+    : selectedCategory === 'AI & Video'
+    ? PORTFOLIO_DATA.skills.filter(s => s.name.toLowerCase().includes('video') || s.name.toLowerCase().includes('ai'))
     : PORTFOLIO_DATA.skills.filter(s => s.category === selectedCategory);
 
   return (
@@ -175,36 +183,67 @@ export const Skills: React.FC = () => {
                         </div>
                       </div>
 
-                      <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-300 transition-colors duration-150">
-                        {skill.name}
+                      <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-300 transition-colors duration-150 flex items-center justify-between">
+                        <span>{skill.name}</span>
+                        {skill.highlight && (
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border shadow-sm ${
+                            skill.name === 'AI Video Creation'
+                              ? 'bg-rose-500/20 text-rose-300 border-rose-500/40 shadow-rose-500/10'
+                              : 'bg-blue-500/20 text-blue-300 border-blue-500/40 shadow-blue-500/10'
+                          }`}>
+                            ⭐ Featured
+                          </span>
+                        )}
                       </h3>
 
-                      <p className="text-xs text-slate-400 font-medium mb-4">
-                        {skill.experience}
-                      </p>
+                      {skill.description ? (
+                        <p className="text-xs text-slate-300/90 leading-relaxed mb-3">
+                          {skill.description}
+                        </p>
+                      ) : (
+                        <p className="text-xs text-slate-400 font-medium mb-3">
+                          {skill.experience}
+                        </p>
+                      )}
+
+                      {/* Sub-Skills Badges */}
+                      {skill.subSkills && skill.subSkills.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mb-3 pt-2 border-t border-slate-800/60">
+                          {skill.subSkills.map((sub, sIdx) => (
+                            <span 
+                              key={sIdx}
+                              className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-slate-800/80 text-slate-300 border border-slate-700/60"
+                            >
+                              • {sub}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
 
-                    {/* Skill Level Progress Bar */}
+                    {/* Skill Level Progress Bar & Pre-filled Contact Link */}
                     <div className="space-y-3 pt-3 border-t border-slate-800/60">
-                      <div className="space-y-1.5">
-                        <div className="flex justify-between text-[11px] font-semibold">
-                          <span className="text-slate-400">Proficiency</span>
-                          <span className="text-blue-400 font-mono">{skill.level}%</span>
+                      {typeof skill.level === 'number' && (
+                        <div className="space-y-1.5">
+                          <div className="flex justify-between text-[11px] font-semibold">
+                            <span className="text-slate-400">Proficiency</span>
+                            <span className="text-blue-400 font-mono">{skill.level}%</span>
+                          </div>
+                          <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                            <motion.div
+                              initial={{ width: 0 }}
+                              whileInView={{ width: `${skill.level}%` }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
+                              className="h-full rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500"
+                            />
+                          </div>
                         </div>
-                        <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${skill.level}%` }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
-                            className="h-full rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500"
-                          />
-                        </div>
-                      </div>
+                      )}
 
-                      {/* Hire / Contact Button for this Skill */}
+                      {/* Hire / Contact Button for this Skill with prefilled state */}
                       <Link
-                        to="/contact"
+                        to={`/contact?skill=${encodeURIComponent(skill.name)}`}
                         className="w-full py-2 px-3 rounded-xl bg-slate-800/80 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 border border-slate-700/80 hover:border-blue-500 text-slate-200 hover:text-white text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm group/btn"
                         title={`Discuss ${skill.name} project with Rizwan`}
                       >

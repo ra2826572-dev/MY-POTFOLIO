@@ -10,7 +10,9 @@ import {
   MapPin, 
   User, 
   Briefcase, 
-  Send 
+  Send,
+  Upload,
+  Image as ImageIcon
 } from 'lucide-react';
 import { PORTFOLIO_DATA, Testimonial } from '../portfolioData';
 import { db } from '../firebase';
@@ -32,6 +34,36 @@ export const Testimonials: React.FC = () => {
   const [rating, setRating] = useState(5);
   const [quote, setQuote] = useState('');
   const [projectType, setProjectType] = useState('Full-Stack Web App');
+  const [avatar, setAvatar] = useState('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop');
+
+  const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const rawResult = event.target?.result as string;
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 300;
+          const scale = Math.min(1, MAX_WIDTH / img.width);
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            const compressed = canvas.toDataURL('image/jpeg', 0.85);
+            setAvatar(compressed);
+          } else {
+            setAvatar(rawResult);
+          }
+        };
+        img.onerror = () => setAvatar(rawResult);
+        img.src = rawResult;
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // Load testimonials from Firestore in real-time
   useEffect(() => {
@@ -70,9 +102,7 @@ export const Testimonials: React.FC = () => {
         clientName: clientName.trim(),
         clientRole: clientRole.trim(),
         clientCompany: `${clientCompany.trim()} (${city})`,
-        avatar: selectedCountry === 'Malaysia' 
-          ? 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop'
-          : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
+        avatar,
         rating: Number(rating),
         quote: quote.trim(),
         projectType: projectType.trim(),
@@ -298,6 +328,30 @@ export const Testimonials: React.FC = () => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* Client Avatar / Photo Upload Option */}
+                  <div className="p-4 rounded-2xl bg-slate-950/85 border border-slate-800 flex items-center gap-4">
+                    <img
+                      src={avatar}
+                      alt="Client Avatar Preview"
+                      className="w-14 h-14 rounded-full object-cover border-2 border-blue-500/50 shadow-md shrink-0"
+                    />
+                    <div className="flex-1">
+                      <label className="block text-xs font-semibold text-white mb-1">
+                        Client Profile Photo / Logo (تصویر اپلوڈ کریں)
+                      </label>
+                      <label className="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-blue-600/90 hover:bg-blue-500 text-white text-xs font-semibold shadow transition-all">
+                        <Upload className="w-3.5 h-3.5" />
+                        <span>Choose Image File</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleAvatarUpload}
+                          className="hidden"
+                        />
+                      </label>
+                    </div>
+                  </div>
+
                   <div>
                     <label className="block text-xs font-semibold text-slate-300 mb-1">Your Full Name</label>
                     <div className="relative">
