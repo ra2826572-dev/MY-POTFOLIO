@@ -20,17 +20,90 @@ import {
 } from 'lucide-react';
 import { PORTFOLIO_DATA, Service } from '../portfolioData';
 import { PowerPointIcon } from './icons/PowerPointIcon';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ServicesProps {
   onOpenQuoteModal: (preselectedService?: string) => void;
 }
 
 export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
+  const { t, isRTL } = useLanguage();
   const [isPresentationModalOpen, setIsPresentationModalOpen] = useState(false);
   const [activeSlideIdx, setActiveSlideIdx] = useState(0);
 
   const presentationSlides = PORTFOLIO_DATA.presentationDesign.slides;
   const currentSlide = presentationSlides[activeSlideIdx] || presentationSlides[0];
+
+  const getTranslatedService = (id: string, original: Service) => {
+    switch (id) {
+      case 'web-design':
+        return {
+          title: t.services.items.webDesign.title,
+          description: t.services.items.webDesign.desc,
+          deliverables: [
+            t.services.items.webDesign.f1,
+            t.services.items.webDesign.f2,
+            t.services.items.webDesign.f3,
+          ],
+        };
+      case 'business-corporate':
+        return {
+          title: t.services.items.business.title,
+          description: t.services.items.business.desc,
+          deliverables: [
+            t.services.items.business.f1,
+            t.services.items.business.f2,
+            t.services.items.business.f3,
+          ],
+        };
+      case 'ecommerce-stores':
+        return {
+          title: t.services.items.ecommerce.title,
+          description: t.services.items.ecommerce.desc,
+          deliverables: [
+            t.services.items.ecommerce.f1,
+            t.services.items.ecommerce.f2,
+            t.services.items.ecommerce.f3,
+          ],
+        };
+      case 'landing-pages':
+        return {
+          title: t.services.items.landing.title,
+          description: t.services.items.landing.desc,
+          deliverables: [
+            t.services.items.landing.f1,
+            t.services.items.landing.f2,
+            t.services.items.landing.f3,
+          ],
+        };
+      case 'custom-web-apps':
+        return {
+          title: t.services.items.customApp.title,
+          description: t.services.items.customApp.desc,
+          deliverables: [
+            t.services.items.customApp.f1,
+            t.services.items.customApp.f2,
+            t.services.items.customApp.f3,
+          ],
+        };
+      case 'website-redesign':
+        return {
+          title: t.services.items.redesign.title,
+          description: t.services.items.redesign.desc,
+          deliverables: [
+            t.services.items.redesign.f1,
+            t.services.items.redesign.f2,
+            t.services.items.redesign.f3,
+          ],
+        };
+      default:
+        return {
+          title: original.title,
+          description: original.description,
+          deliverables: original.deliverables,
+        };
+    }
+  };
 
   const getServiceIcon = (iconName: string) => {
     switch (iconName) {
@@ -64,20 +137,22 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>High Impact Solutions</span>
+            <span>{t.services.badge}</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            What <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">I Do</span>
+            {t.services.title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">{t.services.titleHighlight}</span>
           </h2>
           <p className="text-slate-400 text-base max-w-2xl mt-3 font-normal">
-            Specialized design and development services built to transform your online presence into a powerful business asset.
+            {t.services.subtitle}
           </p>
           <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-4" />
         </motion.div>
 
         {/* 6 Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-          {PORTFOLIO_DATA.services.map((service, index) => (
+          {PORTFOLIO_DATA.services.map((service, index) => {
+            const trans = getTranslatedService(service.id, service);
+            return (
             <motion.div
               key={service.id}
               initial={{ opacity: 0, y: 14 }}
@@ -103,7 +178,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
                 </div>
 
                 <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">
-                  {service.title}
+                  {trans.title}
                 </h3>
 
                 {service.subtitle && (
@@ -113,12 +188,12 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
                 )}
 
                 <p className="text-sm text-slate-300/90 leading-relaxed mb-6 font-normal">
-                  {service.description}
+                  {trans.description}
                 </p>
 
                 {/* Key Deliverables Bullet Points */}
                 <div className="space-y-2.5 pt-4 border-t border-slate-800/80 mb-6">
-                  {service.deliverables.map((item, dIdx) => (
+                  {trans.deliverables.map((item, dIdx) => (
                     <div key={dIdx} className="flex items-start gap-2.5 text-xs text-slate-300">
                       <div className="w-4 h-4 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0 mt-0.5 text-emerald-400">
                         <Check className="w-2.5 h-2.5" />
@@ -181,16 +256,17 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
               <div className="pt-2">
                 <button
                   type="button"
-                  onClick={() => onOpenQuoteModal(service.title)}
+                  onClick={() => onOpenQuoteModal(trans.title)}
                   className="w-full py-3 px-4 rounded-xl bg-slate-800/80 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 text-slate-200 hover:text-white font-semibold text-xs sm:text-sm border border-slate-700 hover:border-transparent transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-md"
                 >
-                  <span>Get a Quote</span>
-                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                  <span>{t.common.getQuote}</span>
+                  <ArrowRight className={`w-4 h-4 group-hover/btn:translate-x-1 transition-transform ${isRTL ? 'rotate-180 group-hover/btn:-translate-x-1' : ''}`} />
                 </button>
               </div>
 
             </motion.div>
-          ))}
+            );
+          })}
         </div>
 
       </div>

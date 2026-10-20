@@ -31,6 +31,7 @@ import { Link } from 'react-router-dom';
 import { PORTFOLIO_DATA, Skill } from '../portfolioData';
 import { PowerPointIcon } from './icons/PowerPointIcon';
 import { Card3D } from './Card3D';
+import { useLanguage } from '../context/LanguageContext';
 
 const VSCodeIcon: React.FC<{ className?: string }> = ({ className = "w-6 h-6" }) => (
   <svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="Visual Studio Code">
@@ -43,9 +44,19 @@ const VSCodeIcon: React.FC<{ className?: string }> = ({ className = "w-6 h-6" })
 );
 
 export const Skills: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const { t } = useLanguage();
+  const [selectedCategoryKey, setSelectedCategoryKey] = useState<string>('all');
 
-  const categories = ['All', 'AI & Video', 'Tools & AI', 'Frontend & Code', 'CMS & Platforms', 'Presentation Design', 'Cloud & Hosting', 'Design & Creative'];
+  const categories = [
+    { key: 'all', label: t.skills.categories.all, filterValue: 'All' },
+    { key: 'aiVideo', label: t.skills.categories.aiVideo, filterValue: 'AI & Video' },
+    { key: 'toolsAI', label: t.skills.categories.toolsAI, filterValue: 'Tools & AI' },
+    { key: 'frontendCode', label: t.skills.categories.frontendCode, filterValue: 'Frontend & Code' },
+    { key: 'cmsPlatforms', label: t.skills.categories.cmsPlatforms, filterValue: 'CMS & Platforms' },
+    { key: 'presentationDesign', label: t.skills.categories.presentationDesign, filterValue: 'Presentation Design' },
+    { key: 'cloudHosting', label: t.skills.categories.cloudHosting, filterValue: 'Cloud & Hosting' },
+    { key: 'designCreative', label: t.skills.categories.designCreative, filterValue: 'Design & Creative' },
+  ];
 
   // Map icon names to Lucide icons
   const renderSkillIcon = (iconName: string) => {
@@ -80,11 +91,13 @@ export const Skills: React.FC = () => {
     }
   };
 
-  const filteredSkills = selectedCategory === 'All'
+  const currentCategoryObj = categories.find(c => c.key === selectedCategoryKey) || categories[0];
+
+  const filteredSkills = currentCategoryObj.filterValue === 'All'
     ? PORTFOLIO_DATA.skills
-    : selectedCategory === 'AI & Video'
+    : currentCategoryObj.filterValue === 'AI & Video'
     ? PORTFOLIO_DATA.skills.filter(s => s.name.toLowerCase().includes('video') || s.name.toLowerCase().includes('ai'))
-    : PORTFOLIO_DATA.skills.filter(s => s.category === selectedCategory);
+    : PORTFOLIO_DATA.skills.filter(s => s.category === currentCategoryObj.filterValue);
 
   return (
     <section id="skills" className="py-24 relative overflow-hidden bg-[#080B11]">
@@ -99,25 +112,25 @@ export const Skills: React.FC = () => {
         <div className="flex flex-col items-center text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Core Competencies & Stack</span>
+            <span>{t.skills.badge}</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            My <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">Skills</span>
+            {t.skills.title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">{t.skills.titleHighlight}</span>
           </h2>
           <p className="text-slate-400 text-base max-w-xl mt-3">
-            A battle-tested toolset covering modern frontend code, responsive CMS architecture, and intuitive UI/UX design.
+            {t.skills.subtitle}
           </p>
           <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-4" />
         </div>
 
         {/* Category Filter Pills with Smooth Animated Tab Indicator */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
-          {categories.map((category) => {
-            const isSelected = selectedCategory === category;
+          {categories.map((cat) => {
+            const isSelected = selectedCategoryKey === cat.key;
             return (
               <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
+                key={cat.key}
+                onClick={() => setSelectedCategoryKey(cat.key)}
                 className={`relative px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
                   isSelected
                     ? 'text-white shadow-lg shadow-blue-500/25'
@@ -131,7 +144,7 @@ export const Skills: React.FC = () => {
                     transition={{ type: 'spring', stiffness: 450, damping: 32 }}
                   />
                 )}
-                <span className="relative z-10">{category}</span>
+                <span className="relative z-10">{cat.label}</span>
               </button>
             );
           })}
@@ -169,31 +182,23 @@ export const Skills: React.FC = () => {
                           transition={{ duration: 0.25, delay: Math.min(index * 0.035 + 0.05, 0.35), ease: 'easeOut' }}
                           className="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center group-hover:scale-110 group-hover:border-blue-500/50 group-hover:bg-slate-800 transition-all duration-200 shadow-inner"
                         >
-                          {renderSkillIcon(skill.iconName)}
+                          {renderSkillIcon(skill.icon)}
                         </motion.div>
-                        <div className="flex items-center gap-1.5 flex-wrap justify-end">
-                          {skill.name.toLowerCase().includes('expert') && (
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30 shadow-sm shadow-amber-500/10">
-                              ⭐ Expert
+
+                        <div className="flex items-center gap-1.5">
+                          {skill.featured && (
+                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 border border-amber-500/30">
+                              ★ {t.skills.featured}
                             </span>
                           )}
-                          <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-800/90 text-slate-300 border border-slate-700/50">
+                          <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
                             {skill.category}
                           </span>
                         </div>
                       </div>
 
-                      <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-300 transition-colors duration-150 flex items-center justify-between">
-                        <span>{skill.name}</span>
-                        {skill.highlight && (
-                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border shadow-sm ${
-                            skill.name === 'AI Video Creation'
-                              ? 'bg-rose-500/20 text-rose-300 border-rose-500/40 shadow-rose-500/10'
-                              : 'bg-blue-500/20 text-blue-300 border-blue-500/40 shadow-blue-500/10'
-                          }`}>
-                            ⭐ Featured
-                          </span>
-                        )}
+                      <h3 className="text-base font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">
+                        {skill.name}
                       </h3>
 
                       {skill.description ? (
@@ -248,7 +253,7 @@ export const Skills: React.FC = () => {
                         title={`Discuss ${skill.name} project with Rizwan`}
                       >
                         <MessageSquare className="w-3.5 h-3.5 text-blue-400 group-hover/btn:text-white transition-colors" />
-                        <span>Contact About {skill.name}</span>
+                        <span>{t.skills.discussSkill}: {skill.name}</span>
                       </Link>
                     </div>
 

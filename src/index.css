@@ -263,3 +263,39 @@
   }
 }
 
+/* Internationalization & RTL Support */
+[dir="rtl"] {
+  text-align: right;
+  direction: rtl;
+  font-family: 'Noto Sans Arabic', 'Outfit', system-ui, -apple-system, sans-serif;
+}
+
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+[dir="rtl"] input,
+[dir="rtl"] textarea {
+  text-align: right;
+}
+
+[dir="rtl"] input[type="email"],
+[dir="rtl"] input[type="tel"],
+[dir="rtl"] input[type="url"],
+[dir="rtl"] code {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Custom scrollbar inside language dropdown */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 9999px;
+}

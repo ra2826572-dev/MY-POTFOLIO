@@ -13,22 +13,24 @@ import {
   Navigation
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 interface FooterProps {}
 
 export const Footer: React.FC<FooterProps> = () => {
+  const { t, isRTL } = useLanguage();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Skills', href: '/skills' },
-    { name: 'Services', href: '/services' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'Process', href: '/process' },
-    { name: 'Contact', href: '/contact' },
+    { name: t.nav.home, href: '/' },
+    { name: t.nav.about, href: '/about' },
+    { name: t.nav.skills, href: '/skills' },
+    { name: t.nav.services, href: '/services' },
+    { name: t.nav.projects, href: '/projects' },
+    { name: t.nav.process, href: '/process' },
+    { name: t.nav.contact, href: '/contact' },
   ];
 
   return (
@@ -67,7 +69,7 @@ export const Footer: React.FC<FooterProps> = () => {
             </div>
 
             <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
-              "Building modern digital experiences for businesses and brands."
+              "{t.footer.tagline}"
             </p>
 
             {/* Availability Indicator */}
@@ -80,7 +82,7 @@ export const Footer: React.FC<FooterProps> = () => {
           {/* Quick Navigation Links */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider">
-              Navigation
+              {t.footer.quickLinks}
             </h4>
             <ul className="space-y-2 text-sm">
               {navLinks.map((link) => (
@@ -99,7 +101,7 @@ export const Footer: React.FC<FooterProps> = () => {
           {/* Social Links & Direct Channels */}
           <div className="lg:col-span-4 space-y-4">
             <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider">
-              Connect With Me
+              {t.footer.contactTitle}
             </h4>
             <p className="text-xs text-slate-400">
               Let's connect across social platforms or send an inquiry directly.
@@ -212,14 +214,14 @@ export const Footer: React.FC<FooterProps> = () => {
 
         {/* Bottom Bar: Copyright & Back to Top */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <p>© 2026 RIZWAN AHMAD. All Rights Reserved.</p>
+          <p>{t.footer.rights}</p>
 
           <button
             type="button"
             onClick={scrollToTop}
             className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 hover:-translate-y-0.5 transition-all duration-200"
           >
-            <span>Back to top</span>
+            <span>{t.footer.backToTop}</span>
             <ArrowUp className="w-3.5 h-3.5" />
           </button>
         </div>

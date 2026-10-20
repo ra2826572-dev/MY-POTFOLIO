@@ -7,18 +7,21 @@ import {
   Smartphone, 
   Zap, 
   Layers, 
-  Sparkles,
-  MessageSquare,
-  FileText,
-  Download
+  Sparkles, 
+  MessageSquare, 
+  FileText, 
+  Download 
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 interface AboutProps {
   onOpenQuoteModal: () => void;
 }
 
 export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
+  const { t } = useLanguage();
+
   const statIcons: Record<string, React.ReactNode> = {
     FolderGit2: <FolderGit2 className="w-6 h-6 text-blue-400" />,
     Globe: <Globe className="w-6 h-6 text-indigo-400" />,
@@ -28,24 +31,51 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
 
   const corePillars = [
     {
-      title: 'Clean UI Architecture',
-      desc: 'Visual hierarchy with deliberate typography, high contrast, and refined white space.',
+      title: t.about.pillars.cleanUI,
+      desc: t.about.pillars.cleanUIDesc,
       icon: <Layers className="w-5 h-5 text-blue-400" />,
     },
     {
-      title: 'Responsive & Mobile First',
-      desc: 'Flawlessly tested across iPhones, Androids, tablets, laptops, and ultra-wide displays.',
+      title: t.about.pillars.responsive,
+      desc: t.about.pillars.responsiveDesc,
       icon: <Smartphone className="w-5 h-5 text-indigo-400" />,
     },
     {
-      title: 'Smooth User Experiences',
-      desc: 'Intuitive navigation, frictionless forms, and micro-interactions that guide visitors.',
+      title: t.about.pillars.smoothUX,
+      desc: t.about.pillars.smoothUXDesc,
       icon: <Sparkles className="w-5 h-5 text-purple-400" />,
     },
     {
-      title: 'Conversion & Speed Focused',
-      desc: 'Engineered with fast page loads and clear calls-to-action that convert traffic into clients.',
+      title: t.about.pillars.speed,
+      desc: t.about.pillars.speedDesc,
       icon: <Zap className="w-5 h-5 text-amber-400" />,
+    },
+  ];
+
+  const translatedStats = [
+    {
+      value: '3+',
+      label: t.about.stats.experience,
+      sublabel: t.about.stats.experienceSub,
+      icon: 'FolderGit2',
+    },
+    {
+      value: '80+',
+      label: t.about.stats.projects,
+      sublabel: t.about.stats.projectsSub,
+      icon: 'Globe',
+    },
+    {
+      value: '100%',
+      label: t.about.stats.satisfaction,
+      sublabel: t.about.stats.satisfactionSub,
+      icon: 'Zap',
+    },
+    {
+      value: '24/7',
+      label: t.about.stats.support,
+      sublabel: t.about.stats.supportSub,
+      icon: 'Smartphone',
     },
   ];
 
@@ -68,10 +98,10 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/60 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Discover My Background</span>
+            <span>{t.about.badge}</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">Me</span>
+            {t.about.title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">{t.about.titleHighlight}</span>
           </h2>
           <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-4" />
         </motion.div>
@@ -89,15 +119,15 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
           >
             <div className="p-8 rounded-3xl bg-slate-900/60 border border-slate-800 backdrop-blur-xl shadow-xl shadow-black/40">
               <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                <span>Passionate Web Designer & Developer</span>
+                <span>{t.about.headline}</span>
               </h3>
               
               <p className="text-lg text-slate-300 leading-relaxed font-normal mb-6">
-                "{PORTFOLIO_DATA.personal.aboutDetailed}"
+                "{t.about.bioQuote}"
               </p>
 
               <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                Whether you need a custom-built corporate website, a high-converting landing page, an e-commerce shop, or a complete modern redesign, I bridge the gap between creative visual artistry and robust technical execution.
+                {t.about.paragraph}
               </p>
 
               {/* Action row with smooth button hover */}
@@ -107,16 +137,16 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white text-xs font-bold shadow-lg shadow-blue-600/25 hover:shadow-blue-600/40 hover:-translate-y-0.5 transition-all duration-200"
                 >
                   <FileText className="w-3.5 h-3.5" />
-                  <span>View Resume / CV</span>
+                  <span>{t.nav.cv}</span>
                 </Link>
 
                 <Link
                   to="/cv"
                   className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-900 border border-slate-700 hover:border-blue-500/40 text-slate-200 hover:text-white text-xs font-semibold hover:-translate-y-0.5 transition-all duration-200"
-                  title="Download Rizwan's CV in PDF"
+                  title="Download CV"
                 >
                   <Download className="w-3.5 h-3.5 text-blue-400" />
-                  <span>Download CV (PDF)</span>
+                  <span>{t.common.downloadCV} (PDF)</span>
                 </Link>
 
                 <a
@@ -124,7 +154,7 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
                   className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-800/80 hover:bg-slate-800 text-slate-200 text-xs font-medium border border-slate-700 hover:-translate-y-0.5 transition-all duration-200"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
-                  <span>Get in Touch</span>
+                  <span>{t.common.contactMe}</span>
                 </a>
               </div>
             </div>
@@ -157,7 +187,7 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
 
           {/* Right: The 4 Key Statistics Cards with Staggered Fade-Up */}
           <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {PORTFOLIO_DATA.personal.stats.map((stat, index) => (
+            {translatedStats.map((stat, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 14 }}
@@ -179,20 +209,19 @@ export const About: React.FC<AboutProps> = ({ onOpenQuoteModal }) => {
                     {stat.value}
                   </p>
                   
-                  <h4 className="text-base font-bold text-slate-200 mb-1">
+                  <h4 className="text-sm font-bold text-slate-200 mb-0.5">
                     {stat.label}
                   </h4>
+                  
+                  <p className="text-xs text-slate-400">
+                    {stat.sublabel}
+                  </p>
                 </div>
-
-                <p className="text-xs text-slate-400 font-medium pt-3 border-t border-slate-800/60 mt-3">
-                  {stat.note}
-                </p>
               </motion.div>
             ))}
           </div>
 
         </div>
-
       </div>
     </section>
   );

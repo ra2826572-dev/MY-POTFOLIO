@@ -42,12 +42,14 @@ export interface AIVideoProject {
 export interface Skill {
   name: string;
   iconName: string;
+  icon?: string;
   category: 'Frontend & Code' | 'CMS & Platforms' | 'Design & Creative' | 'Tools & AI' | 'Cloud & Hosting' | 'Presentation Design' | 'AI Video Creation';
   level: number; // 0 to 100
   experience: string;
   description?: string;
   subSkills?: string[];
   highlight?: boolean;
+  featured?: boolean;
   certificateUrl?: string;
   certificateTitle?: string;
 }

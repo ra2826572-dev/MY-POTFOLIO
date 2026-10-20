@@ -18,8 +18,10 @@ import {
   Check
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 export const Contact: React.FC = () => {
+  const { t, isRTL } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -95,13 +97,13 @@ export const Contact: React.FC = () => {
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Direct Communication</span>
+            <span>{t.contact.badge}</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            Get in <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">Touch</span>
+            {t.contact.title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">{t.contact.titleHighlight}</span>
           </h2>
           <p className="text-slate-400 text-base max-w-2xl mt-3 font-normal">
-            Ready to bring your website vision to life? Fill out the form below or message me directly on WhatsApp.
+            {t.contact.subtitle}
           </p>
           <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-4" />
         </motion.div>
@@ -132,11 +134,11 @@ export const Contact: React.FC = () => {
               </div>
 
               <h3 className="text-xl font-bold text-white mb-2">
-                Chat Directly on WhatsApp
+                {t.contact.cards.whatsappTitle}
               </h3>
               
               <p className="text-xs sm:text-sm text-slate-300 mb-6 leading-relaxed">
-                Connect instantly to discuss project timelines, pricing, or custom feature requirements.
+                {t.contact.cards.whatsappDesc}
               </p>
 
               <a
@@ -147,8 +149,8 @@ export const Contact: React.FC = () => {
                 className="w-full py-3.5 px-6 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all flex items-center justify-center gap-2 group"
               >
                 <Phone className="w-4 h-4" />
-                <span>WhatsApp Me</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <span>{t.contact.cards.whatsappAction}</span>
+                <ArrowRight className={`w-4 h-4 group-hover:translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
               </a>
             </motion.div>
 
@@ -163,7 +165,7 @@ export const Contact: React.FC = () => {
                   <Mail className="w-5 h-5" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs text-slate-400 font-medium">Email Me At</p>
+                  <p className="text-xs text-slate-400 font-medium">{t.contact.cards.emailTitle}</p>
                   <p className="text-sm font-bold text-white truncate">{PORTFOLIO_DATA.contact.email}</p>
                 </div>
               </div>
@@ -173,7 +175,7 @@ export const Contact: React.FC = () => {
                   type="button"
                   onClick={handleCopyEmail}
                   className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
-                  title="Copy email address"
+                  title={copiedEmail ? t.contact.cards.copied : t.contact.cards.copyEmail}
                 >
                   {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                 </button>
@@ -261,8 +263,8 @@ export const Contact: React.FC = () => {
               
               <div className="flex items-center justify-between mb-8">
                 <div>
-                  <h3 className="text-2xl font-bold text-white">Send a Direct Message</h3>
-                  <p className="text-xs text-slate-400 mt-1">I will review your message and reply promptly.</p>
+                  <h3 className="text-2xl font-bold text-white">{t.contact.title}</h3>
+                  <p className="text-xs text-slate-400 mt-1">{t.contact.subtitle}</p>
                 </div>
                 <div className="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
                   <Send className="w-5 h-5" />
@@ -278,9 +280,9 @@ export const Contact: React.FC = () => {
                   <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mb-2">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <h4 className="text-2xl font-bold text-white">Message Prepared!</h4>
+                  <h4 className="text-2xl font-bold text-white">{t.contact.form.successTitle}</h4>
                   <p className="text-sm text-slate-300 max-w-md">
-                    Thank you, <strong className="text-white">{formData.name}</strong>. You can now send this directly via WhatsApp or Email for instant review:
+                    {t.contact.form.successDesc}
                   </p>
                   
                   <div className="flex flex-col sm:flex-row gap-3 pt-4 w-full max-w-md">
@@ -291,7 +293,7 @@ export const Contact: React.FC = () => {
                       className="flex-1 py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20"
                     >
                       <Phone className="w-4 h-4" />
-                      <span>Send on WhatsApp</span>
+                      <span>{t.contact.cards.whatsappAction}</span>
                     </a>
 
                     <a
@@ -299,7 +301,7 @@ export const Contact: React.FC = () => {
                       className="flex-1 py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg"
                     >
                       <Mail className="w-4 h-4" />
-                      <span>Send via Email</span>
+                      <span>{t.contact.cards.emailTitle}</span>
                     </a>
                   </div>
 
@@ -311,7 +313,7 @@ export const Contact: React.FC = () => {
                     }}
                     className="text-xs text-slate-400 hover:text-white pt-4 underline"
                   >
-                    Send another message
+                    {t.contact.form.sendAnother}
                   </button>
                 </motion.div>
               ) : (
@@ -321,13 +323,13 @@ export const Contact: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                       <label htmlFor="contact-name" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                        Your Name *
+                        {t.contact.form.nameLabel}
                       </label>
                       <input
                         id="contact-name"
                         type="text"
                         required
-                        placeholder="e.g. John Doe"
+                        placeholder={t.contact.form.namePlaceholder}
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         className="w-full px-4 py-3.5 rounded-xl bg-slate-950/70 border border-slate-700/80 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-white text-sm placeholder-slate-500 outline-none transition-all"
@@ -336,13 +338,13 @@ export const Contact: React.FC = () => {
 
                     <div>
                       <label htmlFor="contact-email" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                        Email Address *
+                        {t.contact.form.emailLabel}
                       </label>
                       <input
                         id="contact-email"
                         type="email"
                         required
-                        placeholder="john@example.com"
+                        placeholder={t.contact.form.emailPlaceholder}
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full px-4 py-3.5 rounded-xl bg-slate-950/70 border border-slate-700/80 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-white text-sm placeholder-slate-500 outline-none transition-all"
@@ -354,13 +356,13 @@ export const Contact: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                       <label htmlFor="contact-phone" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                        Phone / WhatsApp *
+                        {t.contact.form.phoneLabel}
                       </label>
                       <input
                         id="contact-phone"
                         type="tel"
                         required
-                        placeholder="+1 (555) 000-0000"
+                        placeholder={t.contact.form.phonePlaceholder}
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="w-full px-4 py-3.5 rounded-xl bg-slate-950/70 border border-slate-700/80 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-white text-sm placeholder-slate-500 outline-none transition-all"
@@ -369,7 +371,7 @@ export const Contact: React.FC = () => {
 
                     <div>
                       <label htmlFor="contact-project-type" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                        Project Type
+                        {t.contact.form.typeLabel}
                       </label>
                       <select
                         id="contact-project-type"
@@ -389,13 +391,13 @@ export const Contact: React.FC = () => {
                   {/* Message */}
                   <div>
                     <label htmlFor="contact-message" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                      Project Details & Message *
+                      {t.contact.form.messageLabel}
                     </label>
                     <textarea
                       id="contact-message"
                       rows={4}
                       required
-                      placeholder="Describe your website goals, number of pages, design preferences, and timeline..."
+                      placeholder={t.contact.form.messagePlaceholder}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full px-4 py-3.5 rounded-xl bg-slate-950/70 border border-slate-700/80 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-white text-sm placeholder-slate-500 outline-none transition-all resize-none"
@@ -412,13 +414,13 @@ export const Contact: React.FC = () => {
                     {isSubmitting ? (
                       <span className="flex items-center gap-2">
                         <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        <span>Processing Message...</span>
+                        <span>{t.contact.form.sendingBtn}</span>
                       </span>
                     ) : (
                       <>
                         <Send className="w-4 h-4" />
-                        <span>Send Message</span>
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        <span>{t.contact.form.sendBtn}</span>
+                        <ArrowRight className={`w-4 h-4 group-hover:translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
                       </>
                     )}
                   </button>

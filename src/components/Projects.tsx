@@ -21,6 +21,7 @@ import {
   Upload
 } from 'lucide-react';
 import { PORTFOLIO_DATA, Project } from '../portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 import { ProjectModal } from './ProjectModal';
 import { ProjectManagerModal } from './ProjectManagerModal';
 import { AdminLockModal } from './AdminLockModal';
@@ -36,6 +37,7 @@ interface ProjectsProps {
 const STORAGE_KEY = 'rizwan_custom_projects';
 
 export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
+  const { t, isRTL } = useLanguage();
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState<string>('All');
@@ -288,15 +290,15 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
         <div className="flex flex-col items-center text-center mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Showcase & Work Management</span>
+            <span>{t.projects.badge}</span>
           </div>
 
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            My <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">Featured Work</span>
+            {t.projects.title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">{t.projects.titleHighlight}</span>
           </h2>
           
           <p className="text-slate-400 text-base max-w-2xl mt-3">
-            Explore recent live websites, client projects, and responsive applications.
+            {t.projects.subtitle}
           </p>
 
           <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-4 mb-6" />
@@ -507,7 +509,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                       </span>
                       <span className="text-emerald-400 font-bold flex items-center gap-1 shrink-0">
                         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                        Live Website
+                        {t.projects.liveWebsite}
                       </span>
                     </div>
                   </div>
@@ -558,7 +560,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                       className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-600/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      <span>Visit Live Website</span>
+                      <span>{t.projects.visitLiveSite}</span>
                     </a>
 
                     {/* Interactive Device Preview Modal Button */}
@@ -568,7 +570,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                       className="px-4 py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 hover:text-white text-xs sm:text-sm font-semibold border border-slate-700 transition-all flex items-center gap-2 shadow-sm"
                     >
                       <Eye className="w-4 h-4 text-blue-400" />
-                      <span>Interactive Device Preview</span>
+                      <span>{t.projects.interactivePreview}</span>
                     </button>
                   </div>
                 </div>
@@ -579,12 +581,18 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
 
         {/* Category Filter Tabs with Smooth Animated Indicator */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
-          {categories.map((category) => {
-            const isSelected = activeCategory === category;
+          {[
+            { key: 'All', label: t.projects.categories.all },
+            { key: 'Full Stack', label: t.projects.categories.fullstack },
+            { key: 'Frontend', label: t.projects.categories.frontend },
+            { key: 'E-Commerce', label: t.projects.categories.ecommerce },
+            { key: 'UI/UX', label: t.projects.categories.uiux },
+          ].map((cat) => {
+            const isSelected = activeCategory === cat.key;
             return (
               <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
+                key={cat.key}
+                onClick={() => setActiveCategory(cat.key)}
                 className={`relative px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
                   isSelected
                     ? 'text-white shadow-lg shadow-blue-500/25'
@@ -599,8 +607,8 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                   />
                 )}
                 <span className="relative z-10">
-                  {category}
-                  {category === 'All' ? ` (${projects.length})` : ''}
+                  {cat.label}
+                  {cat.key === 'All' ? ` (${projects.length})` : ''}
                 </span>
               </button>
             );
@@ -763,7 +771,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                       title="Open interactive device preview"
                     >
                       <Eye className="w-3.5 h-3.5 text-blue-400" />
-                      <span>Live Preview</span>
+                      <span>{t.projects.liveDemo}</span>
                     </motion.button>
 
                     {/* View / Visit button */}
@@ -779,7 +787,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                         title="Visit live website in new tab"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
-                        <span>Visit Site ↗</span>
+                        <span>{t.common.visitSite}</span>
                       </motion.a>
                     ) : (
                       <motion.button
@@ -791,7 +799,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenQuoteModal }) => {
                         className="py-2.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-semibold shadow-md shadow-blue-600/20 hover:shadow-blue-600/40 hover:opacity-95 transition-all flex items-center justify-center gap-1.5"
                       >
                         <Eye className="w-3.5 h-3.5" />
-                        <span>View Project</span>
+                        <span>{t.projects.viewDetails}</span>
                       </motion.button>
                     )}
                   </div>

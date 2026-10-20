@@ -6,13 +6,15 @@ import {
   Zap, 
   Users, 
   Search, 
-  ShieldCheck,
-  Check,
-  ArrowRight
+  ShieldCheck, 
+  Check 
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 export const WhyChooseMe: React.FC = () => {
+  const { t } = useLanguage();
+
   const getBenefitIcon = (iconName: string) => {
     switch (iconName) {
       case 'Sparkles': return <Sparkles className="w-6 h-6 text-blue-400" />;
@@ -44,59 +46,65 @@ export const WhyChooseMe: React.FC = () => {
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Uncompromising Quality</span>
+            <span>{t.whyChooseMe.badge}</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            Why <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">Choose Me</span>
+            {t.whyChooseMe.title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">{t.whyChooseMe.titleHighlight}</span>
           </h2>
           <p className="text-slate-400 text-base max-w-2xl mt-3">
-            Every website is crafted with meticulous attention to visual elegance, speed, and business conversion goals.
+            {t.whyChooseMe.subtitle}
           </p>
           <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-4" />
         </motion.div>
 
         {/* 6 Benefits Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {PORTFOLIO_DATA.whyChooseMe.map((item, index) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              whileHover={{ y: -4 }}
-              transition={{ duration: 0.28, delay: index * 0.05 }}
-              className="group relative p-7 rounded-3xl bg-slate-900/60 border border-slate-800/80 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 transition-colors duration-200 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col justify-between overflow-hidden"
-            >
-              {/* Animated hover gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-indigo-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-              <div>
-                <div className="flex items-center justify-between mb-5">
-                  <div className="w-13 h-13 rounded-2xl bg-slate-800/90 border border-slate-700/80 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner">
-                    {getBenefitIcon(item.icon)}
+          {PORTFOLIO_DATA.whyChooseMe.map((item, index) => {
+            const benefit = t.whyChooseMe.benefits && t.whyChooseMe.benefits[index] 
+              ? t.whyChooseMe.benefits[index]
+              : { title: item.title, desc: item.description };
+
+            return (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.28, delay: index * 0.05 }}
+                className="group relative p-7 rounded-3xl bg-slate-900/60 border border-slate-800/80 hover:border-blue-500/50 backdrop-blur-xl shadow-xl shadow-black/40 transition-colors duration-200 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col justify-between overflow-hidden"
+              >
+                {/* Animated hover gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-indigo-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="w-13 h-13 rounded-2xl bg-slate-800/90 border border-slate-700/80 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner">
+                      {getBenefitIcon(item.icon)}
+                    </div>
+
+                    {item.highlightStat && (
+                      <span className="px-3 py-1 rounded-full bg-blue-950/60 border border-blue-500/30 text-[11px] font-bold text-blue-300 font-mono">
+                        {item.highlightStat}
+                      </span>
+                    )}
                   </div>
 
-                  {item.highlightStat && (
-                    <span className="px-3 py-1 rounded-full bg-blue-950/60 border border-blue-500/30 text-[11px] font-bold text-blue-300 font-mono">
-                      {item.highlightStat}
-                    </span>
-                  )}
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">
+                    {benefit.title}
+                  </h3>
+
+                  <p className="text-sm text-slate-300/90 leading-relaxed font-normal">
+                    {benefit.desc}
+                  </p>
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">
-                  {item.title}
-                </h3>
-
-                <p className="text-sm text-slate-300/90 leading-relaxed font-normal">
-                  {item.description}
-                </p>
-              </div>
-
-              <div className="pt-4 mt-4 border-t border-slate-800/60 flex items-center gap-2 text-xs font-semibold text-emerald-400">
-                <Check className="w-4 h-4" />
-                <span>Guaranteed Standard</span>
-              </div>
-            </motion.div>
-          ))}
+                <div className="pt-4 mt-4 border-t border-slate-800/60 flex items-center gap-2 text-xs font-semibold text-emerald-400">
+                  <Check className="w-4 h-4" />
+                  <span>100% Quality Guaranteed</span>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
       </div>

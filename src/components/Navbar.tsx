@@ -9,6 +9,8 @@ import {
   Phone
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
+import { useLanguage } from '../context/LanguageContext';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 interface NavbarProps {
   onOpenQuoteModal: () => void;
@@ -18,15 +20,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { t, isRTL } = useLanguage();
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Skills', href: '/skills' },
-    { name: 'Services', href: '/services' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'Process', href: '/process' },
-    { name: 'Contact', href: '/contact' },
+    { name: t.nav.home, href: '/' },
+    { name: t.nav.about, href: '/about' },
+    { name: t.nav.skills, href: '/skills' },
+    { name: t.nav.services, href: '/services' },
+    { name: t.nav.projects, href: '/projects' },
+    { name: t.nav.process, href: '/process' },
+    { name: t.nav.contact, href: '/contact' },
   ];
 
   useEffect(() => {
@@ -56,7 +59,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             <Link 
               to="/" 
               onClick={closeMobileMenu}
-              className="flex items-center gap-3 group"
+              className="flex items-center gap-3 group shrink-0"
               id="brand-logo"
             >
               <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-500 p-[1.5px] shadow-lg shadow-blue-500/20 group-hover:shadow-blue-500/40 transition-all duration-300">
@@ -72,21 +75,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                 </span>
                 <span className="text-[10px] tracking-widest text-slate-400 font-medium uppercase -mt-1 flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
-                  Web Designer & Dev
+                  {t.nav.roleTag}
                 </span>
               </div>
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-1 bg-slate-900/60 p-1.5 rounded-full border border-slate-800/80 backdrop-blur-md">
+            <nav className="hidden lg:flex items-center gap-1 bg-slate-900/60 p-1.5 rounded-full border border-slate-800/80 backdrop-blur-md">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.href;
                 return (
                   <Link
-                    key={link.name}
+                    key={link.href}
                     to={link.href}
-                    id={`nav-link-${link.name.toLowerCase()}`}
-                    className={`relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
+                    id={`nav-link-${link.href.replace('/', '') || 'home'}`}
+                    className={`relative px-3.5 py-1.5 text-xs xl:text-sm font-medium rounded-full transition-all duration-200 ${
                       isActive
                         ? 'text-white'
                         : 'text-slate-300 hover:text-white hover:bg-slate-800/40'
@@ -106,7 +109,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             </nav>
 
             {/* Right Action Area */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden md:flex items-center gap-2.5">
+              {/* Language Switcher Button with Globe Icon */}
+              <LanguageSwitcher />
+
               {/* Quick WhatsApp Jump */}
               <a
                 href={PORTFOLIO_DATA.contact.socials.whatsapp}
@@ -114,7 +120,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                 rel="noopener noreferrer"
                 id="navbar-whatsapp-btn"
                 className="p-2.5 rounded-full bg-slate-900/80 hover:bg-emerald-950/60 border border-slate-800 hover:border-emerald-500/40 text-emerald-400 transition-all duration-200 text-xs flex items-center gap-1.5"
-                title="Direct WhatsApp Chat"
+                title={t.common.whatsappMe}
               >
                 <Phone className="w-3.5 h-3.5" />
                 <span className="font-medium hidden xl:inline">WhatsApp</span>
@@ -124,17 +130,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               <Link
                 to="/contact"
                 id="nav-lets-talk-btn"
-                className="relative inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-full overflow-hidden group bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+                className="relative inline-flex items-center justify-center px-4 xl:px-5 py-2.5 text-xs xl:text-sm font-semibold rounded-full overflow-hidden group bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
               >
                 <span className="relative z-10 flex items-center gap-1.5">
-                  <span>Let's Talk</span>
-                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <span>{t.common.letsTalk}</span>
+                  <ArrowUpRight className={`w-3.5 h-3.5 xl:w-4 xl:h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
                 </span>
               </Link>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Controls: Language Quick Button + Hamburger Toggle */}
             <div className="flex items-center gap-2 md:hidden">
+              <LanguageSwitcher />
+
               <button
                 type="button"
                 id="mobile-menu-toggle"
@@ -157,14 +165,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-[65px] z-40 bg-[#090D16]/95 backdrop-blur-xl border-b border-slate-800 p-6 md:hidden shadow-2xl shadow-black/80"
+            className="fixed inset-x-0 top-[65px] z-40 bg-[#090D16]/95 backdrop-blur-xl border-b border-slate-800 p-6 md:hidden shadow-2xl shadow-black/80 max-h-[85vh] overflow-y-auto"
           >
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.href;
                 return (
                   <Link
-                    key={link.name}
+                    key={link.href}
                     to={link.href}
                     onClick={closeMobileMenu}
                     className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium transition-colors ${
@@ -174,19 +182,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                     }`}
                   >
                     <span>{link.name}</span>
-                    <ArrowUpRight className="w-4 h-4 opacity-60" />
+                    <ArrowUpRight className={`w-4 h-4 opacity-60 ${isRTL ? 'rotate-180' : ''}`} />
                   </Link>
                 );
               })}
 
-              <div className="pt-4 mt-2 border-t border-slate-800 flex flex-col gap-3">
+              {/* Language Selection in Mobile Drawer */}
+              <div className="pt-3 mt-2 border-t border-slate-800">
+                <LanguageSwitcher variant="mobile" onLanguageSelected={closeMobileMenu} />
+              </div>
+
+              <div className="pt-3 mt-1 border-t border-slate-800 flex flex-col gap-3">
                 <Link
                   to="/contact"
                   onClick={closeMobileMenu}
                   className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-center flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  <span>Let's Talk</span>
+                  <span>{t.common.letsTalk}</span>
                 </Link>
 
                 <a
@@ -196,7 +209,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
                   className="w-full py-3 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 font-semibold text-center flex items-center justify-center gap-2"
                 >
                   <Phone className="w-4 h-4" />
-                  <span>WhatsApp Me Directly</span>
+                  <span>{t.common.whatsappMe}</span>
                 </a>
               </div>
             </div>

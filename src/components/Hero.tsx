@@ -10,12 +10,15 @@ import {
 import { PORTFOLIO_DATA } from '../portfolioData';
 import { RizwanBadge } from './RizwanBadge';
 import { AnimatedCounter } from './AnimatedCounter';
+import { useLanguage } from '../context/LanguageContext';
 
 interface HeroProps {
   onOpenQuoteModal: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
+  const { t, isRTL } = useLanguage();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -44,13 +47,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
       id="home" 
       className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-16 lg:py-32 overflow-hidden"
     >
-      {/* Background Ambient Glows & Subtle Grid Pattern (Original Blue/Purple Theme) */}
+      {/* Background Ambient Glows & Subtle Grid Pattern */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/12 rounded-full blur-[140px]" />
         <div className="absolute top-1/3 right-10 w-[450px] h-[450px] bg-purple-600/12 rounded-full blur-[130px]" />
         <div className="absolute bottom-10 left-10 w-[350px] h-[350px] bg-indigo-600/10 rounded-full blur-[120px]" />
         
-        {/* Volumetric Soft Light Ray (Original Blue / Indigo Theme) */}
+        {/* Volumetric Soft Light Ray */}
         <div 
           className="absolute -top-24 -right-24 w-[550px] sm:w-[750px] h-[550px] sm:h-[750px] opacity-35 pointer-events-none"
           style={{
@@ -89,16 +92,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                 </span>
                 <span className="text-xs font-semibold uppercase tracking-wider text-slate-300">
-                  Available for New Projects
+                  {t.hero.statusAvailable}
                 </span>
               </div>
             </motion.div>
 
             {/* Main Greeting and Name with subtle gradient shine */}
             <motion.h1 variants={itemVariants} className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-4">
-              Hi, I'm <br className="hidden sm:inline" />
+              {t.hero.greeting} <br className="hidden sm:inline" />
               <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400 bg-[length:200%_auto] transition-all duration-700">
-                {PORTFOLIO_DATA.personal.name}
+                {t.hero.name}
               </span>
             </motion.h1>
 
@@ -106,13 +109,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
               <span className="h-[2px] w-8 bg-gradient-to-r from-blue-500 to-indigo-500 inline-block rounded-full" />
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-200 tracking-wide">
-                {PORTFOLIO_DATA.personal.role}
+                {t.hero.role}
               </h2>
             </motion.div>
 
             {/* Short Description */}
             <motion.p variants={itemVariants} className="text-base sm:text-lg text-slate-300/90 max-w-2xl leading-relaxed mb-9 font-normal">
-              "{PORTFOLIO_DATA.personal.bio}"
+              "{t.hero.bio}"
             </motion.p>
 
             {/* Primary Action Buttons */}
@@ -127,8 +130,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                   <div className="absolute inset-0 bg-white/15 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                   <span className="relative z-10 flex items-center gap-2 text-base">
                     <Eye className="w-5 h-5" />
-                    <span>View My Work</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-200" />
+                    <span>{t.hero.viewWork}</span>
+                    <ArrowRight className={`w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-200 ${isRTL ? 'rotate-180 group-hover:-translate-x-1.5' : ''}`} />
                   </span>
                 </Link>
               </motion.div>
@@ -140,19 +143,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 <p className="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight group-hover:text-blue-400 transition-colors">
                   <AnimatedCounter value={80} suffix="+" />
                 </p>
-                <p className="text-xs text-slate-400 mt-0.5">Projects Done</p>
+                <p className="text-xs text-slate-400 mt-0.5">{t.hero.projectsDone}</p>
               </div>
               <div className="group">
                 <p className="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight group-hover:text-indigo-400 transition-colors">
                   <AnimatedCounter value={50} suffix="+" />
                 </p>
-                <p className="text-xs text-slate-400 mt-0.5">Websites Live</p>
+                <p className="text-xs text-slate-400 mt-0.5">{t.hero.websitesLive}</p>
               </div>
               <div className="group">
                 <p className="text-2xl sm:text-3xl font-black text-emerald-400 font-mono tracking-tight">
                   <AnimatedCounter value={100} suffix="%" />
                 </p>
-                <p className="text-xs text-slate-400 mt-0.5">Responsive</p>
+                <p className="text-xs text-slate-400 mt-0.5">{t.hero.responsive}</p>
               </div>
             </motion.div>
           </motion.div>

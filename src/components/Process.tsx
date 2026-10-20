@@ -11,10 +11,12 @@ import {
   ArrowRight,
   ChevronRight
 } from 'lucide-react';
-import { PORTFOLIO_DATA, ProcessStep } from '../portfolioData';
+import { PORTFOLIO_DATA } from '../portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 export const Process: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
+  const { t, isRTL } = useLanguage();
 
   const getStepIcon = (iconName: string) => {
     switch (iconName) {
@@ -26,6 +28,38 @@ export const Process: React.FC = () => {
       default: return <Sparkles className="w-6 h-6 text-blue-400" />;
     }
   };
+
+  const stepsData = t.process.steps && t.process.steps.length === 5 
+    ? t.process.steps 
+    : [
+        {
+          title: PORTFOLIO_DATA.process[0].title,
+          desc: PORTFOLIO_DATA.process[0].shortDesc,
+          deliverable: 'Scope blueprint & sitemap',
+        },
+        {
+          title: PORTFOLIO_DATA.process[1].title,
+          desc: PORTFOLIO_DATA.process[1].shortDesc,
+          deliverable: 'Figma prototypes & design system',
+        },
+        {
+          title: PORTFOLIO_DATA.process[2].title,
+          desc: PORTFOLIO_DATA.process[2].shortDesc,
+          deliverable: 'Responsive frontend code',
+        },
+        {
+          title: PORTFOLIO_DATA.process[3].title,
+          desc: PORTFOLIO_DATA.process[3].shortDesc,
+          deliverable: 'Speed test & QA report',
+        },
+        {
+          title: PORTFOLIO_DATA.process[4].title,
+          desc: PORTFOLIO_DATA.process[4].shortDesc,
+          deliverable: 'Live site deployment & 30-day support',
+        },
+      ];
+
+  const currentStep = stepsData[activeStep] || stepsData[0];
 
   return (
     <section id="process" className="py-24 relative overflow-hidden bg-[#090D16]/90 border-t border-slate-800/40">
@@ -45,13 +79,13 @@ export const Process: React.FC = () => {
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Structured & Dependable</span>
+            <span>{t.process.badge}</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            My <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">Process</span>
+            {t.process.title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">{t.process.titleHighlight}</span>
           </h2>
           <p className="text-slate-400 text-base max-w-2xl mt-3">
-            A clear, 5-phase structured workflow ensuring your project is completed with transparency, on-time delivery, and precision.
+            {t.process.subtitle}
           </p>
           <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-4" />
         </motion.div>
@@ -66,12 +100,17 @@ export const Process: React.FC = () => {
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, ease: 'easeInOut' }}
-              className="h-full w-full bg-gradient-to-r from-blue-500 via-purple-500 to-amber-500 origin-left"
+              className={`h-full w-full bg-gradient-to-r from-blue-500 via-purple-500 to-amber-500 ${isRTL ? 'origin-right' : 'origin-left'}`}
             />
           </div>
 
           {PORTFOLIO_DATA.process.map((step, index) => {
             const isSelected = activeStep === index;
+            const stepInfo = stepsData[index] || {
+              title: step.title,
+              desc: step.shortDesc,
+              deliverable: '',
+            };
 
             return (
               <motion.div
@@ -100,28 +139,27 @@ export const Process: React.FC = () => {
                   </div>
 
                   <h3 className="text-lg font-bold text-white mb-2">
-                    {step.title}
+                    {stepInfo.title}
                   </h3>
 
                   <p className="text-xs text-slate-300/90 leading-relaxed mb-4">
-                    {step.shortDesc}
+                    {stepInfo.desc}
                   </p>
 
                   {/* Bullet details */}
                   <div className="space-y-2 pt-3 border-t border-slate-800">
-                    {step.details.map((detail, dIdx) => (
-                      <div key={dIdx} className="flex items-start gap-2 text-[11px] text-slate-400">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5" />
-                        <span>{detail}</span>
-                      </div>
-                    ))}
+                    <div className="flex items-start gap-2 text-[11px] text-slate-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5" />
+                      <span>{stepInfo.deliverable}</span>
+                    </div>
                   </div>
                 </div>
 
                 <div className="pt-4 mt-4 border-t border-slate-800/50 flex items-center justify-between text-[11px] text-slate-400 font-medium">
-                  <span>Phase {index + 1}</span>
+                  <span>{t.process.stepPrefix} {index + 1}</span>
                   <span className="text-blue-400 flex items-center gap-0.5">
-                    View <ChevronRight className="w-3 h-3" />
+                    <span>{t.common.viewProject}</span> 
+                    <ChevronRight className={`w-3 h-3 ${isRTL ? 'rotate-180' : ''}`} />
                   </span>
                 </div>
               </motion.div>
@@ -142,12 +180,12 @@ export const Process: React.FC = () => {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono font-bold text-blue-400">Step {PORTFOLIO_DATA.process[activeStep].number}</span>
+                <span className="text-xs font-mono font-bold text-blue-400">{t.process.stepPrefix} {PORTFOLIO_DATA.process[activeStep].number}</span>
                 <span className="text-slate-600">•</span>
-                <h4 className="text-lg font-bold text-white">{PORTFOLIO_DATA.process[activeStep].title} Phase</h4>
+                <h4 className="text-lg font-bold text-white">{currentStep.title}</h4>
               </div>
               <p className="text-sm text-slate-300 mt-1">
-                {PORTFOLIO_DATA.process[activeStep].shortDesc}
+                {currentStep.desc}
               </p>
             </div>
           </div>
@@ -156,8 +194,8 @@ export const Process: React.FC = () => {
             href="#contact"
             className="shrink-0 px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-xs sm:text-sm shadow-lg shadow-blue-600/25 hover:shadow-blue-600/40 transition-all flex items-center gap-2"
           >
-            <span>Start Step 1: Discovery</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>{t.common.letsTalk}</span>
+            <ArrowRight className={`w-4 h-4 ${isRTL ? 'rotate-180' : ''}`} />
           </a>
         </motion.div>
 

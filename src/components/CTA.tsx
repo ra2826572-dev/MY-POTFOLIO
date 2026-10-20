@@ -10,12 +10,15 @@ import {
   Phone
 } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 interface CTAProps {
   onOpenQuoteModal: () => void;
 }
 
 export const CTA: React.FC<CTAProps> = ({ onOpenQuoteModal }) => {
+  const { t, isRTL } = useLanguage();
+
   return (
     <section className="py-20 relative overflow-hidden bg-[#080B11]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -51,17 +54,17 @@ export const CTA: React.FC<CTAProps> = ({ onOpenQuoteModal }) => {
             {/* Pill Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-950/70 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-6">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Let's Create Together</span>
+              <span>{t.cta.badge}</span>
             </div>
 
             {/* Heading */}
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight mb-4">
-              Have a Project in <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">Mind?</span>
+              {t.cta.title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">{t.cta.titleHighlight}</span>
             </h2>
 
             {/* Description */}
             <p className="text-base sm:text-xl text-slate-300 max-w-xl leading-relaxed mb-10 font-normal">
-              "Let's build something modern, professional and memorable."
+              "{t.cta.subtitle}"
             </p>
 
             {/* CTA Buttons */}
@@ -71,11 +74,11 @@ export const CTA: React.FC<CTAProps> = ({ onOpenQuoteModal }) => {
               <button
                 type="button"
                 onClick={onOpenQuoteModal}
-                className="inline-flex items-center justify-center px-8 py-4 rounded-full font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 shadow-xl shadow-blue-600/30 hover:shadow-blue-600/50 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 text-sm sm:text-base gap-2 group"
+                className="inline-flex items-center justify-center px-8 py-4 rounded-full font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 shadow-xl shadow-blue-600/30 hover:shadow-blue-600/50 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 text-sm sm:text-base gap-2 group cursor-pointer"
               >
                 <Zap className="w-5 h-5 text-amber-300" />
-                <span>Start a Project</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <span>{t.cta.talkBtn}</span>
+                <ArrowRight className={`w-4 h-4 group-hover:translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
               </button>
 
               {/* Contact Me (Link to contact page) */}
@@ -84,14 +87,14 @@ export const CTA: React.FC<CTAProps> = ({ onOpenQuoteModal }) => {
                 className="inline-flex items-center justify-center px-8 py-4 rounded-full font-bold text-slate-200 bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 hover:border-slate-500 hover:text-white hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 shadow-lg text-sm sm:text-base gap-2"
               >
                 <MessageSquare className="w-5 h-5 text-blue-400" />
-                <span>Contact Me</span>
+                <span>{t.common.contactMe}</span>
               </Link>
 
             </div>
 
             {/* WhatsApp Alternative Quick Link */}
             <div className="mt-8 pt-6 border-t border-slate-800/80 flex items-center justify-center gap-2 text-xs text-slate-400">
-              <span>Prefer instant messaging?</span>
+              <span>{t.cta.whatsappBtn}:</span>
               <a 
                 href={PORTFOLIO_DATA.contact.socials.whatsapp} 
                 target="_blank" 
@@ -99,7 +102,7 @@ export const CTA: React.FC<CTAProps> = ({ onOpenQuoteModal }) => {
                 className="text-emerald-400 font-semibold hover:underline flex items-center gap-1"
               >
                 <Phone className="w-3.5 h-3.5" />
-                <span>Chat on WhatsApp ({PORTFOLIO_DATA.contact.phone})</span>
+                <span>{PORTFOLIO_DATA.contact.phone}</span>
               </a>
             </div>
 

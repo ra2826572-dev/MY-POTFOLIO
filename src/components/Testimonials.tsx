@@ -17,8 +17,10 @@ import {
 import { PORTFOLIO_DATA, Testimonial } from '../portfolioData';
 import { db } from '../firebase';
 import { collection, onSnapshot, doc, setDoc } from 'firebase/firestore';
+import { useLanguage } from '../context/LanguageContext';
 
 export const Testimonials: React.FC = () => {
+  const { t } = useLanguage();
   const [testimonials, setTestimonials] = useState<Testimonial[]>(PORTFOLIO_DATA.testimonials);
   const [activeCountry, setActiveCountry] = useState<'All' | 'Pakistan' | 'Malaysia'>('All');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -153,13 +155,13 @@ export const Testimonials: React.FC = () => {
         <div className="flex flex-col items-center text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Pakistani & Malaysian Client Reviews</span>
+            <span>{t.testimonials.badge}</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            Client <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">Testimonials & Reviews</span>
+            {t.testimonials.title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400">{t.testimonials.titleHighlight}</span>
           </h2>
           <p className="text-slate-400 text-base max-w-2xl mt-3">
-            Verified feedback from business leaders, dental clinics, luxury salons, and founders across Pakistan 🇵🇰 and Malaysia 🇲🇾.
+            {t.testimonials.subtitle}
           </p>
 
           {/* Country Filter Tabs & Action Button */}
@@ -174,7 +176,7 @@ export const Testimonials: React.FC = () => {
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                🌐 All Reviews ({testimonials.length})
+                🌐 {t.testimonials.filterAll} ({testimonials.length})
               </button>
               <button
                 type="button"
@@ -185,7 +187,7 @@ export const Testimonials: React.FC = () => {
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                <span>🇵🇰 Pakistan</span>
+                <span>🇵🇰 {t.testimonials.filterPk}</span>
                 <span className="text-[11px] px-1.5 py-0.2 rounded-full bg-black/30 font-mono">{pkCount}</span>
               </button>
               <button
@@ -197,7 +199,7 @@ export const Testimonials: React.FC = () => {
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                <span>🇲🇾 Malaysia</span>
+                <span>🇲🇾 {t.testimonials.filterMy}</span>
                 <span className="text-[11px] px-1.5 py-0.2 rounded-full bg-black/30 font-mono">{myCount}</span>
               </button>
             </div>
@@ -208,7 +210,7 @@ export const Testimonials: React.FC = () => {
               className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-600/30 hover:scale-105 transition-all flex items-center gap-2"
             >
               <MessageSquarePlus className="w-4 h-4" />
-              <span>+ Add Review / اپنا تبصرہ لکھیں</span>
+              <span>+ {t.testimonials.addReview}</span>
             </button>
           </div>
 

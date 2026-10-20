@@ -15,6 +15,7 @@ import ScrollToTop from './components/ScrollToTop';
 import { ScrollProgressBar } from './components/ScrollProgressBar';
 import { AnimatedBackground } from './components/AnimatedBackground';
 import { PageTransition } from './components/PageTransition';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
 
 // Pages
 import { Home } from './pages/Home';
@@ -28,6 +29,7 @@ import { CVPage } from './pages/CVPage';
 import { ContentWritingPage } from './pages/ContentWritingPage';
 
 function AppContent() {
+  const { t, isRTL } = useLanguage();
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [quotePreselectedService, setQuotePreselectedService] = useState<string | undefined>(undefined);
   const location = useLocation();
@@ -88,7 +90,7 @@ function AppContent() {
         >
           <Phone className="w-5 h-5 sm:w-6 sm:h-6 fill-current relative z-10" />
           <span className="relative z-10 max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out font-bold text-xs sm:text-sm pl-0 group-hover:pl-2">
-            WhatsApp Me
+            {t.common.whatsappMe}
           </span>
         </motion.a>
 
@@ -106,9 +108,11 @@ function AppContent() {
 
 export default function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <AppContent />
-    </Router>
+    <LanguageProvider>
+      <Router>
+        <ScrollToTop />
+        <AppContent />
+      </Router>
+    </LanguageProvider>
   );
 }
